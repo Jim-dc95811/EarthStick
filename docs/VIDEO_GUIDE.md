@@ -12,17 +12,18 @@ Other strong options:
 
 ## Thumbnail
 
-Prepared 1280x720 thumbnail:
+Prepared 1280x720 comparison thumbnail:
 
-`assets/EarthStick_YouTube_Thumbnail.jpg`
+`assets/EarthStick_YouTube_Thumbnail.gif`
 
-Primary text:
+Primary comparison text:
 
-**FLY ARCGIS EARTH WITH A JOYSTICK**
+**ARCGIS EARTH**  
+**SPACEMOUSE VS API JOYSTICK**
 
-Secondary:
+Bottom line:
 
-**EARTHSTICK v0.5**
+**HELICOPTER-STYLE CONTROL - EARTHSTICK v0.5**
 
 ## Recommended video structure
 
@@ -162,4 +163,4 @@ ArcGIS Earth is a product of Esri. TCA Sidestick Airbus Edition and Thrustmaster
 
 ## Suggested tags
 
-ArcGIS Earth, ArcGIS, Esri, joystick, Thrustmaster, TCA Sidestick, Airbus joystick, GIS, 3D GIS, mapping, helicopter control, camera control, Automation API, offline maps, first responder GIS
+ArcGIS Earth, ArcGIS, Esri, SpaceMouse, 3Dconnexion, joystick, Thrustmaster, TCA Sidestick, Airbus joystick, GIS, 3D GIS, mapping, helicopter control, camera control, Automation API, offline maps, first responder GIS
