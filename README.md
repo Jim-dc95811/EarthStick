@@ -35,9 +35,15 @@ No third-party Python packages are required by standalone EarthStick v0.5.
 
 The second program integrates the existing PRAVE/ME GPS/vehicle tracker with an **unchanged EarthStick v0.5 flight core**.
 
-Download the current test package:
+Current live-tested package name:
 
-- [`releases/PRAVE_ME_FLY_v0.2_TEST.zip`](releases/PRAVE_ME_FLY_v0.2_TEST.zip)
+`PRAVE_ME_FLY_v0.2_TEST.zip`
+
+Verified local package SHA-256:
+
+`83df19a3319ac6497417affe947574f58fef1bcac715ac3bcabc161e1acb5531`
+
+The exact tested binary package is intentionally not linked from the GitHub release folder until its uploaded bytes can be verified against that checksum. The repository documentation below records the current v0.2.0 TEST behavior and test state.
 
 The integrated program adds two deliberate camera states:
 
@@ -243,7 +249,6 @@ EarthStick is intentionally small.
 - `EarthStick.py` - tested standalone v0.5 controller bridge
 - `EarthStick.bat` - standalone Windows launcher
 - `releases/EarthStick_v0.5.zip` - packaged tested standalone release
-- `releases/PRAVE_ME_FLY_v0.2_TEST.zip` - packaged PRAVE/ME integration test build
 - `assets/EarthStick_controls.svg` - scalable standalone control pictogram
 - `assets/EarthStick_YouTube_Thumbnail.gif` - prepared comparison thumbnail
 - `docs/USER_GUIDE.md` - standalone setup and operating manual plus integration overview
