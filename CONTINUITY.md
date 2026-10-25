@@ -129,10 +129,17 @@ Standalone root:
 - `CHANGELOG.md`
 - `CONTINUITY.md`
 
-Releases:
+Published release:
 
 - `releases/EarthStick_v0.5.zip`
-- `releases/PRAVE_ME_FLY_v0.2_TEST.zip`
+
+Current local integration test package:
+
+- `PRAVE_ME_FLY_v0.2_TEST.zip`
+- size: `23426` bytes
+- SHA-256: `83df19a3319ac6497417affe947574f58fef1bcac715ac3bcabc161e1acb5531`
+
+The integration ZIP is not to be treated as published on GitHub until the uploaded file can be verified byte-for-byte against that checksum. Repository documentation for v0.2.0 TEST is current regardless.
 
 Assets:
 
