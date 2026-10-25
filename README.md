@@ -80,7 +80,7 @@ EarthStick was developed and field-tested with the controller appearing in Windo
 8. Wait for the console to report `ArcGIS Earth: connected`.
 9. Fly.
 
-Detailed setup and troubleshooting are in [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) and [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md).
+Detailed setup and troubleshooting are in [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md), the printable [`docs/EarthStick_User_Guide.pdf`](docs/EarthStick_User_Guide.pdf), and [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md).
 
 ## Architecture at a glance
 
@@ -124,8 +124,9 @@ EarthStick is intentionally small.
 - `EarthStick.bat` - Windows launcher
 - `releases/EarthStick_v0.5.zip` - packaged tested release
 - `assets/EarthStick_controls.svg` - scalable control pictogram
-- `assets/EarthStick_YouTube_Thumbnail.jpg` - prepared 1280x720 video thumbnail
+- `assets/EarthStick_YouTube_Thumbnail.gif` - prepared 1280x720 comparison thumbnail
 - `docs/USER_GUIDE.md` - setup and operating manual
+- `docs/EarthStick_User_Guide.pdf` - printable four-page user manual
 - `docs/TECHNICAL_NOTES.md` - architecture, APIs, math, constants
 - `docs/TROUBLESHOOTING.md` - failure modes and checks
 - `docs/HARDWARE_MAP.md` - observed axes and button numbers
@@ -138,9 +139,9 @@ EarthStick is intentionally small.
 
 ## Video thumbnail
 
-The repository includes a thumbnail prepared from the first working EarthStick flight recording:
+The repository includes a 1280x720 comparison thumbnail for the planned video **ArcGIS Earth SpaceMouse vs API Joystick Control**:
 
-![EarthStick video thumbnail](assets/EarthStick_YouTube_Thumbnail.jpg)
+![EarthStick video thumbnail](assets/EarthStick_YouTube_Thumbnail.gif)
 
 ## Safety and scope
 
