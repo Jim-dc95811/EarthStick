@@ -8,26 +8,97 @@ Repository:
 
 Purpose:
 
-Use a Thrustmaster TCA Sidestick Airbus Edition to provide helicopter-style direct camera navigation in ArcGIS Earth desktop through the ArcGIS Earth Automation API.
+Use a Thrustmaster TCA Sidestick Airbus Edition to provide helicopter-style direct camera navigation in ArcGIS Earth desktop through the ArcGIS Earth Automation API, while preserving an optional integrated PRAVE/ME GPS/vehicle tracking workflow.
 
-## Current accepted baseline
+## Two separate baselines
 
-**EarthStick v0.5**
+### Standalone EarthStick
+
+**Current accepted baseline: EarthStick v0.5**
 
 Date accepted: **2026-10-25**
 
 v0.5 was live-tested in ArcGIS Earth and demonstrated in a recorded flight.
 
-The current accepted behavior is:
+Accepted standalone behavior:
 
 - stick forward/back -> fly forward/reverse
 - stick left/right -> strafe left/right
 - twist/RZ -> heading
 - Slider0 -> movement speed
 - POV up/down -> camera tilt
-- Button 4 red trigger -> hold to zoom in / descend
+- Button 4 red top button -> hold to zoom in / descend
 - Button 3 black thumb -> hold to zoom out / climb
 - neutral controls -> stop and hover in place
+
+Standalone v0.5 remains independent of PRAVE/ME and must remain usable as its own two-file program.
+
+### PRAVE/ME + EarthStick integration
+
+**Current integration test build: v0.2.0 TEST**
+
+This is a separate version line. It does **not** replace or rename standalone EarthStick v0.5.
+
+The integration wraps two preserved cores with a coordinator:
+
+- `AE_PRAVE_LIVE_v0_1_0_TEST.py` - preserved PRAVE/RMC parsing, logging and drawings
+- `EarthStick.py` - exact accepted EarthStick v0.5 core
+- `PRAVE_ME_FLY_v0_2.py` - new coordinator and sole camera owner
+
+Modes:
+
+- **ME** -> PRAVE/ME may recenter ArcGIS Earth on fresh GPS
+- **FLY** -> EarthStick v0.5 owns the camera at 30 Hz; GPS is not required
+
+T.A320 Button 1, the index-finger / gun-style trigger, toggles **ME <-> FLY** in the integrated program only.
+
+Button 1 remains unused by standalone EarthStick v0.5.
+
+## Integrated RTH / GPS rules
+
+Button 1 from FLY requests return to ME only if a fresh accepted RMC position exists.
+
+Current freshness threshold:
+
+`5.0 seconds`
+
+Hard rules:
+
+1. ME -> FLY never requires GPS.
+2. GPS/serial failure must never disable FLY.
+3. Missing/stale GPS must not cause a jump to a cached old position.
+4. If RTH is requested without fresh GPS, remain in FLY.
+5. GPS recovery alone must not automatically recenter the camera.
+6. After GPS recovery, a new deliberate Button 1 press is required to return to ME.
+7. Only the coordinator writes the ArcGIS Earth camera in the integrated program.
+8. PRAVE reception, drawings and logging may continue while FLY owns the camera.
+
+## Live test status - integration v0.2.0 TEST
+
+Live-tested on 2026-10-25 with:
+
+- T.A320 detected through WinMM
+- ArcGIS Earth Automation API connected
+- `COM12` absent / no GPS source available at all
+
+Observed:
+
+- startup entered ME state
+- missing COM12 produced reconnect attempts every 5 seconds
+- controller remained available
+- ArcGIS Earth API remained available
+- Button 1 toggled into/out of FLY
+- joystick flight remained functional with total GPS/serial failure
+
+This verifies the most important failure-isolation rule: **GPS failure does not take down EarthStick flight.**
+
+Not yet live-accepted:
+
+- fresh-GPS ME camera recentering in this coordinator
+- fresh-GPS Button 1 RTH from FLY back to current ME
+- loss and recovery of GPS after a valid fix
+
+Do not describe the complete integrated workflow as field-proven until those tests are performed.
 
 ## Strict modification rules
 
@@ -36,17 +107,21 @@ These rules are part of the project and must be preserved:
 1. Discuss a code modification before making it.
 2. Make one functional modification at a time.
 3. Every code modification receives a new version number.
-4. Do not add unrequested "improvements," cleanup, refactoring, extra features, or button assignments.
-5. Preserve proven behavior unless the user explicitly authorizes a change.
-6. Test the changed behavior in ArcGIS Earth before calling a new version accepted.
+4. Do not add unrequested improvements, cleanup, refactoring, extra features, or button assignments.
+5. Preserve proven behavior unless explicitly authorized.
+6. Test changed behavior in ArcGIS Earth before calling a new version accepted.
 7. Unused joystick buttons remain unused unless a real operational need is identified.
 8. Do not silently change movement constants, dead zones, rates, inversions, file names, API address, or control meanings.
+9. Do not alter standalone EarthStick merely to support PRAVE/ME integration; the integration must consume the accepted v0.5 behavior without breaking the standalone program.
+10. Do not let PRAVE/ME and EarthStick independently fight over the camera endpoint.
 
-## Current files
+Documentation-only changes do not change the code version.
 
-Root:
+## Current repository files
 
-- `EarthStick.py` - v0.5
+Standalone root:
+
+- `EarthStick.py` - accepted v0.5
 - `EarthStick.bat`
 - `README.md`
 - `LICENSE`
@@ -54,20 +129,25 @@ Root:
 - `CHANGELOG.md`
 - `CONTINUITY.md`
 
-Release:
+Releases:
 
 - `releases/EarthStick_v0.5.zip`
+- `releases/PRAVE_ME_FLY_v0.2_TEST.zip`
 
 Assets:
 
 - `assets/EarthStick_controls.svg`
-- `assets/EarthStick_YouTube_Thumbnail.jpg`
+- `assets/EarthStick_YouTube_Thumbnail.gif`
 
 Docs:
 
 - `docs/USER_GUIDE.md`
+- `docs/EarthStick_User_Guide.pdf` - standalone v0.5 manual
+- `docs/PRAVE_ME_FLY.md`
 - `docs/TECHNICAL_NOTES.md`
 - `docs/TROUBLESHOOTING.md`
+- `docs/HARDWARE_MAP.md`
+- `docs/FIELD_TEST.md`
 - `docs/VIDEO_GUIDE.md`
 - `docs/PROJECT_NOTES.md`
 
@@ -83,16 +163,19 @@ Confirmed hardware inputs during mapping:
 - RZ/rudder twist: full travel and return to center
 - Slider0/throttle: full travel
 - POV: all directions
-- red trigger: Button 4
+- index-finger / gun-style trigger: Button 1; required a firm squeeze during mapping
+- red top button: Button 4
 - black thumb: Button 3
 - top-left stick-side pattern: 11, 12, 13
 - top-right stick-side pattern: 7, 6, 5
 - left base: 14, 15, 16
 - right base: 8, 9, 10
 
-Buttons beyond 3 and 4 have no EarthStick function in v0.5.
+Standalone EarthStick v0.5 uses only Buttons 3 and 4.
 
-## Current technical constants
+Integrated v0.2.0 TEST additionally uses Button 1 for ME/FLY/RTH.
+
+## Current standalone technical constants
 
 From v0.5 source:
 
@@ -123,74 +206,36 @@ zoom_rate_mps = max(2.0, altitude * 0.75)
 minimum altitude = 1.0 m
 ```
 
-## Controller detection history
-
-v0.1 attempted to match the literal name `T.A320 Pilot`.
-
-On the tested PC, `joy.cpl` showed `T.A320 Pilot`, but WinMM returned the generic name `Microsoft PC-joystick driver`.
-
-v0.2 added a fallback for one unique connected controller with:
-
-- `wNumAxes >= 4`
-- `wNumButtons == 17`
-- POV capability
-
-This behavior is accepted.
-
-## Slider history
-
-v0.2 assumed throttle was WinMM U and the slider did not change speed.
-
-v0.3 added Slider0 detection among Z/U/V using WinMM capability flags. Live test then showed:
-
-- `THR 1.00` -> high speed
-- `THR 0.00` -> `0.5 m/s`
-
-This behavior is accepted.
-
-## Speed history
-
-v0.3 maximum translation at the test altitude was about 92 m/s and was judged much too slow.
-
-v0.4 multiplied the existing altitude-aware maximum by 20. Live flight testing judged the result "perfect."
-
-Do not revert the 20x multiplier without an explicit new test/change request.
-
-## Zoom history
-
-v0.5 assigned only two buttons:
-
-- red trigger Button 4 -> zoom in
-- black thumb Button 3 -> zoom out
-
-The resulting flight was described as true helicopter-style control and was accepted.
-
 ## Key interaction discovery
 
-The major design success is **neutral = hover**.
+The major standalone design success is **neutral = hover**.
 
-The controls command motion only while active. Releasing them leaves the ArcGIS Earth camera at the current position. This is the intended interaction model and should not be replaced with momentum/inertia unless explicitly requested.
+The major integration design success is **explicit camera ownership**:
 
-## Known cosmetic issues in v0.5
+> **ME finds you. FLY lets you leave.**
+
+When FLY is active, GPS is advisory state for a future deliberate RTH request; it does not constrain the camera.
+
+## Known cosmetic issues in standalone v0.5
 
 Do not silently repair these in-place:
 
 1. startup console still prints `Buttons are intentionally unused in this build.`
 2. the unsupported-spatial-reference diagnostic still says `EarthStick 0.3 expects WKID 4326`
 
-They do not affect operation. Fixing either requires discussion and a new version number.
+They do not affect operation. Fixing either requires discussion and a new standalone version number.
 
-## Potential future ideas - not approved
+## Future work - not approved merely by appearing here
 
-These are only ideas and must not be implemented without discussion:
+Possible future work may include:
 
-- one ME/recenter button
+- complete live GPS/RTH acceptance test for integration v0.2.0 TEST
 - optional status GUI
 - optional controller selection if multiple matching devices are connected
 - configurable API base URL
 - alternate controller profiles
 
-Do not interpret this list as a roadmap authorization.
+Do not interpret this list as authorization to change code.
 
 ## Public positioning
 
@@ -198,16 +243,8 @@ Useful plain-language description:
 
 > EarthStick turns ArcGIS Earth into a helicopter-style 3D navigation environment using a Thrustmaster TCA Sidestick and Esri's existing local camera Automation API.
 
+For the integrated program:
+
+> PRAVE/ME establishes the real-world home position; EarthStick lets the operator leave that position and fly the ArcGIS Earth camera, with a deliberate trigger-controlled return to ME when fresh GPS is available.
+
 Do not claim affiliation or endorsement by Esri, Thrustmaster/Guillemot, or Airbus.
-
-## Video
-
-First successful flight recording was made after v0.5 acceptance.
-
-Prepared thumbnail:
-
-`assets/EarthStick_YouTube_Thumbnail.jpg`
-
-Recommended title:
-
-`Fly ArcGIS Earth Like a Helicopter | EarthStick Joystick Control`

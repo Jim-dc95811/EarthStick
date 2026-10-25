@@ -1,6 +1,6 @@
 # EarthStick v0.5 Technical Notes
 
-## 1. Purpose and architecture
+## 1. Purpose and standalone architecture
 
 EarthStick is a small Windows/Python bridge between a Thrustmaster TCA Sidestick Airbus Edition and the ArcGIS Earth REST Automation API.
 
@@ -8,7 +8,7 @@ EarthStick is a small Windows/Python bridge between a Thrustmaster TCA Sidestick
 TCA Sidestick -> Windows WinMM joystick API -> EarthStick.py -> HTTP -> ArcGIS Earth camera
 ```
 
-It deliberately avoids mouse/keyboard emulation and avoids third-party Python packages.
+It deliberately avoids mouse/keyboard emulation and avoids third-party Python packages in the standalone v0.5 program.
 
 ## 2. External interfaces
 
@@ -23,7 +23,7 @@ Default base URL:
 
 `http://localhost:8000`
 
-ArcGIS Earth documentation identifies the camera position as x/y/z plus spatial reference and exposes heading, tilt, and roll. EarthStick works in WKID 4326.
+ArcGIS Earth exposes camera position x/y/z plus spatial reference and heading, tilt, and roll. EarthStick works in WKID 4326.
 
 References:
 
@@ -44,11 +44,6 @@ EarthStick uses the Windows multimedia joystick API through Python `ctypes`:
 The code loads `winmm.dll` directly.
 
 Microsoft describes this joystick interface as a legacy API and recommends Windows.Gaming.Input for new development when possible. EarthStick intentionally uses WinMM in v0.5 because it provides the required axes, buttons, and POV data with no external Python dependency and has been proven on the target controller.
-
-References:
-
-- https://learn.microsoft.com/en-us/windows/win32/multimedia/joystick-reference
-- https://learn.microsoft.com/en-us/windows/win32/api/joystickapi/nf-joystickapi-joygetposex
 
 ## 3. Controller identification
 
@@ -92,7 +87,7 @@ Main constants in v0.5:
 - HTTP timeout: `0.75 seconds`
 - Earth radius used for translation: `6,378,137 m`
 
-The loop:
+The standalone loop:
 
 1. reads joystick state
 2. applies dead zones and inversions
@@ -159,8 +154,8 @@ The quadratic curve keeps the low throttle range usable for close inspection whi
 
 v0.5 assigns:
 
-- Button 4 (red trigger) -> zoom in / descend
-- Button 3 (black thumb) -> zoom out / climb
+- Button 4 red top button -> zoom in / descend
+- Button 3 black thumb -> zoom out / climb
 
 While held:
 
@@ -169,8 +164,6 @@ zoom_rate = max(2.0 m/s, altitude * 0.75 per second)
 ```
 
 Altitude is never allowed below 1 meter by EarthStick.
-
-The rate therefore scales with current altitude: local zoom remains controllable while large altitude changes remain practical when the camera is high.
 
 ## 10. POV tilt
 
@@ -188,15 +181,13 @@ Hover is not a separate mode. It falls naturally out of the control model.
 
 When all movement axes are inside the dead zone, POV tilt is neutral, and neither zoom button is held, EarthStick stops sending motion changes. ArcGIS Earth's camera remains at its last position.
 
-This neutral-state hold is the key interaction difference between EarthStick and scene-manipulation style controls.
-
 ## 12. Mouse coexistence
 
 While EarthStick is idle it re-reads the ArcGIS Earth camera periodically. When joystick activity begins after idle, it also immediately re-reads the camera.
 
 This prevents EarthStick from snapping back to an old internal camera state after the user navigates with the mouse.
 
-## 13. Error behavior
+## 13. Standalone error behavior
 
 - no joystick -> stops with an error
 - controller not uniquely identified -> stops rather than selecting an arbitrary device
@@ -212,11 +203,11 @@ The proven v0.5 baseline contains two stale text strings:
 1. startup says `Buttons are intentionally unused in this build.` even though Buttons 3 and 4 are now used for zoom
 2. the non-4326 camera error says `EarthStick 0.3 expects WKID 4326`
 
-These are cosmetic only. They are recorded here rather than silently edited because this project requires every code modification to receive a new version number.
+These are cosmetic only and remain unchanged in the accepted baseline.
 
 ## 15. Tested control map
 
-| Input | Tested EarthStick behavior |
+| Input | Standalone EarthStick v0.5 behavior |
 |---|---|
 | X | strafe |
 | Y | forward/back |
@@ -225,18 +216,140 @@ These are cosmetic only. They are recorded here rather than silently edited beca
 | POV up/down | tilt |
 | Button 4 | zoom in |
 | Button 3 | zoom out |
+| Button 1 | unused |
 
-Other physical buttons confirmed during hardware mapping but intentionally unused by EarthStick v0.5:
+Button 1 was later physically mapped as the index-finger / gun-style trigger and is used only by the separate PRAVE/ME integration.
 
-- left top pattern: 11, 12, 13
-- right top pattern: 7, 6, 5
-- left base: 14, 15, 16
-- right base: 8, 9, 10
+---
 
-No function should be assigned to these merely because they exist.
+# PRAVE/ME + EarthStick v0.2.0 TEST Technical Notes
 
-## 16. Future work rule
+## 16. Integration objective
 
-Potential additions such as a dedicated ME/recenter button are **not approved features** simply because they are technically possible.
+The integration solves a camera-ownership problem.
 
-Any functional code change must be discussed first, performed one functional change at a time, assigned a new version number, and tested in ArcGIS Earth before becoming the new baseline.
+Two independent programs cannot safely command contradictory ArcGIS Earth camera positions at the same time. PRAVE/ME wants to keep X/Y centered on ME; EarthStick wants to move the camera freely.
+
+The v0.2 integration therefore places both preserved cores behind one coordinator.
+
+## 17. Preserved modules
+
+The test package preserves:
+
+- `AE_PRAVE_LIVE_v0_1_0_TEST.py`
+- exact EarthStick v0.5 `EarthStick.py`
+
+The new module is:
+
+- `PRAVE_ME_FLY_v0_2.py`
+
+The coordinator imports both cores rather than rewriting their internal algorithms.
+
+## 18. Thread separation
+
+The original PRAVE serial path can block on serial reading/reconnection. It must not be allowed to reduce EarthStick's accepted 30 Hz response.
+
+The integration therefore separates:
+
+- PRAVE serial/reconnect work in its own worker thread
+- camera/joystick control in the 30 Hz coordinator loop
+
+This preserves flight responsiveness even when the serial side is repeatedly failing/retrying.
+
+The live no-GPS test with nonexistent `COM12` confirmed this isolation behavior operationally.
+
+## 19. Single camera writer
+
+The integration redirects PRAVE camera-center requests into coordinator state rather than allowing direct competing camera PUTs.
+
+Camera ownership is explicit:
+
+```text
+ME  -> coordinator performs PRAVE/ME recenter requests
+FLY -> coordinator performs EarthStick v0.5 camera updates
+```
+
+PRAVE point/ME drawing operations remain on the PRAVE side.
+
+## 20. Button 1 edge toggle
+
+Integration constant:
+
+`ME_FLY_BUTTON = 1`
+
+Button 1 is treated as an edge-triggered control. One squeeze changes state once; holding it does not repeatedly toggle ME/FLY.
+
+Standalone EarthStick v0.5 does not assign Button 1.
+
+## 21. GPS state and RTH freshness
+
+Integration constant:
+
+`GPS_RETURN_MAX_AGE_SECONDS = 5.0`
+
+The coordinator retains the latest accepted PRAVE `RMCPosition` and its monotonic receive time.
+
+A FLY -> ME Button 1 request is accepted only if that latest position is fresh under the 5-second threshold.
+
+This prevents a GPS failure from causing return to an old cached position.
+
+## 22. GPS recovery behavior
+
+Publishing a new fresh GPS position while in FLY does not change `me_tracking_enabled` by itself.
+
+Therefore receiver recovery cannot automatically pull the camera away from the operator's current inspection location.
+
+A new deliberate Button 1 press is required.
+
+## 23. No-GPS behavior
+
+If no GPS position has ever been received:
+
+- ME -> FLY remains allowed
+- FLY camera control remains independent
+- FLY -> ME through Button 1 is rejected because there is no fresh home position
+
+The serial worker may continue reconnect attempts without changing the camera-owner state.
+
+## 24. No-joystick behavior
+
+The coordinator allows PRAVE/ME operation if EarthStick cannot be imported/detected.
+
+In that condition:
+
+- PRAVE/ME remains useful
+- joystick flight is unavailable
+- the legacy keyboard `T` mechanism remains the fallback tracking control
+
+## 25. Dependencies
+
+Standalone EarthStick v0.5 remains standard-library-only.
+
+The integrated package inherits the existing PRAVE/ME dependency on `pyserial`.
+
+Do not describe the integrated package as zero-dependency.
+
+## 26. Integration self-test coverage
+
+The current self-test checks, among other things:
+
+- preserved PRAVE parser/core test
+- preserved EarthStick v0.5 self-test
+- EarthStick module version = 0.5
+- EarthStick polling = 30 Hz
+- accepted 20x speed math
+- Button 1/3/4 bit masks
+- ME -> FLY works without GPS
+- FLY -> ME blocks missing/stale GPS
+- GPS recovery alone does not auto-return
+- neutral hover behavior
+- Button 4 zoom-in
+- Button 3 zoom-out
+
+Software tests do not replace live ArcGIS Earth + serial + hardware acceptance.
+
+## 27. Version rule
+
+Standalone EarthStick v0.5 and integrated PRAVE/ME + EarthStick v0.2.0 TEST are separate version lines.
+
+Any future code modification to either program must receive a new version number for that program. Do not silently change the v0.5 snapshot inside the integration package while continuing to call it v0.5.

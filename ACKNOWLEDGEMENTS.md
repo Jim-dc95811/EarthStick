@@ -52,7 +52,11 @@ Windows and Microsoft are trademarks of Microsoft Corporation.
 
 ## Python
 
-EarthStick is written in Python and intentionally uses the Python standard library only. No third-party Python package is required by v0.5.
+EarthStick is written in Python.
+
+Standalone EarthStick v0.5 intentionally uses only the Python standard library; no third-party Python package is required by the standalone program.
+
+The separate PRAVE/ME + EarthStick integration preserves the existing PRAVE/ME dependency on **pyserial** for serial input. That dependency belongs to the PRAVE/ME side of the integrated package and does not change standalone EarthStick v0.5.
 
 Python is a trademark of the Python Software Foundation.
 

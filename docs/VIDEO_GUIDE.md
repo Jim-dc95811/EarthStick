@@ -1,6 +1,8 @@
 # EarthStick Video Guide
 
-## Recommended title
+## Standalone EarthStick v0.5 video
+
+### Recommended title
 
 **ArcGIS Earth SpaceMouse vs API Joystick Control**
 
@@ -10,7 +12,7 @@ Other strong options:
 - **ArcGIS Earth + Thrustmaster: True 3D Flight Control**
 - **EarthStick - Helicopter-Style Control for ArcGIS Earth**
 
-## Thumbnail
+### Thumbnail
 
 Prepared 1280x720 comparison thumbnail:
 
@@ -25,142 +27,76 @@ Bottom line:
 
 **HELICOPTER-STYLE CONTROL - EARTHSTICK v0.5**
 
-## Recommended video structure
+### Recommended structure
 
-### 1. Show the result first - 10 to 20 seconds
+1. Show actual flight immediately: forward, strafe, twist, tilt, climb, hover.
+2. State the idea: ArcGIS Earth already exposes the camera API; the TCA already exposes the controls; EarthStick connects them.
+3. Show the hardware.
+4. Prove X/Y, RZ, Slider0, POV, Button 4 and Button 3 in `joy.cpl`.
+5. Enable ArcGIS Earth Automation API.
+6. Start `EarthStick.bat`.
+7. Demonstrate one control at a time, then combined flight.
+8. Stop and hover on a real map target.
+9. Show operational map layers.
+10. End on the repository.
 
-Open with actual flight footage.
-
-Demonstrate, without explanation yet:
-
-- forward flight
-- strafe
-- twist/heading
-- tilt
-- fast climb/zoom-out
-- stop and hover
-
-The viewer should understand the benefit before seeing setup screens.
-
-### 2. State the idea
-
-Suggested wording:
-
-> ArcGIS Earth already has a camera Automation API. The Thrustmaster sidestick already has the physical controls. EarthStick connects the two and turns ArcGIS Earth into a helicopter-style 3D navigation environment.
-
-### 3. Show the hardware
-
-Show the Thrustmaster TCA Sidestick Airbus Edition.
-
-Briefly point out:
-
-- main X/Y stick
-- twist
-- throttle slider
-- POV hat
-- red trigger
-- black thumb button
-
-Do not waste time explaining the unused buttons.
-
-### 4. Prove Windows input
-
-Run `joy.cpl` and show the T.A320 controller Properties/Test Input screen.
-
-Quickly demonstrate:
-
-- X/Y
-- RZ
-- Slider0
-- POV
-- Button 4 red trigger
-- Button 3 black thumb
-
-### 5. Enable ArcGIS Earth Automation API
-
-Show the ArcGIS Earth Advanced settings and enable Automation API.
-
-Mention default localhost port 8000.
-
-### 6. Start EarthStick
-
-Show the folder containing:
-
-- `EarthStick.py`
-- `EarthStick.bat`
-
-Double-click the BAT file and show:
-
-`ArcGIS Earth: connected`
-
-### 7. Control demonstration
-
-One control at a time:
-
-- forward/back
-- strafe
-- twist
-- POV tilt
-- throttle slow to fast
-- red trigger zoom in
-- black thumb zoom out
-
-Then combine them.
-
-### 8. Demonstrate hover
-
-This deserves its own moment.
-
-Fly to a target, release the controls, and point out that the default state is stopped in place.
-
-Suggested line:
+### Key standalone line
 
 > The key is what happens when I do nothing: it stops and hovers exactly where I left it.
 
-### 9. Show real map layers
+---
 
-Use the same kind of operational content already proven in ArcGIS Earth: imagery, road overlays, parcels, hydrants, towers, county boundaries, or other useful layers.
+## Follow-up video - PRAVE/ME + EarthStick
 
-The point is not just that the camera flies. The point is that the operator can fly through a real GIS workspace.
+The integration creates a second, stronger demonstration because the joystick is now tied to a real-position tracking workflow.
 
-### 10. Close with the repository
+### Suggested title
 
-Show:
+**ArcGIS Earth GPS Tracking + Joystick Flight | ME / FLY / Return Home**
+
+Other options:
+
+- **Turn ArcGIS Earth Into a Substitute Drone | GPS + EarthStick**
+- **PRAVE/ME + EarthStick: Track Here, Fly Anywhere, Trigger Home**
+- **ArcGIS Earth Return-to-Home Camera Control with a Flight Stick**
+
+### Best demo sequence
+
+1. Start with a valid ME/GPS fix and show the camera following ME.
+2. Point to the console/state showing **ME**.
+3. Show the physical index-finger trigger and identify it as Button 1.
+4. Squeeze once: **ME -> FLY**.
+5. Fly away from the current real position using the normal EarthStick v0.5 controls.
+6. Stop and hover somewhere clearly displaced from ME.
+7. Squeeze Button 1: return to current ME and resume tracking.
+8. Trigger back to FLY and leave again.
+9. While in FLY, interrupt GPS/serial.
+10. Keep flying to prove GPS loss does not kill the substitute-drone camera.
+11. Try RTH while GPS is stale/missing and show that it is blocked.
+12. Restore GPS and show that the camera does **not** automatically yank home.
+13. Trigger deliberately to return to ME.
+
+Do not record steps 1/7/11-13 as proven behavior until the live valid-GPS acceptance test has actually been completed.
+
+### Core message
+
+> **ME finds you. FLY lets you leave.**
+
+The trigger becomes a deliberate map-camera Return-to-Home control when fresh GPS is available.
+
+### Important failure demo
+
+The 2026-10-25 no-GPS test already established a strong proof point: even with `COM12` completely absent and PRAVE repeatedly retrying the port, EarthStick remained connected and FLY remained usable.
+
+That is worth showing because it demonstrates the architecture rather than just the happy path.
+
+## Repository
 
 https://github.com/Jim-dc95811/EarthStick
 
-Mention:
+Mention clearly:
 
-- MIT licensed
-- Python standard library only
-- Windows
-- ArcGIS Earth Automation API
-- tested with Thrustmaster TCA Sidestick Airbus Edition
-
-## Suggested YouTube description
-
-EarthStick adds helicopter-style joystick navigation to ArcGIS Earth desktop on Windows.
-
-Using a Thrustmaster TCA Sidestick Airbus Edition and ArcGIS Earth's built-in Automation API, EarthStick provides direct control of forward/back movement, strafe, heading, camera tilt, travel speed, and altitude/zoom.
-
-The important behavior is neutral = hover. Release the controls and the camera stops where you left it.
-
-Current controls:
-- Stick forward/back: fly forward/reverse
-- Stick left/right: strafe
-- Twist: heading
-- Slider0: speed
-- POV up/down: tilt
-- Red trigger / Button 4: zoom in
-- Black thumb / Button 3: zoom out
-
-No third-party Python packages are required.
-
-GitHub:
-https://github.com/Jim-dc95811/EarthStick
-
-ArcGIS Earth is a product of Esri. TCA Sidestick Airbus Edition and Thrustmaster are trademarks/product names of their respective owners. EarthStick is an independent open-source project and is not affiliated with or endorsed by Esri, Thrustmaster, or Airbus.
-
-## Suggested tags
-
-ArcGIS Earth, ArcGIS, Esri, SpaceMouse, 3Dconnexion, joystick, Thrustmaster, TCA Sidestick, Airbus joystick, GIS, 3D GIS, mapping, helicopter control, camera control, Automation API, offline maps, first responder GIS
+- standalone EarthStick v0.5 is accepted and standard-library-only
+- PRAVE/ME + EarthStick v0.2.0 is a separate TEST integration and inherits PRAVE's `pyserial` dependency
+- both use ArcGIS Earth's documented local Automation API
+- project is independent and not affiliated with or endorsed by Esri, Thrustmaster, Guillemot or Airbus
