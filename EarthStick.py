@@ -1,16 +1,19 @@
 #!/usr/bin/env python3
-"""EarthStick 0.5
+"""EarthStick 1.0
 
-Minimal Thrustmaster T.A320 Pilot -> ArcGIS Earth camera bridge.
+Thrustmaster T.A320 Pilot -> ArcGIS Earth camera bridge.
 
-Controls in this first build:
+Controls:
   X axis       : strafe left/right
   Y axis       : move forward/back
   RZ axis      : heading left/right
   Slider0      : movement speed
   POV up/down  : camera tilt
 
-Button 4 (red trigger) zooms in; Button 3 (black thumb) zooms out.
+Button 4 (red top button) zooms in / descends.
+Button 3 (black thumb button) zooms out / climbs.
+Neutral controls stop and hover in place.
+
 Standard-library only. Windows desktop ArcGIS Earth Automation API is expected
 at http://localhost:8000.
 """
@@ -27,7 +30,7 @@ import urllib.error
 import urllib.request
 from ctypes import wintypes
 
-VERSION = "0.5"
+VERSION = "1.0"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -42,7 +45,7 @@ HTTP_TIMEOUT = 0.75
 
 # Thrustmaster manual: RZ decreases toward right twist, so invert for
 # intuitive right-twist = increasing/right heading.
-INVERT_TWIST = True
+INVERT_TWIST = False
 # Thrustmaster manual: Slider0 is 0 at the forward/+ end, so invert so
 # forward throttle = faster movement.
 INVERT_THROTTLE = True
@@ -79,7 +82,7 @@ def norm_unit(raw: int, lo: int, hi: int) -> float:
 def speed_from_throttle(throttle: float, altitude_m: float) -> float:
     """Altitude-aware max speed with fine low-speed control."""
     throttle = clamp(throttle, 0.0, 1.0)
-    max_speed = clamp(max(8.0, altitude_m * 0.020), 8.0, 12000.0) * 20.0
+    max_speed = clamp(max(8.0, altitude_m * 0.020), 8.0, 12000.0) * 60.0
     min_speed = 0.50
     return min_speed + (max_speed - min_speed) * (throttle ** 2.0)
 
@@ -123,22 +126,39 @@ def get_camera():
     cam = http_json("GET", CAMERA_URL)
     if not isinstance(cam, dict) or not isinstance(cam.get("position"), dict):
         raise EarthAPIError("Unexpected camera response")
+
     pos = cam["position"]
     sr = pos.get("spatialReference") or {}
+    if not isinstance(sr, dict):
+        raise EarthAPIError("Unexpected camera spatial reference")
     wkid = sr.get("wkid")
     if wkid not in (4326, "4326", None):
-        raise EarthAPIError(f"Camera spatial reference is {wkid}; EarthStick 0.3 expects WKID 4326")
+        raise EarthAPIError(f"Camera spatial reference is {wkid}; EarthStick requires WKID 4326")
+
+    try:
+        x = float(pos["x"])
+        y = float(pos["y"])
+        z = float(pos["z"])
+        heading = float(cam.get("heading", 0.0))
+        tilt = float(cam.get("tilt", 0.0))
+        roll = float(cam.get("roll", 0.0))
+    except (KeyError, TypeError, ValueError, OverflowError) as exc:
+        raise EarthAPIError(f"Invalid camera response: {exc}") from exc
+
+    if not all(math.isfinite(v) for v in (x, y, z, heading, tilt, roll)):
+        raise EarthAPIError("Camera response contains non-finite numeric values")
+
     # Preserve all documented camera properties.
     return {
         "position": {
-            "x": float(pos["x"]),
-            "y": float(pos["y"]),
-            "z": float(pos["z"]),
+            "x": x,
+            "y": y,
+            "z": z,
             "spatialReference": {"wkid": 4326},
         },
-        "heading": float(cam.get("heading", 0.0)),
-        "tilt": float(cam.get("tilt", 0.0)),
-        "roll": float(cam.get("roll", 0.0)),
+        "heading": heading,
+        "tilt": tilt,
+        "roll": roll,
     }
 
 
@@ -210,7 +230,7 @@ class WinJoystick:
         self.slider_name, self.slider_field, self.slider_min, self.slider_max = self._detect_slider_axis()
 
     def _detect_slider_axis(self):
-        # T.A320 exposes X, Y, RZ plus one Slider0 axis.  WinMM can place
+        # T.A320 exposes X, Y, RZ plus one Slider0 axis. WinMM can place
         # that slider on Z, U, or V depending on the driver mapping.
         # Use the axis capability flags instead of assuming U.
         JOYCAPS_HASZ = 0x0001
@@ -253,7 +273,7 @@ class WinJoystick:
 
         # Some Windows/Thrustmaster installations expose only the generic
         # WinMM driver name ("Microsoft PC-joystick driver") even though
-        # joy.cpl correctly shows "T.A320 Pilot".  Fall back to the known
+        # joy.cpl correctly shows "T.A320 Pilot". Fall back to the known
         # T.A320 control capabilities: 4 axes, 17 buttons, and a POV hat.
         JOYCAPS_HASPOV = 0x0010
         matches = [
@@ -307,6 +327,20 @@ class WinJoystick:
         }
 
 
+def wait_for_joystick_reconnect(factory=None, sleep_fn=None):
+    """Wait for the configured joystick to become available again."""
+    if factory is None:
+        factory = WinJoystick
+    if sleep_fn is None:
+        sleep_fn = time.sleep
+
+    while True:
+        try:
+            return factory()
+        except RuntimeError:
+            sleep_fn(1.0)
+
+
 def print_status(name: str, state, cam, speed: float, active: bool):
     status = "FLY" if active else "IDLE"
     line = (
@@ -321,7 +355,7 @@ def print_status(name: str, state, cam, speed: float, active: bool):
 def run():
     print(f"EarthStick {VERSION}")
     print("Minimal T.A320 Pilot -> ArcGIS Earth bridge")
-    print("Buttons are intentionally unused in this build.")
+    print("Button 4 = descend/zoom in; Button 3 = climb/zoom out; neutral = hover.")
     print()
 
     joy = WinJoystick()
@@ -343,13 +377,62 @@ def run():
     last_idle_sync = time.perf_counter()
     was_active = False
     last_status = 0.0
+    api_fault = False
 
     while True:
         loop_start = time.perf_counter()
+
+        # After any API fault, do not send another camera write until a fresh
+        # camera has been read from ArcGIS Earth. This prevents stale local
+        # movement from accumulating while Earth/API communication is down.
+        if api_fault:
+            try:
+                cam = get_camera()
+            except EarthAPIError:
+                time.sleep(0.25)
+                continue
+
+            api_fault = False
+            last_t = time.perf_counter()
+            last_idle_sync = last_t
+            was_active = False
+            sys.stdout.write("\nArcGIS Earth: reconnected; camera re-synchronized.\n")
+            sys.stdout.flush()
+            continue
+
         dt = clamp(loop_start - last_t, 0.001, 0.10)
         last_t = loop_start
 
-        state = joy.read()
+        try:
+            state = joy.read()
+        except RuntimeError as exc:
+            sys.stdout.write(f"\nJoystick connection lost: {exc}\nWaiting for joystick to reconnect...\n")
+            sys.stdout.flush()
+
+            joy = wait_for_joystick_reconnect()
+            sys.stdout.write(
+                f"Joystick: reconnected as {joy.caps.szPname}  "
+                f"(Windows ID {joy.id}); Slider0 source: WinMM {joy.slider_name} axis\n"
+            )
+            sys.stdout.flush()
+
+            # Re-read the live ArcGIS Earth camera before accepting any new
+            # joystick movement. If the API is also unavailable, the
+            # API recovery path takes ownership of the wait.
+            try:
+                cam = get_camera()
+            except EarthAPIError:
+                api_fault = True
+                sys.stdout.write(
+                    "ArcGIS Earth connection unavailable after joystick reconnect. "
+                    "Waiting to re-synchronize...\n"
+                )
+                sys.stdout.flush()
+
+            last_t = time.perf_counter()
+            last_idle_sync = last_t
+            was_active = False
+            continue
 
         # Button 4 (red trigger) = zoom in.
         # Button 3 (black thumb) = zoom out.
@@ -368,10 +451,22 @@ def run():
             try:
                 cam = get_camera()
             except EarthAPIError:
-                pass
+                api_fault = True
+                sys.stdout.write("\nArcGIS Earth connection lost. Holding position; waiting to re-synchronize...\n")
+                sys.stdout.flush()
+                time.sleep(0.25)
+                continue
 
         if active:
-            pos = cam["position"]
+            # Work on a temporary camera. The confirmed local camera is updated
+            # only after ArcGIS Earth accepts the PUT.
+            next_cam = {
+                "position": dict(cam["position"]),
+                "heading": cam["heading"],
+                "tilt": cam["tilt"],
+                "roll": cam["roll"],
+            }
+            pos = next_cam["position"]
 
             # Continuous altitude-only zoom.
             # Zoom rate scales with current altitude: roughly 75% of current
@@ -385,31 +480,37 @@ def run():
             # Translation uses current heading.
             travel = speed * dt
             lon, lat = move_lonlat(
-                pos["x"], pos["y"], cam["heading"],
+                pos["x"], pos["y"], next_cam["heading"],
                 state["forward"] * travel,
                 state["strafe"] * travel,
             )
             pos["x"] = lon
             pos["y"] = lat
 
-            cam["heading"] = (cam["heading"] + state["yaw"] * YAW_RATE_DPS * dt) % 360.0
-            cam["tilt"] = clamp(cam["tilt"] + state["tilt"] * TILT_RATE_DPS * dt, 0.0, 180.0)
+            next_cam["heading"] = (next_cam["heading"] + state["yaw"] * YAW_RATE_DPS * dt) % 360.0
+            next_cam["tilt"] = clamp(next_cam["tilt"] + state["tilt"] * TILT_RATE_DPS * dt, 0.0, 180.0)
 
             try:
-                put_camera(cam)
+                put_camera(next_cam)
             except EarthAPIError:
-                # Don't invent a new camera position if communication was lost.
-                try:
-                    cam = get_camera()
-                except EarthAPIError:
-                    time.sleep(0.25)
+                api_fault = True
+                sys.stdout.write("\nArcGIS Earth connection lost. Holding position; waiting to re-synchronize...\n")
+                sys.stdout.flush()
+                time.sleep(0.25)
+                continue
+
+            cam = next_cam
         else:
             speed = speed_from_throttle(state["throttle"], cam["position"]["z"])
             if loop_start - last_idle_sync >= IDLE_RESYNC_SECONDS:
                 try:
                     cam = get_camera()
                 except EarthAPIError:
-                    pass
+                    api_fault = True
+                    sys.stdout.write("\nArcGIS Earth connection lost. Holding position; waiting to re-synchronize...\n")
+                    sys.stdout.flush()
+                    time.sleep(0.25)
+                    continue
                 last_idle_sync = loop_start
 
         if loop_start - last_status >= 0.10:
@@ -443,6 +544,52 @@ def selftest():
     assert lon > -81.65 and abs(lat - 30.33) < 1e-6
 
     assert 0.5 <= speed_from_throttle(0.0, 3000.0) < speed_from_throttle(1.0, 3000.0)
+
+    # Camera response validation for API fault isolation.
+    original_http_json = globals()["http_json"]
+    try:
+        globals()["http_json"] = lambda method, url, body=None: {
+            "position": {
+                "x": -81.65,
+                "y": 30.33,
+                "z": 1000.0,
+                "spatialReference": {"wkid": 4326},
+            },
+            "heading": 90.0,
+            "tilt": 45.0,
+            "roll": 0.0,
+        }
+        cam = get_camera()
+        assert cam["position"]["x"] == -81.65
+
+        globals()["http_json"] = lambda method, url, body=None: {
+            "position": {"x": "bad", "y": 30.33, "z": 1000.0}
+        }
+        try:
+            get_camera()
+            raise AssertionError("Malformed camera response was not rejected")
+        except EarthAPIError:
+            pass
+    finally:
+        globals()["http_json"] = original_http_json
+
+    # Simulate two failed joystick detection attempts followed by a
+    # successful reconnect without sleeping.
+    attempts = {"count": 0}
+    marker = object()
+
+    def fake_factory():
+        attempts["count"] += 1
+        if attempts["count"] < 3:
+            raise RuntimeError("simulated joystick missing")
+        return marker
+
+    slept = []
+    reconnected = wait_for_joystick_reconnect(fake_factory, slept.append)
+    assert reconnected is marker
+    assert attempts["count"] == 3
+    assert slept == [1.0, 1.0]
+
     print("EarthStick self-test PASS")
 
 

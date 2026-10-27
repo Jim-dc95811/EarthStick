@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
 <rect width="1600" height="900" fill="#0e1218"/>
-<text x="70" y="100" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="72" font-weight="700">EarthStick v0.5 - Control Map</text>
+<text x="70" y="100" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="72" font-weight="700">EarthStick 1.0 - Control Map</text>
 <text x="74" y="150" fill="#b6cde1" font-family="Arial, sans-serif" font-size="30">Neutral controls = stop and hover in place</text>
 <rect x="590" y="610" rx="45" ry="45" width="420" height="160" fill="#444e5a" stroke="#b4bec8" stroke-width="4"/>
 <rect x="680" y="570" rx="35" ry="35" width="240" height="95" fill="#5a6674" stroke="#d2d7dc" stroke-width="3"/>
@@ -16,7 +16,7 @@
 <text x="80" y="460" fill="#37afff" font-family="Arial, sans-serif" font-size="31" font-weight="700">STICK LEFT / RIGHT</text><text x="80" y="500" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Strafe left / right</text>
 <text x="1030" y="240" fill="#ffaf3c" font-family="Arial, sans-serif" font-size="31" font-weight="700">TWIST</text><text x="1030" y="280" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Change heading</text>
 <text x="80" y="250" fill="#be6eff" font-family="Arial, sans-serif" font-size="31" font-weight="700">POV HAT UP / DOWN</text><text x="80" y="290" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Camera tilt</text>
-<text x="1030" y="560" fill="#f54b4b" font-family="Arial, sans-serif" font-size="31" font-weight="700">RED TRIGGER - BUTTON 4</text><text x="1030" y="600" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Hold: zoom in / descend</text>
+<text x="1030" y="560" fill="#f54b4b" font-family="Arial, sans-serif" font-size="31" font-weight="700">RED TOP - BUTTON 4</text><text x="1030" y="600" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Hold: zoom in / descend</text>
 <text x="1030" y="665" fill="#d2d2d2" font-family="Arial, sans-serif" font-size="31" font-weight="700">BLACK THUMB - BUTTON 3</text><text x="1030" y="705" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Hold: zoom out / climb</text>
 <text x="80" y="680" fill="#ffe673" font-family="Arial, sans-serif" font-size="31" font-weight="700">SLIDER 0</text><text x="80" y="720" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Movement speed</text>
 <text x="70" y="855" fill="#b9bec3" font-family="Arial, sans-serif" font-size="30">Everything else is intentionally unassigned.</text>
