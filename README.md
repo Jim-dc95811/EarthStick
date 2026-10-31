@@ -5,7 +5,7 @@
 ### **⬇️ [DOWNLOAD EARTHSTICK v1.0](releases/EarthStick_v1.0.zip)**
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop.
 
-> **ArcGIS Earth Unlocked:** EarthStick is the navigation component of the broader project family. See the [master system map](https://github.com/Jim-dc95811/Earth-Beacon/blob/main/ARCGIS_EARTH_UNLOCKED.md) and the [ArcGIS Earth Object Factory](https://github.com/Jim-dc95811/Earth-Beacon).
+> **ArcGIS Earth Unlocked:** EarthStick is the navigation component of the broader project family. See the [master system map](https://github.com/Jim-dc95811/Earth-Beacon/blob/main/ARCGIS_EARTH_UNLOCKED.md) and the [ArcGIS Earth Object Factory](https://github.com/Jim-dc95811/ArcGIS-Earth-Object-Factory).
 
 **Fly the real map.**
 
@@ -19,9 +19,34 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 
 ![EarthStick control map](assets/EarthStick_controls.svg)
 
-## Download
+## Quick start
 
-**Official release:** [`EarthStick_v1.0.zip`](releases/EarthStick_v1.0.zip)
+1. Install the Thrustmaster driver/control panel and connect the sidestick by USB.
+2. Press `Win + R`, run `joy.cpl`, select the T.A320 controller, and verify X/Y, twist/RZ, Slider 0, POV, Button 3, and Button 4.
+3. Open ArcGIS Earth.
+4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
+5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
+6. Extract `EarthStick_v1.0.zip`.
+7. Double-click `EarthStick.bat`.
+8. Wait for the console to report `ArcGIS Earth: connected`.
+9. Fly.
+
+## Controls
+
+| Physical control | EarthStick action |
+|---|---|
+| Stick forward / back | Fly forward / reverse |
+| Stick left / right | Strafe left / right |
+| Stick twist / RZ | Change heading |
+| Slider 0 / throttle | Travel speed |
+| POV hat up / down | Camera tilt |
+| Red top button - Button 4 | Hold to zoom in / descend |
+| Black thumb button - Button 3 | Hold to zoom out / climb |
+| Neutral controls | Stop and hover in place |
+
+Other joystick buttons are intentionally unassigned.
+
+## Release details
 
 SHA-256:
 
@@ -62,33 +87,6 @@ A flight simulator moves an aircraft through scenery. **EarthStick moves you thr
 - Thrustmaster driver/control panel recommended
 
 The tested controller appears in Windows as **T.A320 Pilot**. EarthStick also contains a capability-based fallback for installations where WinMM exposes the device using a generic joystick-driver name.
-
-## Controls
-
-| Physical control | EarthStick action |
-|---|---|
-| Stick forward / back | Fly forward / reverse |
-| Stick left / right | Strafe left / right |
-| Stick twist / RZ | Change heading |
-| Slider 0 / throttle | Travel speed |
-| POV hat up / down | Camera tilt |
-| Red top button - Button 4 | Hold to zoom in / descend |
-| Black thumb button - Button 3 | Hold to zoom out / climb |
-| Neutral controls | Stop and hover in place |
-
-Other joystick buttons are intentionally unassigned.
-
-## Quick start
-
-1. Install the Thrustmaster driver/control panel and connect the sidestick by USB.
-2. Press `Win + R`, run `joy.cpl`, select the T.A320 controller, and verify X/Y, twist/RZ, Slider 0, POV, Button 3, and Button 4.
-3. Open ArcGIS Earth.
-4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
-5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.0.zip`.
-7. Double-click `EarthStick.bat`.
-8. Wait for the console to report `ArcGIS Earth: connected`.
-9. Fly.
 
 ## Built-in recovery behavior
 
