@@ -2,6 +2,8 @@
 
 ## Official baseline
 
+**2026-11-01 update:** the front page follows the family-wide layout (download link, user manual link, one line, screenshot that opens the video). Screenshot `images/earthstick_flight_arcgis_earth.jpg` opens video `5Wn14qlC7n4`. `docs/USER_GUIDE.md` was corrected against the 1.1 code and `docs/EarthStick_User_Guide.pdf` (previously the 1.0 guide, partly unreadable) is generated from it.
+
 **EarthStick 1.1 is the current release and the accepted standalone baseline** (live-accepted 2026-10-31). 1.1 is a hardening release on top of the 1.0 baseline: it waits for the joystick at startup, bypasses system proxies for the localhost API, prints the reason while waiting for ArcGIS Earth, and leaves the single post-error prompt to the .bat. Controls, constants, movement and recovery are unchanged from 1.0. See `docs/EARTHSTICK_V1.1_CHANGES.md`.
 
 `EarthStick.py` 1.1 SHA-256: `84894c2f2d6c857ba71b2153126cb274254e3dbf23099ca1b821dbc2ca7400c7`
