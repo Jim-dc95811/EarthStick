@@ -3,7 +3,8 @@
 ## Download the tool
 
 ### **⬇️ [DOWNLOAD EARTHSTICK v1.1](releases/EarthStick_v1.1.zip)**
-### **▶️ [WATCH THE EARTHSTICK VIDEO](https://www.youtube.com/watch?v=5Wn14qlC7n4)**
+**📖 [User manual](docs/USER_GUIDE.md)**
+
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop.
 
 > **ArcGIS Earth Unlocked:** EarthStick is the navigation component of the broader project family. See the [master system map](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked) and the [ArcGIS Earth Object Factory](https://github.com/Jim-dc95811/ArcGIS-Earth-Object-Factory).
