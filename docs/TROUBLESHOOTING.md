@@ -49,9 +49,13 @@ Release the joystick to neutral before using the mouse. EarthStick periodically 
 
 ## Run the self-test
 
+From a command prompt in the EarthStick folder:
+
 ```text
-python EarthStick.py --selftest
+py -3 EarthStick.py --selftest
 ```
+
+(Use `python` instead of `py -3` if the `py` launcher is not installed.)
 
 Expected result:
 

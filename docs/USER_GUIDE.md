@@ -1,5 +1,7 @@
 # EarthStick 1.1 User Guide
 
+A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
+
 ## Purpose
 
 EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of the ArcGIS Earth camera. The goal is free movement inside a functioning map: imagery, labels, roads, GIS layers, and offline content remain part of the environment while you fly the camera.
@@ -11,7 +13,7 @@ The defining behavior is **neutral = hover**. When the movement controls return 
 - Windows 11
 - ArcGIS Earth desktop
 - ArcGIS Earth Automation API enabled
-- Python 3.x; tested with Python 3.14.5
+- Python 3 from python.org; tested with Python 3.14.5
 - Thrustmaster TCA Sidestick Airbus Edition connected by USB
 - Thrustmaster driver/control panel recommended
 - `EarthStick.py` and `EarthStick.bat` in the same folder
@@ -42,11 +44,13 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Extract `EarthStick_v1.1.zip`.
-2. Double-click `EarthStick.bat`.
-3. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
-4. Wait for `ArcGIS Earth: connected`.
-5. Return the stick to neutral before beginning.
+1. Download [`EarthStick_v1.1.zip`](../releases/EarthStick_v1.1.zip) and extract it into a folder of its own (the zip holds `EarthStick.py` and `EarthStick.bat` directly, not a subfolder).
+2. Open ArcGIS Earth first, with the Automation API enabled.
+3. Double-click `EarthStick.bat`. A console window titled **EarthStick 1.1** opens.
+4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
+5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
+6. Wait for `ArcGIS Earth: connected`.
+7. Return the stick to neutral before beginning.
 
 ## Controls
 
@@ -84,15 +88,17 @@ If the sidestick is unplugged, EarthStick remains running and waits for it to re
 
 ## Stop EarthStick
 
-Press `Ctrl+C` in the EarthStick console or close the console window.
+Press `Ctrl+C` in the EarthStick console or close the console window. After `Ctrl+C` the console shows `Stopped.` and waits for a key press before closing.
 
 ## Self-test
 
 From a command prompt in the EarthStick folder:
 
 ```text
-python EarthStick.py --selftest
+py -3 EarthStick.py --selftest
 ```
+
+(If the `py` launcher is not installed, use `python` instead of `py -3`.) The self-test needs no joystick and no ArcGIS Earth.
 
 A successful run prints:
 
