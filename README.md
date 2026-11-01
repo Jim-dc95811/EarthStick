@@ -1,8 +1,8 @@
-# EarthStick 1.0
+# EarthStick 1.1
 
 ## Download the tool
 
-### **⬇️ [DOWNLOAD EARTHSTICK v1.0](releases/EarthStick_v1.0.zip)**
+### **⬇️ [DOWNLOAD EARTHSTICK v1.1](releases/EarthStick_v1.1.zip)**
 ### **▶️ [WATCH THE EARTHSTICK VIDEO](https://www.youtube.com/watch?v=5Wn14qlC7n4)**
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop.
 
@@ -27,9 +27,9 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.0.zip`.
+6. Extract `EarthStick_v1.1.zip`.
 7. Double-click `EarthStick.bat`.
-8. Wait for the console to report `ArcGIS Earth: connected`.
+8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
 
 ## Controls
@@ -49,9 +49,11 @@ Other joystick buttons are intentionally unassigned.
 
 ## Release details
 
-SHA-256:
+**EarthStick 1.1** (2026-10-31) - a hardening release: it waits for the joystick at startup, ignores system proxies for its local ArcGIS Earth connection, and explains why it is still waiting. Flying is identical to 1.0. See [docs/EARTHSTICK_V1.1_CHANGES.md](docs/EARTHSTICK_V1.1_CHANGES.md).
 
-`8b399d70df582c448ed2bfdf532d5dcc17f579187f99a4d165bd06ef1cb0c292`
+`EarthStick_v1.1.zip` SHA-256:
+
+`505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e`
 
 The release contains only:
 
@@ -141,6 +143,8 @@ ArcGIS Earth Automation API
 - [`docs/TECHNICAL_NOTES.md`](docs/TECHNICAL_NOTES.md) - architecture, movement math, API recovery, constants
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
+- [`docs/EARTHSTICK_V1.1_CHANGES.md`](docs/EARTHSTICK_V1.1_CHANGES.md) - 1.1 change document and verification record
+- [`CHANGELOG.md`](CHANGELOG.md) - release history
 
 ## Safety and scope
 
@@ -160,4 +164,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Status
 
-**EarthStick 1.0 is the official accepted release.**
+**EarthStick 1.1 is the official accepted release.** The previous 1.0 package remains at `releases/EarthStick_v1.0.zip` for existing links.

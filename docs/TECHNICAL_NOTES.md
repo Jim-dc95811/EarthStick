@@ -1,4 +1,4 @@
-# EarthStick 1.0 Technical Notes
+# EarthStick 1.1 Technical Notes
 
 ## Architecture
 
@@ -9,6 +9,8 @@ TCA Sidestick -> WinMM joyGetPosEx -> EarthStick.py -> HTTP camera GET/PUT -> Ar
 ```
 
 There are no third-party Python dependencies.
+
+The ArcGIS Earth connection uses a `urllib` opener with an empty `ProxyHandler`, so requests to `localhost` never go through a system or agency proxy (1.1).
 
 ## Input model
 
@@ -82,6 +84,8 @@ Malformed or non-finite camera values are treated as API faults.
 A WinMM read failure does not terminate the application. EarthStick waits for the joystick to be detected again. Re-detection rebuilds the capabilities and slider mapping, allowing recovery even when Windows returns the controller under a different joystick ID.
 
 After reconnection, EarthStick reads the current ArcGIS Earth camera before accepting joystick movement.
+
+The same wait is used at startup (1.1): if no joystick is found when EarthStick starts, it reports the reason and retries every second instead of exiting.
 
 ## Constants
 

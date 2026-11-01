@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""EarthStick 1.0
+"""EarthStick 1.1
+
+1.1 hardening (controls, constants, movement, zoom and recovery unchanged):
+  - if the joystick is not connected at startup, EarthStick waits for it
+    instead of stopping
+  - the local ArcGIS Earth API connection never goes through a system proxy
+  - while waiting for ArcGIS Earth, the reason is shown when it first appears
+    or changes
+  - one "press Enter" prompt after an error instead of two
 
 Thrustmaster T.A320 Pilot -> ArcGIS Earth camera bridge.
 
@@ -30,7 +38,7 @@ import urllib.error
 import urllib.request
 from ctypes import wintypes
 
-VERSION = "1.0"
+VERSION = "1.1"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -105,6 +113,11 @@ def move_lonlat(lon: float, lat: float, heading_deg: float,
     return lon2, lat2
 
 
+# ArcGIS Earth runs on this computer, so its API must never be sent through a
+# system or agency proxy (urllib would otherwise use the Windows proxy setting).
+_LOCAL_OPENER = urllib.request.build_opener(urllib.request.ProxyHandler({}))
+
+
 def http_json(method: str, url: str, body=None):
     data = None
     headers = {"Accept": "application/json"}
@@ -113,7 +126,7 @@ def http_json(method: str, url: str, body=None):
         headers["Content-Type"] = "application/json"
     req = urllib.request.Request(url, data=data, headers=headers, method=method)
     try:
-        with urllib.request.urlopen(req, timeout=HTTP_TIMEOUT) as resp:
+        with _LOCAL_OPENER.open(req, timeout=HTTP_TIMEOUT) as resp:
             raw = resp.read()
             if not raw:
                 return None
@@ -358,16 +371,33 @@ def run():
     print("Button 4 = descend/zoom in; Button 3 = climb/zoom out; neutral = hover.")
     print()
 
-    joy = WinJoystick()
+    if os.name != "nt":
+        raise RuntimeError("EarthStick requires Windows")
+
+    # Same retry used after a mid-flight unplug, so EarthStick can be started
+    # before the joystick is plugged in.
+    try:
+        joy = WinJoystick()
+    except RuntimeError as exc:
+        print(f"Joystick not ready: {exc}")
+        print("Waiting for the joystick - plug it in or check joy.cpl. Ctrl+C to stop.")
+        joy = wait_for_joystick_reconnect()
     print(f"Joystick: {joy.caps.szPname}  (Windows ID {joy.id})")
     print(f"Slider0 source: WinMM {joy.slider_name} axis")
-    print("Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...")
+    print(f"Waiting for ArcGIS Earth Automation API at {BASE_URL} ...")
 
     cam = None
+    last_reason = None
     while cam is None:
         try:
             cam = get_camera()
-        except EarthAPIError:
+        except EarthAPIError as exc:
+            reason = str(exc)
+            if reason != last_reason:
+                print(f"  Still waiting: {reason}")
+                print("  Check that ArcGIS Earth is open with Automation API enabled "
+                      "(Settings > Advanced).")
+                last_reason = reason
             time.sleep(1.0)
     print("ArcGIS Earth: connected")
     print("Close this window or press Ctrl+C to stop EarthStick.\n")
@@ -602,5 +632,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         print("\nStopped.")
     except Exception as exc:
+        # EarthStick.bat pauses after this, so no second prompt here.
         print(f"\nEarthStick stopped: {exc}")
-        input("Press Enter to close...")

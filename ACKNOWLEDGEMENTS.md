@@ -1,6 +1,6 @@
 # Acknowledgements and Technology Notes
 
-EarthStick 1.0 is an independent utility that connects existing public interfaces:
+EarthStick is an independent utility that connects existing public interfaces:
 
 - **Esri ArcGIS Earth** supplies the map, imagery, layers, and local Automation API.
 - **Thrustmaster TCA Sidestick Airbus Edition** supplies the physical joystick controls.

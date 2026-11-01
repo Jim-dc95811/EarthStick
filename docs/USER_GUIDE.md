@@ -1,4 +1,4 @@
-# EarthStick 1.0 User Guide
+# EarthStick 1.1 User Guide
 
 ## Purpose
 
@@ -42,9 +42,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Extract `EarthStick_v1.0.zip`.
+1. Extract `EarthStick_v1.1.zip`.
 2. Double-click `EarthStick.bat`.
-3. EarthStick reports the detected joystick and Slider 0 source.
+3. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 4. Wait for `ArcGIS Earth: connected`.
 5. Return the stick to neutral before beginning.
 

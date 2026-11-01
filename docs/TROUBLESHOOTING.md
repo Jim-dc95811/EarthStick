@@ -1,13 +1,15 @@
-# EarthStick 1.0 Troubleshooting
+# EarthStick 1.1 Troubleshooting
 
 ## EarthStick says no joystick is connected
 
 - Confirm the TCA Sidestick is plugged directly into USB.
 - Run `joy.cpl` and verify Windows sees the controller.
 - Verify the axes and buttons respond in the Windows test panel.
-- Reconnect the joystick and leave EarthStick running; it will retry detection.
+- Reconnect the joystick and leave EarthStick running; it will retry detection. This works both at startup and during flight.
 
 ## EarthStick is waiting for ArcGIS Earth
+
+EarthStick prints the reason under `Still waiting:`. `connection refused` usually means ArcGIS Earth is closed or the Automation API is off. An HTTP error such as `404` means another program is using port 8000.
 
 - Open ArcGIS Earth desktop.
 - Enable Automation API under Settings > Advanced.

@@ -1,8 +1,11 @@
-# CONTINUITY - EarthStick 1.0
+# CONTINUITY - EarthStick 1.1
 
 ## Official baseline
 
-**EarthStick 1.0 is the only current release and the accepted standalone baseline.**
+**EarthStick 1.1 is the current release and the accepted standalone baseline** (live-accepted 2026-10-31). 1.1 is a hardening release on top of the 1.0 baseline: it waits for the joystick at startup, bypasses system proxies for the localhost API, prints the reason while waiting for ArcGIS Earth, and leaves the single post-error prompt to the .bat. Controls, constants, movement and recovery are unchanged from 1.0. See `docs/EARTHSTICK_V1.1_CHANGES.md`.
+
+`EarthStick.py` 1.1 SHA-256: `84894c2f2d6c857ba71b2153126cb274254e3dbf23099ca1b821dbc2ca7400c7`
+`releases/EarthStick_v1.1.zip` SHA-256: `505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e`
 
 Purpose: use a Thrustmaster TCA Sidestick Airbus Edition to provide direct, helicopter-style free camera navigation in ArcGIS Earth desktop through the ArcGIS Earth Automation API.
 
@@ -72,7 +75,7 @@ minimum altitude = 1.0 m
 
 ## Modification rules
 
-1. Treat EarthStick 1.0 as the protected known-good baseline.
+1. Treat EarthStick 1.1 as the protected known-good baseline.
 2. Discuss functional changes before making them.
 3. Make one functional modification at a time.
 4. Preserve control meanings, movement constants, API address, and recovery behavior unless a change is explicitly authorized.
@@ -84,13 +87,15 @@ minimum altitude = 1.0 m
 
 ## Repository presentation
 
-The repository intentionally presents one product line only: **EarthStick 1.0**.
+The repository intentionally presents one product line only: **EarthStick 1.1**. `releases/EarthStick_v1.0.zip` is kept only so existing links keep working.
 
 Current files:
 
 - `EarthStick.py`
 - `EarthStick.bat`
-- `releases/EarthStick_v1.0.zip`
+- `releases/EarthStick_v1.1.zip`
+- `releases/EarthStick_v1.0.zip` (previous release)
+- `docs/EARTHSTICK_V1.1_CHANGES.md`
 - `assets/EarthStick_controls.svg`
 - `docs/USER_GUIDE.md`
 - `docs/EarthStick_User_Guide.pdf`
@@ -98,4 +103,4 @@ Current files:
 - `docs/TROUBLESHOOTING.md`
 - `docs/HARDWARE_MAP.md`
 
-Development packages and superseded integration material are not part of the public 1.0 presentation.
+Development packages and superseded integration material are not part of the public presentation.
