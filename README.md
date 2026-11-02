@@ -53,6 +53,12 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 
 Other joystick buttons are intentionally unassigned.
 
+### Trigger-click (new in 1.2)
+
+![The red crosshair in the middle of the ArcGIS Earth window, beside a camera object over the SR-200 / I-95 interchange](images/earthstick_trigger_click_crosshair.jpg)
+
+A red crosshair sits in the middle of the ArcGIS Earth window. Fly an object (here, a camera) under it, let go so you hover, and pull the trigger: its information box opens. To close the box, aim at open map and pull the trigger again.
+
 ## Release details
 
 **EarthStick 1.2** (2026-11-01) - trigger-click: a red crosshair in the middle of the ArcGIS Earth window, and the trigger clicks whatever is under it, so information boxes open and close without the mouse. Flying is identical to 1.1. See [docs/EARTHSTICK_V1.2_CHANGES.md](docs/EARTHSTICK_V1.2_CHANGES.md).

@@ -77,6 +77,10 @@ For long-distance movement, climb to a high altitude and increase the throttle. 
 
 ## Trigger-click: opening and closing information boxes
 
+![The red crosshair in the middle of the ArcGIS Earth window, beside a camera object over the SR-200 / I-95 interchange](../images/earthstick_trigger_click_crosshair.jpg)
+
+*The red crosshair (right) and a camera object (left). Fly until the camera sits under the crosshair, hover, then pull the trigger.*
+
 1. Fly until the object (a beacon, a camera, a parcel, a point) sits under the red crosshair.
 2. Let go of the stick so the camera hovers.
 3. Pull the trigger once. EarthStick moves the Windows mouse pointer onto the object, clicks it, and puts the pointer back where it was. The object's information box opens.
