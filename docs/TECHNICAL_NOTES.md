@@ -1,4 +1,4 @@
-# EarthStick 1.1 Technical Notes
+# EarthStick 1.2 Technical Notes
 
 ## Architecture
 
@@ -8,7 +8,7 @@ EarthStick uses the Windows Multimedia joystick API through `ctypes` and the Arc
 TCA Sidestick -> WinMM joyGetPosEx -> EarthStick.py -> HTTP camera GET/PUT -> ArcGIS Earth
 ```
 
-There are no third-party Python dependencies.
+There are no third-party Python dependencies. Trigger-click (1.2) uses Tkinter, which ships with the standard python.org installer.
 
 The ArcGIS Earth connection uses a `urllib` opener with an empty `ProxyHandler`, so requests to `localhost` never go through a system or agency proxy (1.1).
 
@@ -25,6 +25,7 @@ Accepted mappings:
 - POV up/down -> tilt
 - Button 4 -> descend
 - Button 3 -> climb
+- Button 1 (trigger) -> trigger-click (1.2)
 
 ## Movement loop
 
@@ -87,6 +88,16 @@ After reconnection, EarthStick reads the current ArcGIS Earth camera before acce
 
 The same wait is used at startup (1.1): if no joystick is found when EarthStick starts, it reports the reason and retries every second instead of exiting.
 
+## Trigger-click (1.2)
+
+The ArcGIS Earth Automation API has no click or selection call, so EarthStick clicks the way a person would: with the Windows mouse.
+
+- **Crosshair:** a small Tkinter window (borderless, always on top, transparent background, click-through via `WS_EX_LAYERED | WS_EX_TRANSPARENT | WS_EX_TOOLWINDOW | WS_EX_NOACTIVATE`) centred on the ArcGIS Earth window. The window is found with `EnumWindows` by its program file name (`arcgisearth` in the .exe name) and re-checked every 0.4 s, so the crosshair follows moves and resizes and hides while ArcGIS Earth is minimized. The process is DPI-aware so the centre is correct on scaled displays.
+- **Gate:** one click per trigger pull (edge detection) and never two within `CLICK_LOCKOUT_S = 0.8` s, because a double-click makes ArcGIS Earth zoom in.
+- **Click recipe:** an instant pointer jump followed by a click zooms instead of selecting. EarthStick hides the crosshair, glides the pointer to the centre in 12 steps of 10 ms, rests `HOVER_BEFORE_S = 0.25` s, presses for `PRESS_S = 0.08` s, rests `HOVER_AFTER_S = 0.4` s, then restores the pointer and the crosshair. If ArcGIS Earth is not the foreground window, a first click activates it and the real click follows after `ACTIVATE_PAUSE_S = 0.7` s.
+- **Isolation:** the crosshair and clicks run in their own thread. The flying loop only hands over the button mask and never waits. If the crosshair cannot start, EarthStick prints `Trigger-click: unavailable (...)` and flies exactly as 1.1.
+- Clicking open map closes an open popup, so no separate close button is needed.
+
 ## Constants
 
 ```text
@@ -100,6 +111,12 @@ HTTP_TIMEOUT = 0.75
 INVERT_TWIST = False
 INVERT_THROTTLE = True
 BASE_URL = http://localhost:8000
+TRIGGER_BUTTON = 1
+CENTER_OFFSET_X = 0, CENTER_OFFSET_Y = 0
+RETICLE_SIZE = 48, RETICLE_COLOR = #ff2020
+CLICK_LOCKOUT_S = 0.8
+ACTIVATE_PAUSE_S = 0.7
+HOVER_BEFORE_S = 0.25, PRESS_S = 0.08, HOVER_AFTER_S = 0.4
 ```
 
 ## Spatial reference

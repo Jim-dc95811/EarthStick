@@ -1,5 +1,17 @@
 # EarthStick Release Notes
 
+## EarthStick 1.2 - Trigger-click (2026-11-01)
+
+Flying is identical to 1.1.
+
+- red crosshair in the middle of the ArcGIS Earth window
+- pull the trigger (Button 1) to click the object under it and open its information box; trigger-click open map to close it
+- one click per pull with a 0.8 s lockout, glide-and-rest click so ArcGIS Earth selects instead of zooming
+- if the crosshair cannot be shown, EarthStick flies normally
+- the zip now holds an `EarthStick_v1.2` folder
+
+Details and verification: [docs/EARTHSTICK_V1.2_CHANGES.md](docs/EARTHSTICK_V1.2_CHANGES.md).
+
 ## EarthStick 1.1 - Hardening Release (2026-10-31)
 
 Flying is identical to 1.0: same controls, constants, speed and zoom laws, and recovery behavior.

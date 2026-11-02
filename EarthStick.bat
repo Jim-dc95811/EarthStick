@@ -1,6 +1,6 @@
 @echo off
 cd /d "%~dp0"
-title EarthStick 1.1
+title EarthStick 1.2
 where py >nul 2>&1
 if %errorlevel%==0 (
     py -3 EarthStick.py

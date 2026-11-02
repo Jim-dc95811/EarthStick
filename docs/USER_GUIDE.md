@@ -1,4 +1,4 @@
-# EarthStick 1.1 User Guide
+# EarthStick 1.2 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -8,12 +8,14 @@ EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of t
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
 
+New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS Earth window. Put an object under it and pull the trigger to open the object's information box (popup) without touching the mouse.
+
 ## Requirements
 
 - Windows 11
 - ArcGIS Earth desktop
 - ArcGIS Earth Automation API enabled
-- Python 3 from python.org; tested with Python 3.14.5
+- Python 3 from python.org; tested with Python 3.14.5 (the standard install includes Tkinter, which draws the crosshair)
 - Thrustmaster TCA Sidestick Airbus Edition connected by USB
 - Thrustmaster driver/control panel recommended
 - `EarthStick.py` and `EarthStick.bat` in the same folder
@@ -31,7 +33,7 @@ Before running EarthStick:
 5. Confirm twist/rudder responds.
 6. Confirm Slider 0 travels through its range.
 7. Confirm POV up/down responds.
-8. Confirm Button 4 and Button 3 respond.
+8. Confirm Button 4, Button 3 and the trigger (Button 1) respond.
 
 The tested controller normally appears as `T.A320 Pilot`.
 
@@ -44,12 +46,12 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.1.zip`](../releases/EarthStick_v1.1.zip) and extract it into a folder of its own (the zip holds `EarthStick.py` and `EarthStick.bat` directly, not a subfolder).
+1. Download [`EarthStick_v1.2.zip`](../releases/EarthStick_v1.2.zip) and extract it. It contains a folder named `EarthStick_v1.2` holding `EarthStick.py` and `EarthStick.bat`.
 2. Open ArcGIS Earth first, with the Automation API enabled.
-3. Double-click `EarthStick.bat`. A console window titled **EarthStick 1.1** opens.
+3. Open the `EarthStick_v1.2` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.2** opens.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
-6. Wait for `ArcGIS Earth: connected`.
+6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
 7. Return the stick to neutral before beginning.
 
 ## Controls
@@ -64,6 +66,7 @@ The tested controller normally appears as `T.A320 Pilot`.
 | POV up/down | Camera tilt |
 | Red Button 4 | Hold to descend / zoom in |
 | Black Button 3 | Hold to climb / zoom out |
+| Trigger (Button 1) | Click the object under the red crosshair |
 | Neutral | Stop and hover |
 
 ## Flying technique
@@ -71,6 +74,21 @@ The tested controller normally appears as `T.A320 Pilot`.
 For precise inspection, lower the throttle, approach the target, release the stick, and hover. Use strafe and twist independently to inspect the target from different positions without being forced into forward motion.
 
 For long-distance movement, climb to a high altitude and increase the throttle. The maximum travel rate scales with altitude. Descend again when you reach the destination.
+
+## Trigger-click: opening and closing information boxes
+
+1. Fly until the object (a beacon, a camera, a parcel, a point) sits under the red crosshair.
+2. Let go of the stick so the camera hovers.
+3. Pull the trigger once. EarthStick moves the Windows mouse pointer onto the object, clicks it, and puts the pointer back where it was. The object's information box opens.
+4. **To close the box,** aim the crosshair at open map, away from the box, and pull the trigger again.
+
+Tips:
+
+- One pull = one click. A second pull within 0.8 seconds is ignored, so a bouncy trigger can never turn into a double-click (a double-click makes ArcGIS Earth zoom in).
+- If another window is in front, the first click brings ArcGIS Earth to the front and EarthStick then clicks the object.
+- The crosshair follows the ArcGIS Earth window if you move or resize it, and hides while ArcGIS Earth is minimized. Mouse clicks pass straight through it.
+- If the crosshair cannot be shown, the console says `Trigger-click: unavailable` and EarthStick flies normally.
+- If the crosshair sits off the true centre on your screen, the `CENTER_OFFSET_X` / `CENTER_OFFSET_Y` settings near the top of `EarthStick.py` nudge it by screen pixels.
 
 ## Using the mouse while EarthStick is running
 

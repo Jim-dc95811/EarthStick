@@ -1,4 +1,4 @@
-# EarthStick 1.1 Hardware Map
+# EarthStick 1.2 Hardware Map
 
 ## Tested controller
 
@@ -19,6 +19,7 @@ Windows control-panel name observed during testing:
 | POV up/down | POV | Camera tilt |
 | Red top button | Button 4 | Descend / zoom in |
 | Black thumb button | Button 3 | Climb / zoom out |
+| Trigger | Button 1 | Click the object under the crosshair (1.2) |
 
 Other buttons are intentionally unassigned.
 

@@ -1,8 +1,8 @@
-# EarthStick 1.1
+# EarthStick 1.2
 
 ## Download the tool
 
-### **⬇️ [DOWNLOAD EARTHSTICK v1.1](releases/EarthStick_v1.1.zip)**
+### **⬇️ [DOWNLOAD EARTHSTICK v1.2](releases/EarthStick_v1.2.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop.
@@ -21,18 +21,18 @@ That means the environment remains a working map: satellite or aerial imagery, r
 
 > **Neutral controls = stop and hover in place.**
 
-Push forward to travel. Pull back to reverse. Move the stick sideways to strafe. Twist to change heading. Use the throttle slider for speed, the POV hat for camera tilt, and the two top buttons to climb or descend. Release the controls and the camera stays where you left it.
+Push forward to travel. Pull back to reverse. Move the stick sideways to strafe. Twist to change heading. Use the throttle slider for speed, the POV hat for camera tilt, and the two top buttons to climb or descend. Release the controls and the camera stays where you left it. Pull the trigger to open the information box of whatever sits under the red crosshair.
 
 ![EarthStick control map](assets/EarthStick_controls.svg)
 
 ## Quick start
 
 1. Install the Thrustmaster driver/control panel and connect the sidestick by USB.
-2. Press `Win + R`, run `joy.cpl`, select the T.A320 controller, and verify X/Y, twist/RZ, Slider 0, POV, Button 3, and Button 4.
+2. Press `Win + R`, run `joy.cpl`, select the T.A320 controller, and verify X/Y, twist/RZ, Slider 0, POV, Button 1 (trigger), Button 3, and Button 4.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.1.zip`.
+6. Extract `EarthStick_v1.2.zip` and open the `EarthStick_v1.2` folder.
 7. Double-click `EarthStick.bat`.
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
@@ -48,24 +48,25 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 | POV hat up / down | Camera tilt |
 | Red top button - Button 4 | Hold to zoom in / descend |
 | Black thumb button - Button 3 | Hold to zoom out / climb |
+| Trigger - Button 1 | Click the object under the red crosshair (opens its information box; on open map, closes it) |
 | Neutral controls | Stop and hover in place |
 
 Other joystick buttons are intentionally unassigned.
 
 ## Release details
 
-**EarthStick 1.1** (2026-10-31) - a hardening release: it waits for the joystick at startup, ignores system proxies for its local ArcGIS Earth connection, and explains why it is still waiting. Flying is identical to 1.0. See [docs/EARTHSTICK_V1.1_CHANGES.md](docs/EARTHSTICK_V1.1_CHANGES.md).
+**EarthStick 1.2** (2026-11-01) - trigger-click: a red crosshair in the middle of the ArcGIS Earth window, and the trigger clicks whatever is under it, so information boxes open and close without the mouse. Flying is identical to 1.1. See [docs/EARTHSTICK_V1.2_CHANGES.md](docs/EARTHSTICK_V1.2_CHANGES.md).
 
-`EarthStick_v1.1.zip` SHA-256:
+`EarthStick_v1.2.zip` SHA-256:
 
-`505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e`
+`ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5`
 
-The release contains only:
+The release contains one folder, `EarthStick_v1.2`, holding only:
 
 - `EarthStick.py`
 - `EarthStick.bat`
 
-No third-party Python packages are required.
+No third-party Python packages are required (the crosshair uses Tkinter, part of the standard Python install).
 
 ## What makes EarthStick different
 
@@ -148,7 +149,8 @@ ArcGIS Earth Automation API
 - [`docs/TECHNICAL_NOTES.md`](docs/TECHNICAL_NOTES.md) - architecture, movement math, API recovery, constants
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
-- [`docs/EARTHSTICK_V1.1_CHANGES.md`](docs/EARTHSTICK_V1.1_CHANGES.md) - 1.1 change document and verification record
+- [`docs/EARTHSTICK_V1.2_CHANGES.md`](docs/EARTHSTICK_V1.2_CHANGES.md) - 1.2 change document and verification record
+- [`docs/EARTHSTICK_V1.1_CHANGES.md`](docs/EARTHSTICK_V1.1_CHANGES.md) - 1.1 change document
 - [`CHANGELOG.md`](CHANGELOG.md) - release history
 
 ## Safety and scope
@@ -169,4 +171,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Status
 
-**EarthStick 1.1 is the official accepted release.** The previous 1.0 package remains at `releases/EarthStick_v1.0.zip` for existing links.
+**EarthStick 1.2 is the official accepted release.** The previous packages remain at `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.

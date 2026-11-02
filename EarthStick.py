@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-"""EarthStick 1.1
+"""EarthStick 1.2
+
+1.2 adds trigger-click (flying, constants and recovery unchanged from 1.1):
+  - a red crosshair sits at the centre of the ArcGIS Earth window (click-through)
+  - put an object under the crosshair, let go (hover) and pull the trigger
+    (button 1): EarthStick clicks it for you, so its popup opens without the mouse
+  - the click glides the pointer onto the target and rests before and after, which
+    ArcGIS Earth needs to select an object (an instant click zooms instead)
+  - if the crosshair cannot be shown, EarthStick still flies normally
 
 1.1 hardening (controls, constants, movement, zoom and recovery unchanged):
   - if the joystick is not connected at startup, EarthStick waits for it
@@ -20,6 +28,7 @@ Controls:
 
 Button 4 (red top button) zooms in / descends.
 Button 3 (black thumb button) zooms out / climbs.
+Button 1 (trigger) clicks the object under the crosshair.
 Neutral controls stop and hover in place.
 
 Standard-library only. Windows desktop ArcGIS Earth Automation API is expected
@@ -38,7 +47,7 @@ import urllib.error
 import urllib.request
 from ctypes import wintypes
 
-VERSION = "1.1"
+VERSION = "1.2"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -57,6 +66,19 @@ INVERT_TWIST = False
 # Thrustmaster manual: Slider0 is 0 at the forward/+ end, so invert so
 # forward throttle = faster movement.
 INVERT_THROTTLE = True
+
+# Trigger-click (1.2)
+TRIGGER_BUTTON = 1            # joystick button that clicks (joy.cpl numbering)
+EARTH_EXE = "arcgisearth"     # matched against the window's program file name
+CENTER_OFFSET_X = 0           # nudge the crosshair (screen pixels) if needed
+CENTER_OFFSET_Y = 0
+RETICLE_SIZE = 48
+RETICLE_COLOR = "#ff2020"
+CLICK_LOCKOUT_S = 0.8         # one click per pull, never two within a double-click time
+ACTIVATE_PAUSE_S = 0.7        # pause between an activating click and the real click
+HOVER_BEFORE_S = 0.25         # pointer rests on the object before the click
+PRESS_S = 0.08                # how long the button is held down
+HOVER_AFTER_S = 0.4           # pointer stays on the object after the click
 
 
 class EarthAPIError(RuntimeError):
@@ -365,10 +387,221 @@ def print_status(name: str, state, cam, speed: float, active: bool):
     sys.stdout.flush()
 
 
+# ---------------------------------------------------------------------------
+# Trigger-click (1.2). Everything here is optional: if any part fails, EarthStick
+# flies exactly as before. The crosshair window and the clicking run in their own
+# thread so the flying loop never waits for them.
+
+def window_center(rect, off_x=0, off_y=0):
+    left, top, right, bottom = rect
+    return (left + right) // 2 + off_x, (top + bottom) // 2 + off_y
+
+
+def is_earth_exe(path, needle=EARTH_EXE):
+    name = os.path.basename(path or "").lower()
+    return name.endswith(".exe") and needle in name
+
+
+class TriggerGate:
+    """Fires once per trigger pull, and never twice within CLICK_LOCKOUT_S."""
+    def __init__(self, lockout=CLICK_LOCKOUT_S):
+        self.lockout = lockout
+        self.was_down = False
+        self.last = None
+
+    def update(self, down, now):
+        fire = down and not self.was_down
+        self.was_down = down
+        if not fire:
+            return False
+        if self.last is not None and now - self.last < self.lockout:
+            return False
+        self.last = now
+        return True
+
+
+class TriggerClick:
+    """Crosshair overlay + simulated mouse click, run in a background thread."""
+
+    def __init__(self):
+        import queue
+        import threading
+        self.requests = queue.Queue()
+        self.ready = threading.Event()
+        self.error = None
+        self.gate = TriggerGate()
+        self.thread = threading.Thread(target=self._thread_main, name="TriggerClick", daemon=True)
+
+    @classmethod
+    def start(cls):
+        """Start the crosshair; returns the TriggerClick, or None (with the reason printed)."""
+        try:
+            tc = cls()
+            tc.thread.start()
+            tc.ready.wait(5.0)
+            if tc.error or not tc.ready.is_set():
+                raise RuntimeError(tc.error or "crosshair did not start")
+            print(f"Trigger-click: ready (button {TRIGGER_BUTTON} clicks the object under the red crosshair)")
+            return tc
+        except Exception as exc:
+            print(f"Trigger-click: unavailable ({exc}); flying is not affected.")
+            return None
+
+    def on_buttons(self, buttons):
+        """Called from the flying loop with the button mask; never blocks."""
+        down = bool(buttons & (1 << (TRIGGER_BUTTON - 1)))
+        if self.gate.update(down, time.perf_counter()):
+            self.requests.put("click")
+
+    # -- everything below runs in the TriggerClick thread ------------------
+    def _thread_main(self):
+        try:
+            self._setup_windows()
+            import tkinter as tk
+            self.root = tk.Tk()
+            self.root.withdraw()
+            ov = tk.Toplevel(self.root)
+            ov.overrideredirect(True)
+            ov.attributes("-topmost", True)
+            key = "#010203"
+            ov.configure(bg=key)
+            ov.attributes("-transparentcolor", key)
+            s = RETICLE_SIZE
+            c = tk.Canvas(ov, width=s, height=s, bg=key, highlightthickness=0)
+            c.pack()
+            m, gap = s // 2, 6
+            for x0, y0, x1, y1 in ((0, m, m - gap, m), (m + gap, m, s, m), (m, 0, m, m - gap), (m, m + gap, m, s)):
+                c.create_line(x0, y0, x1, y1, fill=RETICLE_COLOR, width=3)
+            c.create_oval(m - 2, m - 2, m + 2, m + 2, outline=RETICLE_COLOR, fill=RETICLE_COLOR)
+            ov.update_idletasks()
+            self._click_through(ov)
+            ov.withdraw()
+            self.overlay = ov
+            self.center = None
+            self.ready.set()
+            self.root.after(100, self._track)
+            self.root.after(50, self._serve)
+            self.root.mainloop()
+        except Exception as exc:
+            self.error = str(exc) or type(exc).__name__
+            self.ready.set()
+
+    def _setup_windows(self):
+        self.user32 = ctypes.WinDLL("user32")
+        self.kernel32 = ctypes.WinDLL("kernel32")
+        self.user32.GetForegroundWindow.restype = wintypes.HWND
+        try:
+            self.user32.SetProcessDpiAwarenessContext(ctypes.c_void_p(-4))   # real screen pixels
+        except Exception:
+            try:
+                ctypes.WinDLL("shcore").SetProcessDpiAwareness(2)
+            except Exception:
+                pass
+        self.earth_hwnd = None
+
+    def _click_through(self, tk_window):
+        hwnd = self.user32.GetParent(tk_window.winfo_id()) or tk_window.winfo_id()
+        style = self.user32.GetWindowLongW(hwnd, -20)                       # GWL_EXSTYLE
+        style |= 0x00080000 | 0x00000020 | 0x00000080 | 0x08000000           # layered, transparent, toolwindow, noactivate
+        self.user32.SetWindowLongW(hwnd, -20, style)
+
+    def _exe_of(self, hwnd):
+        pid = wintypes.DWORD()
+        self.user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+        h = self.kernel32.OpenProcess(0x1000, False, pid.value)              # query limited information
+        if not h:
+            return ""
+        try:
+            buf = ctypes.create_unicode_buffer(1024)
+            size = wintypes.DWORD(len(buf))
+            return buf.value if self.kernel32.QueryFullProcessImageNameW(h, 0, buf, ctypes.byref(size)) else ""
+        finally:
+            self.kernel32.CloseHandle(h)
+
+    def _earth_rect(self):
+        found = []
+        EnumProc = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
+
+        def callback(hwnd, _):
+            if self.user32.IsWindowVisible(hwnd) and not self.user32.IsIconic(hwnd) and is_earth_exe(self._exe_of(hwnd)):
+                r = wintypes.RECT()
+                if self.user32.GetWindowRect(hwnd, ctypes.byref(r)):
+                    w, h = r.right - r.left, r.bottom - r.top
+                    if w > 200 and h > 200:
+                        found.append((w * h, (r.left, r.top, r.right, r.bottom), hwnd))
+            return True
+
+        self.user32.EnumWindows(EnumProc(callback), 0)
+        if not found:
+            self.earth_hwnd = None
+            return None
+        best = max(found, key=lambda f: f[0])
+        self.earth_hwnd = best[2]
+        return best[1]
+
+    def _track(self):
+        try:
+            rect = self._earth_rect()
+            if rect is None:
+                self.center = None
+                self.overlay.withdraw()
+            else:
+                self.center = window_center(rect, CENTER_OFFSET_X, CENTER_OFFSET_Y)
+                x, y = self.center
+                half = RETICLE_SIZE // 2
+                self.overlay.geometry(f"{RETICLE_SIZE}x{RETICLE_SIZE}+{x - half}+{y - half}")
+                self.overlay.deiconify()
+                self.overlay.attributes("-topmost", True)
+        except Exception:
+            pass
+        self.root.after(400, self._track)
+
+    def _serve(self):
+        try:
+            while True:
+                self.requests.get_nowait()
+                if self.center is not None:
+                    self._fire(*self.center)
+        except Exception:
+            pass
+        self.root.after(30, self._serve)
+
+    def _earth_active(self):
+        fg = self.user32.GetForegroundWindow()
+        return bool(self.earth_hwnd) and bool(fg) and self._exe_of(fg) == self._exe_of(self.earth_hwnd)
+
+    def _click(self, x, y):
+        old = wintypes.POINT()
+        self.user32.GetCursorPos(ctypes.byref(old))
+        steps = 12
+        for i in range(1, steps + 1):          # glide onto the target like a real mouse
+            self.user32.SetCursorPos(int(old.x + (x - old.x) * i / steps), int(old.y + (y - old.y) * i / steps))
+            time.sleep(0.01)
+        time.sleep(HOVER_BEFORE_S)
+        self.user32.mouse_event(0x0002, 0, 0, 0, 0)    # left down
+        time.sleep(PRESS_S)
+        self.user32.mouse_event(0x0004, 0, 0, 0, 0)    # left up
+        time.sleep(HOVER_AFTER_S)
+        self.user32.SetCursorPos(old.x, old.y)
+
+    def _fire(self, x, y):
+        self.overlay.withdraw()                         # crosshair out of the way
+        self.root.update()
+        try:
+            if not self._earth_active():
+                self._click(x, y)                       # first click makes ArcGIS Earth active
+                time.sleep(ACTIVATE_PAUSE_S)            # longer than a double-click
+            self._click(x, y)
+        finally:
+            self.overlay.deiconify()
+            self.overlay.attributes("-topmost", True)
+
+
 def run():
     print(f"EarthStick {VERSION}")
     print("Minimal T.A320 Pilot -> ArcGIS Earth bridge")
     print("Button 4 = descend/zoom in; Button 3 = climb/zoom out; neutral = hover.")
+    print(f"Button {TRIGGER_BUTTON} (trigger) = click the object under the crosshair.")
     print()
 
     if os.name != "nt":
@@ -400,6 +633,7 @@ def run():
                 last_reason = reason
             time.sleep(1.0)
     print("ArcGIS Earth: connected")
+    clicker = TriggerClick.start()
     print("Close this window or press Ctrl+C to stop EarthStick.\n")
 
     dt_target = 1.0 / POLL_HZ
@@ -463,6 +697,9 @@ def run():
             last_idle_sync = last_t
             was_active = False
             continue
+
+        if clicker is not None:
+            clicker.on_buttons(state["buttons"])
 
         # Button 4 (red trigger) = zoom in.
         # Button 3 (black thumb) = zoom out.
@@ -619,6 +856,18 @@ def selftest():
     assert reconnected is marker
     assert attempts["count"] == 3
     assert slept == [1.0, 1.0]
+
+    # Trigger-click (1.2)
+    assert window_center((0, 0, 1200, 2000)) == (600, 1000)
+    assert window_center((100, 50, 1300, 2050), 5, -10) == (705, 1040)
+    assert is_earth_exe(r"C:\Program Files\ArcGIS\Earth\ArcGISEarth.exe")
+    assert not is_earth_exe(r"C:\Windows\explorer.exe") and not is_earth_exe("")
+    g = TriggerGate(0.8)
+    # press, hold, release, press too soon, release, press later
+    assert [g.update(d, t) for d, t in ((True, 0.0), (True, 0.1), (False, 0.2), (True, 0.5),
+                                         (False, 0.6), (True, 1.0))] == [True, False, False, False, False, True]
+    assert TRIGGER_BUTTON not in (3, 4)
+    assert ACTIVATE_PAUSE_S > 0.5 and CLICK_LOCKOUT_S > ACTIVATE_PAUSE_S
 
     print("EarthStick self-test PASS")
 

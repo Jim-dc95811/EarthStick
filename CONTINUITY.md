@@ -1,10 +1,15 @@
-# CONTINUITY - EarthStick 1.1
+# CONTINUITY - EarthStick 1.2
 
 ## Official baseline
 
-**2026-11-01 update:** the front page follows the family-wide layout (download link, user manual link, one line, screenshot that opens the video). Screenshot `images/earthstick_flight_arcgis_earth.jpg` opens video `5Wn14qlC7n4`. `docs/USER_GUIDE.md` was corrected against the 1.1 code and `docs/EarthStick_User_Guide.pdf` (previously the 1.0 guide, partly unreadable) is generated from it.
+**2026-11-01 update:** the front page follows the family-wide layout (download link, user manual link, one line, screenshot that opens the video). Screenshot `images/earthstick_flight_arcgis_earth.jpg` opens video `5Wn14qlC7n4`. `docs/USER_GUIDE.md` was corrected against the code (updated for 1.2 the same day, with a trigger-click section) and `docs/EarthStick_User_Guide.pdf` is generated from it with the Unlocked `tools/md2pdf.py`.
 
-**EarthStick 1.1 is the current release and the accepted standalone baseline** (live-accepted 2026-10-31). 1.1 is a hardening release on top of the 1.0 baseline: it waits for the joystick at startup, bypasses system proxies for the localhost API, prints the reason while waiting for ArcGIS Earth, and leaves the single post-error prompt to the .bat. Controls, constants, movement and recovery are unchanged from 1.0. See `docs/EARTHSTICK_V1.1_CHANGES.md`.
+**EarthStick 1.2 is the current release and the accepted baseline** (live-accepted 2026-11-01). 1.2 = 1.1 plus trigger-click: a click-through red crosshair centred on the ArcGIS Earth window; Button 1 (trigger) glides the Windows pointer there and clicks (opens a popup; on open map, closes it). Flying is byte-identical to 1.1 (335-write replay). A Button 2 = Esc close was tried in a test build, did not work on Jim's PC, and was dropped. See `docs/EARTHSTICK_V1.2_CHANGES.md`.
+
+`EarthStick.py` 1.2 SHA-256: `63dd9b55af8aa8273dee212ed2da41ea73395752da898b8a09877d6f9bbefe5a`
+`releases/EarthStick_v1.2.zip` SHA-256: `ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5` (zip holds folder `EarthStick_v1.2/`)
+
+EarthStick 1.1 (live-accepted 2026-10-31) was a hardening release on top of the 1.0 baseline: it waits for the joystick at startup, bypasses system proxies for the localhost API, prints the reason while waiting for ArcGIS Earth, and leaves the single post-error prompt to the .bat. Controls, constants, movement and recovery are unchanged from 1.0. See `docs/EARTHSTICK_V1.1_CHANGES.md`.
 
 `EarthStick.py` 1.1 SHA-256: `84894c2f2d6c857ba71b2153126cb274254e3dbf23099ca1b821dbc2ca7400c7`
 `releases/EarthStick_v1.1.zip` SHA-256: `505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e`
@@ -24,6 +29,7 @@ The defining interaction is:
 - POV up/down -> camera tilt
 - Button 4 red top button -> hold to zoom in / descend
 - Button 3 black thumb button -> hold to zoom out / climb
+- Button 1 trigger -> trigger-click the object under the crosshair (1.2)
 - all other buttons -> unused
 
 ## Accepted recovery behavior
@@ -77,7 +83,7 @@ minimum altitude = 1.0 m
 
 ## Modification rules
 
-1. Treat EarthStick 1.1 as the protected known-good baseline.
+1. Treat EarthStick 1.2 as the protected known-good baseline.
 2. Discuss functional changes before making them.
 3. Make one functional modification at a time.
 4. Preserve control meanings, movement constants, API address, and recovery behavior unless a change is explicitly authorized.
@@ -89,15 +95,15 @@ minimum altitude = 1.0 m
 
 ## Repository presentation
 
-The repository intentionally presents one product line only: **EarthStick 1.1**. `releases/EarthStick_v1.0.zip` is kept only so existing links keep working.
+The repository intentionally presents one product line only: **EarthStick 1.2**. `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` are kept only so existing links keep working.
 
 Current files:
 
 - `EarthStick.py`
 - `EarthStick.bat`
-- `releases/EarthStick_v1.1.zip`
-- `releases/EarthStick_v1.0.zip` (previous release)
-- `docs/EARTHSTICK_V1.1_CHANGES.md`
+- `releases/EarthStick_v1.2.zip`
+- `releases/EarthStick_v1.1.zip`, `releases/EarthStick_v1.0.zip` (previous releases)
+- `docs/EARTHSTICK_V1.2_CHANGES.md`, `docs/EARTHSTICK_V1.1_CHANGES.md`
 - `assets/EarthStick_controls.svg`
 - `docs/USER_GUIDE.md`
 - `docs/EarthStick_User_Guide.pdf`
