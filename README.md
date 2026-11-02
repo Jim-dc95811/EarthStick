@@ -1,8 +1,14 @@
 # EarthStick 1.2
 
-## Download the tool
+## Get everything you need
 
-### **⬇️ [DOWNLOAD EARTHSTICK v1.2](releases/EarthStick_v1.2.zip)**
+**1. ⬇️ [ArcGIS Earth](https://www.esri.com/en-us/arcgis/products/arcgis-earth/downloads)** - free 3D globe from Esri (Windows desktop version). After installing: Settings > Advanced > turn on **Automation API**.
+
+**2. ⬇️ [Python 3](https://www.python.org/downloads/windows/)** - free; install with the default options.
+
+**3. 🕹️ [Thrustmaster TCA Sidestick Airbus Edition](https://www.thrustmaster.com/en-us/products/tca-sidestick-airbus-edition/)** - the joystick EarthStick is built and tested with.
+
+### **⬇️ [4. DOWNLOAD EARTHSTICK v1.2](releases/EarthStick_v1.2.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop.
