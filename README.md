@@ -1,4 +1,4 @@
-# EarthStick 1.2
+# EarthStick 1.3
 
 ## Get everything you need
 
@@ -13,10 +13,10 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v1.2](releases/EarthStick_v1.2.zip)**
+### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3](releases/EarthStick_v1.3.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 
-Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop.
+Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and, new in 1.3, fly through golden **World Gates** that take you across the planet.
 
 [![Flying ArcGIS Earth with EarthStick: low over the St. Johns River with a beacon and sky compass letters on the horizon](images/earthstick_flight_arcgis_earth.jpg)](https://www.youtube.com/watch?v=5Wn14qlC7n4)
 
@@ -43,7 +43,7 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.2.zip` and open the `EarthStick_v1.2` folder.
+6. Extract `EarthStick_v1.3.zip` and open the `EarthStick_v1.3` folder.
 7. Double-click `EarthStick.bat`.
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
@@ -70,18 +70,32 @@ Other joystick buttons are intentionally unassigned.
 
 A red crosshair sits in the middle of the ArcGIS Earth window. Fly an object (here, a camera) under it, let go so you hover, and pull the trigger: its information box opens. To close the box, aim at open map and pull the trigger again.
 
+### World Gates (new in 1.3)
+
+[![Eight golden World Gates in a circle around Atlanta's Hartsfield-Jackson airport, labeled NYC, London, Paris, Rome, JAX, Rio, Sydney and Tokyo](images/world_gates_atl_hub_arcgis_earth.jpg)](images/world_gates_atl_hub_arcgis_earth.jpg)
+
+Golden rings float in the sky. **Fly through one and you come out on the other side of the world.** EarthStick 1.3 comes with the **World Gates** pack: a gate over Jacksonville International takes you to a hub over Atlanta's airport, where eight gates in a circle lead to New York (Statue of Liberty), London (Tower Bridge), Paris (Eiffel Tower), Rome (Colosseum), Tokyo (Tokyo Tower), Sydney (Opera House), Rio (Christ the Redeemer) and home to Jacksonville. Every city has a gate back to Atlanta - connect there, just like real flights.
+
+![Approaching the Paris gate over Atlanta: a gold ring with the label Paris and the altitude 2,530 ft beside it](images/world_gates_paris_ring_arcgis_earth.jpg)
+
+1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL.kmz` (in the EarthStick folder) onto the map, so you can see the rings.
+2. Start EarthStick. The console lists the gates it armed: `Wormholes: 16 gate(s) armed: ATL, JAX, NYC, ...`
+3. Fly to a ring, line up on its **gold** side (from the red side nothing happens), match the altitude shown under its name using **eye alt** at the bottom of ArcGIS Earth, and fly through the middle.
+4. The view jumps to the destination and the console says `Wormhole: through the ... gate.` You arrive still flying, already facing the landmark.
+
+Gold side = way in. Red side = wrong way. The number under each name is the eye alt to fly at. Want the rings without EarthStick, just to look at? [Download the World Gates file](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_JAX_ATL.kmz) and drag it onto ArcGIS Earth.
+
 ## Release details
 
+**EarthStick 1.3** (2026-11-02) - World Gates: fly through a golden ring and the camera jumps to its destination. Gate files go in the `Gates` folder beside EarthStick; the World Gates pack (JAX -> ATL hub -> 7 world landmarks) is included. With no gate files, flying is identical to 1.2. See [docs/EARTHSTICK_V1.3_CHANGES.md](docs/EARTHSTICK_V1.3_CHANGES.md).
+
+`EarthStick_v1.3.zip` SHA-256:
+
+`0e8c394748f428eef42fed5aa1da5e5d317557082505ad4ca52e4d271ce0731f`
+
+The release contains one folder, `EarthStick_v1.3`, holding `EarthStick.py`, `EarthStick.bat` and `Gates\World_Gates_JAX_ATL.kmz`.
+
 **EarthStick 1.2** (2026-11-01) - trigger-click: a red crosshair in the middle of the ArcGIS Earth window, and the trigger clicks whatever is under it, so information boxes open and close without the mouse. Flying is identical to 1.1. See [docs/EARTHSTICK_V1.2_CHANGES.md](docs/EARTHSTICK_V1.2_CHANGES.md).
-
-`EarthStick_v1.2.zip` SHA-256:
-
-`ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5`
-
-The release contains one folder, `EarthStick_v1.2`, holding only:
-
-- `EarthStick.py`
-- `EarthStick.bat`
 
 No third-party Python packages are required (the crosshair uses Tkinter, part of the standard Python install).
 
@@ -166,7 +180,8 @@ ArcGIS Earth Automation API
 - [`docs/TECHNICAL_NOTES.md`](docs/TECHNICAL_NOTES.md) - architecture, movement math, API recovery, constants
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
-- [`docs/EARTHSTICK_V1.2_CHANGES.md`](docs/EARTHSTICK_V1.2_CHANGES.md) - 1.2 change document and verification record
+- [`docs/EARTHSTICK_V1.3_CHANGES.md`](docs/EARTHSTICK_V1.3_CHANGES.md) - 1.3 change document and verification record
+- [`docs/EARTHSTICK_V1.2_CHANGES.md`](docs/EARTHSTICK_V1.2_CHANGES.md) - 1.2 change document
 - [`docs/EARTHSTICK_V1.1_CHANGES.md`](docs/EARTHSTICK_V1.1_CHANGES.md) - 1.1 change document
 - [`CHANGELOG.md`](CHANGELOG.md) - release history
 
@@ -188,4 +203,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Status
 
-**EarthStick 1.2 is the official accepted release.** The previous packages remain at `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.
+**EarthStick 1.3 is the official accepted release.** The previous packages remain at `releases/EarthStick_v1.2.zip`, `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.

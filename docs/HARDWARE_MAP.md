@@ -1,4 +1,4 @@
-# EarthStick 1.2 Hardware Map
+# EarthStick 1.3 Hardware Map
 
 ## Tested controller
 

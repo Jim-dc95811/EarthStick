@@ -1,4 +1,4 @@
-# EarthStick 1.2 Troubleshooting
+# EarthStick 1.3 Troubleshooting
 
 ## EarthStick says no joystick is connected
 
@@ -54,6 +54,16 @@ Release the joystick to neutral before using the mouse. EarthStick periodically 
 - **The trigger zooms in instead of opening the box:** let go of the stick and hover before pulling the trigger, and pull it once. Check in `joy.cpl` that the trigger shows as Button 1.
 - **The box will not close:** aim the crosshair at open map, away from the box, and pull the trigger. `Esc` on the keyboard or a normal mouse click outside the box also closes it.
 - **The crosshair is not over the spot that gets clicked:** adjust `CENTER_OFFSET_X` / `CENTER_OFFSET_Y` near the top of `EarthStick.py` (screen pixels).
+
+## World Gates
+
+- **I fly through a ring and nothing happens:**
+  - Check the console at startup for `Wormholes: N gate(s) armed`. If it says `none`, the gate file is not in the **Gates** folder beside `EarthStick.py`, or EarthStick was started before the file was put there - restart EarthStick.
+  - Approach from the **gold** side; the red side is the back.
+  - Match the altitude under the gate's name (eye alt). Too high or low and you pass over or under the centre area.
+  - Keep the stick moving as you go through; a hovering camera does not trigger a gate.
+- **I arrive somewhere unexpected:** look at which ring you actually went through - each name sits beside its own ring at the ring's centre height.
+- **`Wormholes: skipped - ...`:** a gate in that file leads to a partner that is missing or ambiguous; the message names the file and gate.
 
 ## Run the self-test
 

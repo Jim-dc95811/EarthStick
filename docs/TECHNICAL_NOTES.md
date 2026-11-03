@@ -1,4 +1,4 @@
-# EarthStick 1.2 Technical Notes
+# EarthStick 1.3 Technical Notes
 
 ## Architecture
 
@@ -98,6 +98,15 @@ The ArcGIS Earth Automation API has no click or selection call, so EarthStick cl
 - **Isolation:** the crosshair and clicks run in their own thread. The flying loop only hands over the button mask and never waits. If the crosshair cannot start, EarthStick prints `Trigger-click: unavailable (...)` and flies exactly as 1.1.
 - Clicking open map closes an open popup, so no separate close button is needed.
 
+## World Gates / wormholes (1.3)
+
+- **Gate files:** every `.kmz`/`.kml` in the `Gates` folder beside `EarthStick.py` is read once at startup. A gate is a Placemark whose `ExtendedData` has `gate=1` plus `lat`, `lon`, `alt_m` (metres above sea level, the same reference as the Automation API camera `z`), `radius_m`, `facing` (compass direction of travel through the ring) and either `to` (partner gate name) or `dest_lat`, `dest_lon`, `dest_alt_m`, `dest_heading` (fixed landing spot). The drawing in the file is only for the eye; EarthStick uses the data.
+- **Pairing:** `to` is resolved in the same file first, then by a unique name across files; an ambiguous or missing partner is reported (`Wormholes: skipped - ...`) and that gate is not armed.
+- **Crossing test:** each active loop step tests the segment from the last confirmed camera position to the next one, in local metres around the gate (equirectangular, fine within the 50 km check range). The step must cross the ring plane forwards (`d0 < 0 <= d1` along the facing direction) and the crossing point must lie within `radius_m` of the centre. Backwards, outside or above the ring: no jump.
+- **Jump:** the next camera position, altitude and heading are replaced by the arrival (partner: `GATE_EXIT_M = 300` m past the partner ring, facing away from it; one-way: the fixed spot), tilt is kept, and the normal PUT sends it. A jump is reported in the console and gates rest for `GATE_COOLDOWN_S = 2.0` s.
+- Gates only act while the joystick is moving the camera. With no gate files, the camera stream is byte-identical to 1.2 (335-write replay).
+- ArcGIS Earth's status bar **eye alt** is measured from sea level (measured over Atlanta, field elevation ~1,026 ft), so gate files label rings with sea-level feet.
+
 ## Constants
 
 ```text
@@ -117,6 +126,7 @@ RETICLE_SIZE = 48, RETICLE_COLOR = #ff2020
 CLICK_LOCKOUT_S = 0.8
 ACTIVATE_PAUSE_S = 0.7
 HOVER_BEFORE_S = 0.25, PRESS_S = 0.08, HOVER_AFTER_S = 0.4
+GATES_FOLDER = Gates, GATE_EXIT_M = 300, GATE_COOLDOWN_S = 2.0, GATE_MAX_RANGE_M = 50000
 ```
 
 ## Spatial reference

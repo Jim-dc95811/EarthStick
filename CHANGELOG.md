@@ -1,5 +1,16 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3 - World Gates (2026-11-02)
+
+Flying is identical to 1.2.
+
+- golden gate rings: fly through one (gold side, at the altitude under its name) and the camera jumps to its destination
+- gate files in a `Gates` folder beside EarthStick, read at startup; partners or one-way destinations
+- World Gates pack included: Jacksonville -> Atlanta hub -> New York, London, Paris, Rome, Tokyo, Sydney, Rio and back
+- with no gate files, camera output is byte-identical to 1.2
+
+Details and verification: [docs/EARTHSTICK_V1.3_CHANGES.md](docs/EARTHSTICK_V1.3_CHANGES.md).
+
 ## EarthStick 1.2 - Trigger-click (2026-11-01)
 
 Flying is identical to 1.1.

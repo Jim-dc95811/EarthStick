@@ -1,10 +1,15 @@
-# CONTINUITY - EarthStick 1.2
+# CONTINUITY - EarthStick 1.3
 
 ## Official baseline
 
 **2026-11-01 update:** the front page follows the family-wide layout (download link, user manual link, one line, screenshot that opens the video). Screenshot `images/earthstick_flight_arcgis_earth.jpg` opens video `5Wn14qlC7n4`. `docs/USER_GUIDE.md` was corrected against the code (updated for 1.2 the same day, with a trigger-click section) and `docs/EarthStick_User_Guide.pdf` is generated from it with the Unlocked `tools/md2pdf.py`.
 
-**EarthStick 1.2 is the current release and the accepted baseline** (live-accepted 2026-11-01). 1.2 = 1.1 plus trigger-click: a click-through red crosshair centred on the ArcGIS Earth window; Button 1 (trigger) glides the Windows pointer there and clicks (opens a popup; on open map, closes it). Flying is byte-identical to 1.1 (335-write replay). A Button 2 = Esc close was tried in a test build, did not work on Jim's PC, and was dropped. See `docs/EARTHSTICK_V1.2_CHANGES.md`.
+**EarthStick 1.3 is the current release and the accepted baseline** (live-accepted 2026-11-02). 1.3 = 1.2 plus **World Gates** (wormholes, Jim's idea): gate KMZ files in a `Gates` folder beside EarthStick.py (ExtendedData `gate=1, lat, lon, alt_m` (sea level), `radius_m, facing, to` or `dest_lat/dest_lon/dest_alt_m/dest_heading`), read at startup; flying forwards through a ring (crossing test on each step, within radius) replaces the next camera position with the arrival; 2 s cooldown; only while the stick moves the camera; partners resolved in the same file first. Ships with `Gates/World_Gates_JAX_ATL.kmz` (also loose at `gates/`): JIA -> ATL hub (8 gates, 3 km circle, eye alt 2,530 ft) -> NYC/London/Paris/Rome/Tokyo/Sydney/Rio landmarks, each with an ATL return. Eye alt in ArcGIS Earth = sea level (measured). No gates = byte-identical to 1.2. Gate files are made with `tools/make_gate_kmz.py` / `tools/build_world_gates.py` in ArcGIS-Earth-Unlocked. See `docs/EARTHSTICK_V1.3_CHANGES.md`.
+
+`EarthStick.py` 1.3 SHA-256: `df0e48dda1da08a7439b118bb5f44d731f6c215e4e86d4f7f223fae9dbde26fe`
+`releases/EarthStick_v1.3.zip` SHA-256: `0e8c394748f428eef42fed5aa1da5e5d317557082505ad4ca52e4d271ce0731f` (folder `EarthStick_v1.3/` with `Gates/`)
+
+**EarthStick 1.2** (live-accepted 2026-11-01). 1.2 = 1.1 plus trigger-click: a click-through red crosshair centred on the ArcGIS Earth window; Button 1 (trigger) glides the Windows pointer there and clicks (opens a popup; on open map, closes it). Flying is byte-identical to 1.1 (335-write replay). A Button 2 = Esc close was tried in a test build, did not work on Jim's PC, and was dropped. See `docs/EARTHSTICK_V1.2_CHANGES.md`.
 
 `EarthStick.py` 1.2 SHA-256: `63dd9b55af8aa8273dee212ed2da41ea73395752da898b8a09877d6f9bbefe5a`
 `releases/EarthStick_v1.2.zip` SHA-256: `ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5` (zip holds folder `EarthStick_v1.2/`)
@@ -30,6 +35,7 @@ The defining interaction is:
 - Button 4 red top button -> hold to zoom in / descend
 - Button 3 black thumb button -> hold to zoom out / climb
 - Button 1 trigger -> trigger-click the object under the crosshair (1.2)
+- flying through a gate ring (gold side) -> jump to its destination (1.3)
 - all other buttons -> unused
 
 ## Accepted recovery behavior
@@ -95,15 +101,17 @@ minimum altitude = 1.0 m
 
 ## Repository presentation
 
-The repository intentionally presents one product line only: **EarthStick 1.2**. `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` are kept only so existing links keep working.
+The repository intentionally presents one product line only: **EarthStick 1.3**. `releases/EarthStick_v1.2.zip`, `v1.1` and `v1.0` are kept only so existing links keep working.
 
 Current files:
 
 - `EarthStick.py`
 - `EarthStick.bat`
-- `releases/EarthStick_v1.2.zip`
-- `releases/EarthStick_v1.1.zip`, `releases/EarthStick_v1.0.zip` (previous releases)
-- `docs/EARTHSTICK_V1.2_CHANGES.md`, `docs/EARTHSTICK_V1.1_CHANGES.md`
+- `releases/EarthStick_v1.3.zip`
+- `releases/EarthStick_v1.2.zip`, `v1.1`, `v1.0` (previous releases)
+- `gates/World_Gates_JAX_ATL.kmz` (the gate pack, also inside the release zip)
+- `docs/EARTHSTICK_V1.3_CHANGES.md`, `docs/EARTHSTICK_V1.2_CHANGES.md`, `docs/EARTHSTICK_V1.1_CHANGES.md`
+- `images/world_gates_atl_hub_arcgis_earth.jpg`, `images/world_gates_paris_ring_arcgis_earth.jpg`
 - `assets/EarthStick_controls.svg`
 - `docs/USER_GUIDE.md`
 - `docs/EarthStick_User_Guide.pdf`

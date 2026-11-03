@@ -1,5 +1,17 @@
 #!/usr/bin/env python3
-"""EarthStick 1.2
+"""EarthStick 1.3
+
+1.3 adds wormholes (flying, trigger-click, constants and recovery unchanged from 1.2):
+  - gate files (KML/KMZ golden rings with gate data) in a "Gates" folder beside
+    this program are read at startup
+  - fly through a gate ring in its facing direction and the camera jumps:
+    to just past the partner gate named in "to" (facing away from it), or to a
+    fixed destination (one-way gate)
+  - gates only fire when crossed forwards, and not again for GATE_COOLDOWN_S
+  - a gate's "to" partner is looked up in its own file first, so two gate files
+    may reuse names (TEST2); a name that is ambiguous across files is skipped
+    with a message
+  - no Gates folder or no gate files = flies exactly as 1.2
 
 1.2 adds trigger-click (flying, constants and recovery unchanged from 1.1):
   - a red crosshair sits at the centre of the ArcGIS Earth window (click-through)
@@ -46,8 +58,11 @@ import time
 import urllib.error
 import urllib.request
 from ctypes import wintypes
+from pathlib import Path
+import xml.etree.ElementTree as ET
+import zipfile
 
-VERSION = "1.2"
+VERSION = "1.3"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -79,6 +94,13 @@ ACTIVATE_PAUSE_S = 0.7        # pause between an activating click and the real c
 HOVER_BEFORE_S = 0.25         # pointer rests on the object before the click
 PRESS_S = 0.08                # how long the button is held down
 HOVER_AFTER_S = 0.4           # pointer stays on the object after the click
+
+
+# Wormholes (1.3)
+GATES_FOLDER = "Gates"        # beside EarthStick.py
+GATE_EXIT_M = 300.0           # arrive this far past the partner gate
+GATE_COOLDOWN_S = 2.0         # no second jump within this time
+GATE_MAX_RANGE_M = 50000.0    # gates farther away than this are not checked
 
 
 class EarthAPIError(RuntimeError):
@@ -597,6 +619,118 @@ class TriggerClick:
             self.overlay.attributes("-topmost", True)
 
 
+# ---------------------------------------------------------------------------
+# Wormholes (1.3). A gate is a vertical ring: centre (lat, lon, alt_m absolute),
+# radius_m, and facing = compass direction a pilot flies to go through it.
+
+_KML_NS = "{http://www.opengis.net/kml/2.2}"
+
+
+def _gate_from_placemark(pm):
+    data = {}
+    for d in pm.iter(_KML_NS + "Data"):
+        v = d.find(_KML_NS + "value")
+        data[(d.get("name") or "").strip().lower()] = (v.text or "").strip() if v is not None else ""
+    if data.get("gate", "").lower() not in ("1", "yes", "true"):
+        return None
+    name_el = pm.find(_KML_NS + "name")
+    gate = {"name": (name_el.text or "").strip() if name_el is not None else ""}
+    for k in ("lat", "lon", "alt_m", "radius_m", "facing"):
+        gate[k] = float(data[k])
+    gate["to"] = data.get("to", "")
+    if not gate["to"]:
+        for k in ("dest_lat", "dest_lon", "dest_alt_m", "dest_heading"):
+            gate[k] = float(data[k])
+    for k, v in gate.items():
+        if isinstance(v, float) and not math.isfinite(v):
+            raise ValueError(f"gate {gate['name']!r}: {k} is not a number")
+    if not (-90 <= gate["lat"] <= 90 and -180 <= gate["lon"] <= 180 and gate["radius_m"] > 0):
+        raise ValueError(f"gate {gate['name']!r}: bad position or radius")
+    return gate
+
+
+def load_gates(folder):
+    """Read every gate in *.kmz / *.kml in folder. Returns (gates, problems)."""
+    gates, problems = [], []
+    folder = Path(folder)
+    if not folder.is_dir():
+        return gates, problems
+    for f in sorted(folder.iterdir()):
+        if f.suffix.lower() not in (".kmz", ".kml"):
+            continue
+        try:
+            if f.suffix.lower() == ".kmz":
+                with zipfile.ZipFile(f) as z:
+                    name = next((n for n in z.namelist() if n.lower().endswith(".kml")), None)
+                    if name is None:
+                        raise ValueError("no KML inside")
+                    root = ET.fromstring(z.read(name))
+            else:
+                root = ET.parse(f).getroot()
+            for pm in root.iter(_KML_NS + "Placemark"):
+                try:
+                    g = _gate_from_placemark(pm)
+                except (KeyError, ValueError) as exc:
+                    problems.append(f"{f.name}: {exc}")
+                    continue
+                if g is not None:
+                    g["file"] = f.name
+                    gates.append(g)
+        except Exception as exc:
+            problems.append(f"{f.name}: {exc}")
+    kept = []
+    for g in gates:
+        if g["to"]:
+            same = [p for p in gates if p is not g and p["file"] == g["file"] and p["name"] == g["to"]]
+            other = [p for p in gates if p["file"] != g["file"] and p["name"] == g["to"]]
+            if len(same) == 1:
+                g["partner"] = same[0]
+            elif not same and len(other) == 1:
+                g["partner"] = other[0]
+            else:
+                where = "is not in the Gates folder" if not (same or other) else "matches more than one gate"
+                problems.append(f"{g['file']}: gate {g['name']!r} leads to {g['to']!r}, which {where}")
+                continue
+        kept.append(g)
+    return kept, problems
+
+
+def _local_xyz(lat0, lon0, lat, lon, alt):
+    k = math.pi / 180.0 * EARTH_RADIUS_M
+    return ((lon - lon0) * k * math.cos(math.radians(lat0)), (lat - lat0) * k, alt)
+
+
+def gate_crossed(gate, p0, p1):
+    """True if the move p0 -> p1 ((lon, lat, alt) each) passes forwards through the ring."""
+    a = _local_xyz(gate["lat"], gate["lon"], p0[1], p0[0], p0[2] - gate["alt_m"])
+    b = _local_xyz(gate["lat"], gate["lon"], p1[1], p1[0], p1[2] - gate["alt_m"])
+    if math.hypot(a[0], a[1]) > GATE_MAX_RANGE_M:
+        return False
+    f = math.radians(gate["facing"])
+    n = (math.sin(f), math.cos(f), 0.0)
+    d0 = a[0] * n[0] + a[1] * n[1]
+    d1 = b[0] * n[0] + b[1] * n[1]
+    if not (d0 < 0.0 <= d1):          # forwards only
+        return False
+    s = d0 / (d0 - d1)
+    q = [a[i] + s * (b[i] - a[i]) for i in range(3)]
+    return math.sqrt(q[0] ** 2 + q[1] ** 2 + q[2] ** 2) <= gate["radius_m"]
+
+
+def gate_arrival(gate, gates):
+    """(lon, lat, alt_m, heading) where a jump through gate lands."""
+    if gate["to"]:
+        p = gate.get("partner") or next(g for g in gates if g["name"] == gate["to"])
+        heading = (p["facing"] + 180.0) % 360.0      # away from the partner ring
+        lon, lat = move_lonlat(p["lon"], p["lat"], heading, GATE_EXIT_M, 0.0)
+        return lon, lat, p["alt_m"], heading
+    return gate["dest_lon"], gate["dest_lat"], gate["dest_alt_m"], gate["dest_heading"] % 360.0
+
+
+def gate_label(gate):
+    return gate["name"]
+
+
 def run():
     print(f"EarthStick {VERSION}")
     print("Minimal T.A320 Pilot -> ArcGIS Earth bridge")
@@ -634,6 +768,14 @@ def run():
             time.sleep(1.0)
     print("ArcGIS Earth: connected")
     clicker = TriggerClick.start()
+    gates, gate_problems = load_gates(Path(__file__).resolve().parent / GATES_FOLDER)
+    for msg in gate_problems:
+        print(f"Wormholes: skipped - {msg}")
+    if gates:
+        print(f"Wormholes: {len(gates)} gate(s) armed: " + ", ".join(gate_label(g) for g in gates))
+    else:
+        print(f"Wormholes: none (put gate files in the {GATES_FOLDER} folder beside EarthStick.py)")
+    last_jump = -1e9
     print("Close this window or press Ctrl+C to stop EarthStick.\n")
 
     dt_target = 1.0 / POLL_HZ
@@ -757,6 +899,18 @@ def run():
             next_cam["heading"] = (next_cam["heading"] + state["yaw"] * YAW_RATE_DPS * dt) % 360.0
             next_cam["tilt"] = clamp(next_cam["tilt"] + state["tilt"] * TILT_RATE_DPS * dt, 0.0, 180.0)
 
+            jumped = None
+            if gates and loop_start - last_jump >= GATE_COOLDOWN_S:
+                p0 = (float(cam["position"]["x"]), float(cam["position"]["y"]), float(cam["position"]["z"]))
+                p1 = (float(pos["x"]), float(pos["y"]), float(pos["z"]))
+                for g in gates:
+                    if gate_crossed(g, p0, p1):
+                        lon, lat, alt, heading = gate_arrival(g, gates)
+                        pos["x"], pos["y"], pos["z"] = lon, lat, alt
+                        next_cam["heading"] = heading
+                        jumped = g
+                        break
+
             try:
                 put_camera(next_cam)
             except EarthAPIError:
@@ -767,6 +921,10 @@ def run():
                 continue
 
             cam = next_cam
+            if jumped is not None:
+                last_jump = loop_start
+                sys.stdout.write(f"\nWormhole: through the {jumped['name']} gate.\n")
+                sys.stdout.flush()
         else:
             speed = speed_from_throttle(state["throttle"], cam["position"]["z"])
             if loop_start - last_idle_sync >= IDLE_RESYNC_SECONDS:
@@ -868,6 +1026,21 @@ def selftest():
                                          (False, 0.6), (True, 1.0))] == [True, False, False, False, False, True]
     assert TRIGGER_BUTTON not in (3, 4)
     assert ACTIVATE_PAUSE_S > 0.5 and CLICK_LOCKOUT_S > ACTIVATE_PAUSE_S
+
+    # Wormholes (1.3): a ring facing north over (30.0, -81.0) at 500 m, radius 150 m.
+    g = {"name": "A", "lat": 30.0, "lon": -81.0, "alt_m": 500.0, "radius_m": 150.0, "facing": 0.0, "to": "B"}
+    b = {"name": "B", "lat": 40.0, "lon": -74.0, "alt_m": 400.0, "radius_m": 150.0, "facing": 210.0, "to": "A"}
+    south, north = move_lonlat(-81.0, 30.0, 180.0, 50.0, 0.0), move_lonlat(-81.0, 30.0, 0.0, 50.0, 0.0)
+    assert gate_crossed(g, (*south, 520.0), (*north, 520.0))                 # through the ring, forwards
+    assert not gate_crossed(g, (*north, 520.0), (*south, 520.0))             # backwards: no jump
+    assert not gate_crossed(g, (*south, 900.0), (*north, 900.0))             # above the ring
+    east = move_lonlat(-81.0, 30.0, 90.0, 400.0, 0.0)
+    assert not gate_crossed(g, (east[0], south[1], 500.0), (east[0], north[1], 500.0))  # beside it
+    lon, lat, alt, hd = gate_arrival(g, [g, b])
+    assert abs(hd - 30.0) < 1e-9 and alt == 400.0 and lat > 40.0              # past B, facing away
+    assert not gate_crossed(b, (-74.0, 40.0, 400.0), (lon, lat, 400.0))      # leaving B does not trigger B
+    one = dict(g, to="", dest_lat=1.0, dest_lon=2.0, dest_alt_m=3.0, dest_heading=370.0)
+    assert gate_arrival(one, [one]) == (2.0, 1.0, 3.0, 10.0)
 
     print("EarthStick self-test PASS")
 
