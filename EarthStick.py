@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""EarthStick 1.3.1
+"""EarthStick 1.3.2
+
+1.3.2: release with the World Gates v19 pack; the program is unchanged apart from this version text
 
 1.3.1: larger, thicker crosshair (80 px, 5 px lines) for aiming at World Gates;
   nothing else changed
@@ -65,7 +67,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
-VERSION = "1.3.1"
+VERSION = "1.3.2"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"

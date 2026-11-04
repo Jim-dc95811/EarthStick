@@ -1,10 +1,12 @@
-# CONTINUITY - EarthStick 1.3.1
+# CONTINUITY - EarthStick 1.3.2
 
 ## Official baseline
 
 **2026-11-01 update:** the front page follows the family-wide layout (download link, user manual link, one line, screenshot that opens the video). Screenshot `images/earthstick_flight_arcgis_earth.jpg` opens video `5Wn14qlC7n4`. `docs/USER_GUIDE.md` was corrected against the code (updated for 1.2 the same day, with a trigger-click section) and `docs/EarthStick_User_Guide.pdf` is generated from it with the Unlocked `tools/md2pdf.py`.
 
 **EarthStick 1.3 (previous release, live-accepted 2026-11-02; superseded by 1.3.1 below).** 1.3 = 1.2 plus **World Gates** (wormholes, Jim's idea): gate KMZ files in a `Gates` folder beside EarthStick.py (ExtendedData `gate=1, lat, lon, alt_m` (sea level), `radius_m, facing, to` or `dest_lat/dest_lon/dest_alt_m/dest_heading`), read at startup; flying forwards through a ring (crossing test on each step, within radius) replaces the next camera position with the arrival; 2 s cooldown; only while the stick moves the camera; partners resolved in the same file first. Ships with `Gates/World_Gates_JAX_ATL.kmz` (also loose at `gates/`): JIA -> ATL hub (8 gates, 3 km circle, eye alt 2,530 ft) -> NYC/London/Paris/Rome/Tokyo/Sydney/Rio landmarks, each with an ATL return. Eye alt in ArcGIS Earth = sea level (measured). No gates = byte-identical to 1.2. Gate files are made with `tools/make_gate_kmz.py` / `tools/build_world_gates.py` in ArcGIS-Earth-Unlocked. See `docs/EARTHSTICK_V1.3_CHANGES.md`.
+
+**EarthStick 1.3.2 RELEASED 2026-11-04** (Jim: "go"): 1.3.1 program (version text only) + World Gates **v19** (`Gates/World_Gates_JAX_ATL_v19.kmz`, also `gates/`): signs and site stars in the sky, far out, two rows, clear of gates. `releases/EarthStick_v1.3.2.zip` `1631ab1c2c6a3c875ffa7e35a639faa8fb3242bfece1d8849d8231cb0b5e5f7f`, `EarthStick.py` `c55df61f78bf0bc46b9b413f515e3d0232d08961b840e1cc2e6a895ba99e493f`. See `docs/EARTHSTICK_V1.3.2_CHANGES.md`.
 
 **EarthStick 1.3.1 RELEASED 2026-11-03** (Jim: "expedite to now", after flying and filming the World Gates tour on it): 1.3 + a larger crosshair (80 px, 5 px lines; accepted), World Gates pack **v14** (`Gates/World_Gates_JAX_ATL_v14.kmz`, 22 gates: round-the-world tour, welcome signs, one-click coloured site beacons, near-only text), `City_Beacons/` and the ArcGIS Earth Flight launcher v1.0 (`Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`; accepted). See `docs/EARTHSTICK_V1.3.1_CHANGES.md`. Video: `2N8-4cWMoPw`. Next gate pack (v15, queued): ATL hub sign above the rings, 'Coca-Cola Museum', remove the unused pin-hiding code.
 
@@ -108,7 +110,7 @@ minimum altitude = 1.0 m
 
 ## Repository presentation
 
-The repository intentionally presents one product line only: **EarthStick 1.3.1**. `releases/EarthStick_v1.3.zip`, `v1.2`, `v1.1` and `v1.0` are kept only so existing links keep working.
+The repository intentionally presents one product line only: **EarthStick 1.3.2**. `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `v1.2`, `v1.1` and `v1.0` are kept only so existing links keep working.
 
 Current files:
 

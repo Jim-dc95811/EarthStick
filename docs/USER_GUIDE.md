@@ -1,4 +1,4 @@
-# EarthStick 1.3.1 User Guide
+# EarthStick 1.3.2 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -7,6 +7,8 @@ A printable copy of this guide is available as [EarthStick_User_Guide.pdf](Earth
 EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of the ArcGIS Earth camera. The goal is free movement inside a functioning map: imagery, labels, roads, GIS layers, and offline content remain part of the environment while you fly the camera.
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
+
+New in 1.3.2: the World Gates pack v19 - each city's welcome sign and site stars float up in the sky, far away, where they stay clear of the gates.
 
 New in 1.3.1: a **round-the-world tour** through the World Gates, with welcome signs and one-click site beacons in every city; a larger crosshair; and a **one-click start** from the taskbar (see *One-click start* below).
 
@@ -50,9 +52,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.1.zip`](../releases/EarthStick_v1.3.1.zip) and extract it. It contains a folder named `EarthStick_v1.3.1` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
+1. Download [`EarthStick_v1.3.2.zip`](../releases/EarthStick_v1.3.2.zip) and extract it. It contains a folder named `EarthStick_v1.3.2` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
 2. Open ArcGIS Earth first, with the Automation API enabled.
-3. Open the `EarthStick_v1.3.1` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.1** opens.
+3. Open the `EarthStick_v1.3.2` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.2** opens.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -108,7 +110,7 @@ A gate is a golden ring floating in the sky. Fly through it and EarthStick moves
 
 ### Fly your first trip
 
-1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v14.kmz` (in the EarthStick folder) onto the map, so you can see the rings.
+1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v19.kmz` (in the EarthStick folder) onto the map, so you can see the rings.
 2. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
 3. Fly to a ring, line up on its **gold** side (from the red side nothing happens), match the altitude shown under its name using **eye alt** at the bottom of ArcGIS Earth, and fly through the middle.
 4. The view jumps to the destination and the console says `Wormhole: through the ... gate.` You arrive still flying, already facing the landmark.
@@ -122,12 +124,12 @@ A gate is a golden ring floating in the sky. Fly through it and EarthStick moves
 
 ### Welcome signs and site beacons (1.3.1)
 
-![Arriving in Rome: the welcome sign and five coloured site names above gold stars](../images/world_gates_rome_welcome_arcgis_earth.jpg)
+![Arriving in London: the welcome sign and five coloured site names above gold stars, up in the sky](../images/world_gates_london_sky_board_arcgis_earth.jpg)
 
-*Coming out of a gate in Rome.*
+*Coming out of a gate in London.*
 
-- **Welcome sign:** "Welcome to ..." floats straight ahead at the height you arrive at.
-- **Site stars:** below it, a row of five gold stars names the city's famous sites (Atlanta and Jacksonville too). Each name is drawn in its beacon's colour: red, blue, green, magenta, orange.
+- **Welcome sign:** "Welcome to ..." floats ahead of you, up in the sky about 6 km away (at Atlanta, above the ring of gates).
+- **Site stars:** below it, five gold stars in two rows (about 4 km away, still in the sky) name the city's famous sites (Atlanta and Jacksonville too). Each name is drawn in its beacon's colour: red, blue, green, magenta, orange.
 - **Beacon on:** aim the crosshair at a star and pull the trigger. A short information box opens and a beacon in that colour shoots up over the site (3 km tall), with its name at the bottom. Pull the trigger on open map to close the box, then fly to the beacon. Clicking the same star again does not add a second beacon.
 - **Beacon off:** untick it under **My Drawings** on the left of ArcGIS Earth.
 - Signs, stars and ring names only show within about 4 miles, so far-away views stay clean. Beacons use ArcGIS Earth's Automation API, the same setting EarthStick needs.

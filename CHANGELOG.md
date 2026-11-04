@@ -1,5 +1,14 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.2 - World Gates v19 (2026-11-04)
+
+The program is unchanged (version text only).
+
+- World Gates pack v19: welcome signs and site stars up in the sky, several km out, two rows that fit the screen and clear the gates
+- Atlanta hub: sign above the ring of gates; "World of Coca-Cola" -> "Coca-Cola Museum"
+
+Details: [docs/EARTHSTICK_V1.3.2_CHANGES.md](docs/EARTHSTICK_V1.3.2_CHANGES.md).
+
 ## EarthStick 1.3.1 - Round the world (2026-11-03)
 
 Flying and gates work exactly as in 1.3.
