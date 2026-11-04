@@ -72,7 +72,9 @@ A red crosshair sits in the middle of the ArcGIS Earth window. Fly an object (he
 
 ### World Gates (new in 1.3)
 
-[![Eight golden World Gates in a circle around Atlanta's Hartsfield-Jackson airport, labeled NYC, London, Paris, Rome, JAX, Rio, Sydney and Tokyo](images/world_gates_atl_hub_arcgis_earth.jpg)](images/world_gates_atl_hub_arcgis_earth.jpg)
+[![Eight golden World Gates in a circle around Atlanta's Hartsfield-Jackson airport, labeled NYC, London, Paris, Rome, JAX, Rio, Sydney and Tokyo](images/world_gates_atl_hub_arcgis_earth.jpg)](https://www.youtube.com/watch?v=2N8-4cWMoPw)
+
+*The World Gates hub over Atlanta. ▶️ [Watch the video: ArcGIS Earth Flight - City to City Using Wormholes](https://www.youtube.com/watch?v=2N8-4cWMoPw) (YouTube).*
 
 Golden rings float in the sky. **Fly through one and you come out on the other side of the world.** EarthStick 1.3 comes with the **World Gates** pack: a gate over Jacksonville International takes you to a hub over Atlanta's airport, where eight gates in a circle lead to New York (Statue of Liberty), London (Tower Bridge), Paris (Eiffel Tower), Rome (Colosseum), Tokyo (Tokyo Tower), Sydney (Opera House), Rio (Christ the Redeemer) and home to Jacksonville. Every city has a gate back to Atlanta - connect there, just like real flights.
 
