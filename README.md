@@ -133,25 +133,7 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 The release contains one folder, `EarthStick_v1.3.2`, holding `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates\World_Gates_JAX_ATL_v19.kmz` and a `City_Beacons` folder.
 
-**EarthStick 1.3.1** (2026-11-03) - a larger, thicker crosshair (80 px, 5 px lines) for aiming at gates and objects; the World Gates pack v14 (round-the-world tour, welcome signs, site stars with one-click coloured beacons, near-only labels); City Beacons; the ArcGIS Earth Flight one-click launcher. Flying and gates work exactly as in 1.3. See [docs/EARTHSTICK_V1.3.1_CHANGES.md](docs/EARTHSTICK_V1.3.1_CHANGES.md).
-
-`EarthStick_v1.3.1.zip` SHA-256:
-
-`fd739b5189318966d9b91170cb0d33764335fffe7cdb4c7499a00eea4d34d2f0`
-
-The release contains one folder, `EarthStick_v1.3.1`, holding `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates\World_Gates_JAX_ATL_v14.kmz` and a `City_Beacons` folder.
-
-**EarthStick 1.3** (2026-11-02) - World Gates: fly through a golden ring and the camera jumps to its destination. Gate files go in the `Gates` folder beside EarthStick; the World Gates pack (JAX -> ATL hub -> 7 world landmarks) is included. With no gate files, flying is identical to 1.2. See [docs/EARTHSTICK_V1.3_CHANGES.md](docs/EARTHSTICK_V1.3_CHANGES.md).
-
-`EarthStick_v1.3.zip` SHA-256:
-
-`0e8c394748f428eef42fed5aa1da5e5d317557082505ad4ca52e4d271ce0731f`
-
-The release contains one folder, `EarthStick_v1.3`, holding `EarthStick.py`, `EarthStick.bat` and `Gates\World_Gates_JAX_ATL.kmz`.
-
-**EarthStick 1.2** (2026-11-01) - trigger-click: a red crosshair in the middle of the ArcGIS Earth window, and the trigger clicks whatever is under it, so information boxes open and close without the mouse. Flying is identical to 1.1. See [docs/EARTHSTICK_V1.2_CHANGES.md](docs/EARTHSTICK_V1.2_CHANGES.md).
-
-No third-party Python packages are required (the crosshair uses Tkinter, part of the standard Python install).
+**Earlier releases** (1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 
 ## What makes EarthStick different
 
@@ -182,58 +164,18 @@ A flight simulator moves an aircraft through scenery. **EarthStick moves you thr
 
 The tested controller appears in Windows as **T.A320 Pilot**. EarthStick also contains a capability-based fallback for installations where WinMM exposes the device using a generic joystick-driver name.
 
-## Built-in recovery behavior
-
-EarthStick is designed to keep a temporary hardware or ArcGIS Earth interruption from turning into a crash or a camera jump.
-
-- If the ArcGIS Earth API disappears, EarthStick stops sending movement, waits for the API to return, then re-reads the live camera before resuming.
-- If the joystick is unplugged, EarthStick remains running, waits for the controller to return, accepts a newly assigned Windows joystick ID, and re-synchronizes from the current ArcGIS Earth camera before movement resumes.
-- Camera data is validated before it is accepted.
-- The movement time step is bounded so a temporary stall cannot create one giant movement command.
-
-## Technical constants
-
-| Setting | Value |
-|---|---:|
-| Poll rate | 30 Hz |
-| Deadzone | 0.08 |
-| Heading rate | 55 deg/s |
-| Tilt rate | 45 deg/s |
-| Idle camera resync | 0.50 s |
-| HTTP timeout | 0.75 s |
-| Minimum altitude | 1 m |
-| Maximum travel multiplier | 60x altitude-aware base speed |
-
-The throttle uses a squared response curve to preserve fine low-speed control while still allowing very high travel speed at altitude.
-
-## Architecture
-
-```text
-Thrustmaster TCA Sidestick
-          |
-          | Windows joystick state
-          v
-   WinMM / joyGetPosEx
-          |
-          v
-      EarthStick.py
-          |
-          | HTTP GET/PUT camera JSON
-          v
-ArcGIS Earth Automation API
- http://localhost:8000
-          |
-          v
-   ArcGIS Earth camera
-```
-
 ## Documentation
+
+How EarthStick works inside - the movement math, technical constants, architecture and how it recovers when the joystick or ArcGIS Earth drops out - is in [`docs/TECHNICAL_NOTES.md`](docs/TECHNICAL_NOTES.md).
 
 - [`docs/USER_GUIDE.md`](docs/USER_GUIDE.md) - installation and operation
 - [`docs/EarthStick_User_Guide.pdf`](docs/EarthStick_User_Guide.pdf) - printable user guide
 - [`docs/TECHNICAL_NOTES.md`](docs/TECHNICAL_NOTES.md) - architecture, movement math, API recovery, constants
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
+- [`docs/WORLD_GATE_MAKER.md`](docs/WORLD_GATE_MAKER.md) - World Gate Maker user manual ([PDF](docs/World_Gate_Maker_User_Manual.pdf))
+- [`docs/EARTHSTICK_V1.3.2_CHANGES.md`](docs/EARTHSTICK_V1.3.2_CHANGES.md) - 1.3.2 change document (World Gates v19)
+- [`docs/EARTHSTICK_V1.3.1_CHANGES.md`](docs/EARTHSTICK_V1.3.1_CHANGES.md) - 1.3.1 change document
 - [`docs/EARTHSTICK_V1.3_CHANGES.md`](docs/EARTHSTICK_V1.3_CHANGES.md) - 1.3 change document and verification record
 - [`docs/EARTHSTICK_V1.2_CHANGES.md`](docs/EARTHSTICK_V1.2_CHANGES.md) - 1.2 change document
 - [`docs/EARTHSTICK_V1.1_CHANGES.md`](docs/EARTHSTICK_V1.1_CHANGES.md) - 1.1 change document
@@ -257,4 +199,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Status
 
-**EarthStick 1.3 is the official accepted release.** The previous packages remain at `releases/EarthStick_v1.2.zip`, `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.
+**EarthStick 1.3.2 is the current release.** The previous packages remain at `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `releases/EarthStick_v1.2.zip`, `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.
