@@ -6,6 +6,8 @@
 
 **EarthStick 1.3 is the current release and the accepted baseline** (live-accepted 2026-11-02). 1.3 = 1.2 plus **World Gates** (wormholes, Jim's idea): gate KMZ files in a `Gates` folder beside EarthStick.py (ExtendedData `gate=1, lat, lon, alt_m` (sea level), `radius_m, facing, to` or `dest_lat/dest_lon/dest_alt_m/dest_heading`), read at startup; flying forwards through a ring (crossing test on each step, within radius) replaces the next camera position with the arrival; 2 s cooldown; only while the stick moves the camera; partners resolved in the same file first. Ships with `Gates/World_Gates_JAX_ATL.kmz` (also loose at `gates/`): JIA -> ATL hub (8 gates, 3 km circle, eye alt 2,530 ft) -> NYC/London/Paris/Rome/Tokyo/Sydney/Rio landmarks, each with an ATL return. Eye alt in ArcGIS Earth = sea level (measured). No gates = byte-identical to 1.2. Gate files are made with `tools/make_gate_kmz.py` / `tools/build_world_gates.py` in ArcGIS-Earth-Unlocked. See `docs/EARTHSTICK_V1.3_CHANGES.md`.
 
+**In test (2026-11-03, branch `earthstick-v1.3.1-test`, `test-builds/`):** EarthStick **1.3.1** = 1.3 with a larger crosshair (80 px, 5 px lines), packaged with **World Gates v14** (round-the-world tour rings, welcome signs, near-only text, one-click coloured SHOW ME site beacons) as `EarthStick_v1.3.1_TEST_WorldGates_v14.zip`; plus `World_Gates_City_Beacons_v1.zip`/`_v2.zip`. v15 queued. Not released; full status and findings are in ArcGIS-Earth-Unlocked `CLAUDE.md` (section 2, "IN TEST").
+
 `EarthStick.py` 1.3 SHA-256: `df0e48dda1da08a7439b118bb5f44d731f6c215e4e86d4f7f223fae9dbde26fe`
 `releases/EarthStick_v1.3.zip` SHA-256: `0e8c394748f428eef42fed5aa1da5e5d317557082505ad4ca52e4d271ce0731f` (folder `EarthStick_v1.3/` with `Gates/`)
 
