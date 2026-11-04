@@ -1,4 +1,4 @@
-# EarthStick 1.3 Technical Notes
+# EarthStick 1.3.1 Technical Notes
 
 ## Architecture
 
@@ -122,7 +122,7 @@ INVERT_THROTTLE = True
 BASE_URL = http://localhost:8000
 TRIGGER_BUTTON = 1
 CENTER_OFFSET_X = 0, CENTER_OFFSET_Y = 0
-RETICLE_SIZE = 48, RETICLE_COLOR = #ff2020
+RETICLE_SIZE = 80, RETICLE_WIDTH = 5, RETICLE_COLOR = #ff2020 (1.3.1; 1.3 was 48 px with 3 px lines)
 CLICK_LOCKOUT_S = 0.8
 ACTIVATE_PAUSE_S = 0.7
 HOVER_BEFORE_S = 0.25, PRESS_S = 0.08, HOVER_AFTER_S = 0.4

@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""EarthStick 1.3
+"""EarthStick 1.3.1
+
+1.3.1: larger, thicker crosshair (80 px, 5 px lines) for aiming at World Gates;
+  nothing else changed
 
 1.3 adds wormholes (flying, trigger-click, constants and recovery unchanged from 1.2):
   - gate files (KML/KMZ golden rings with gate data) in a "Gates" folder beside
@@ -62,7 +65,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
-VERSION = "1.3"
+VERSION = "1.3.1"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -87,7 +90,8 @@ TRIGGER_BUTTON = 1            # joystick button that clicks (joy.cpl numbering)
 EARTH_EXE = "arcgisearth"     # matched against the window's program file name
 CENTER_OFFSET_X = 0           # nudge the crosshair (screen pixels) if needed
 CENTER_OFFSET_Y = 0
-RETICLE_SIZE = 48
+RETICLE_SIZE = 80              # crosshair size in pixels (1.3.1; was 48)
+RETICLE_WIDTH = 5             # line thickness (1.3.1; was 3)
 RETICLE_COLOR = "#ff2020"
 CLICK_LOCKOUT_S = 0.8         # one click per pull, never two within a double-click time
 ACTIVATE_PAUSE_S = 0.7        # pause between an activating click and the real click
@@ -491,10 +495,10 @@ class TriggerClick:
             s = RETICLE_SIZE
             c = tk.Canvas(ov, width=s, height=s, bg=key, highlightthickness=0)
             c.pack()
-            m, gap = s // 2, 6
+            m, gap = s // 2, 8
             for x0, y0, x1, y1 in ((0, m, m - gap, m), (m + gap, m, s, m), (m, 0, m, m - gap), (m, m + gap, m, s)):
-                c.create_line(x0, y0, x1, y1, fill=RETICLE_COLOR, width=3)
-            c.create_oval(m - 2, m - 2, m + 2, m + 2, outline=RETICLE_COLOR, fill=RETICLE_COLOR)
+                c.create_line(x0, y0, x1, y1, fill=RETICLE_COLOR, width=RETICLE_WIDTH)
+            c.create_oval(m - 3, m - 3, m + 3, m + 3, outline=RETICLE_COLOR, fill=RETICLE_COLOR)
             ov.update_idletasks()
             self._click_through(ov)
             ov.withdraw()

@@ -1,4 +1,4 @@
-# EarthStick 1.3 Troubleshooting
+# EarthStick 1.3.1 Troubleshooting
 
 ## EarthStick says no joystick is connected
 
@@ -96,3 +96,11 @@ python --version
 ```
 
 Install Python 3 if neither command works.
+
+## One-click start and site beacons (1.3.1)
+
+- **The launcher says it cannot find ArcGIS Earth:** right-click your normal ArcGIS Earth shortcut > **Properties**, copy the **Target** (ends in `.exe`), paste it as the only line of `ArcGIS_Earth_path.txt` in the EarthStick folder, and run it again. If ArcGIS Earth moves after an update, delete that file and it searches again.
+- **The shortcut will not pin:** right-click it and choose **Show more options** first; **Pin to taskbar** is in that longer menu.
+- **A site star opens its box but no beacon appears:** the beacon is drawn through the Automation API, so check that ArcGIS Earth's **Automation API** is on (Settings > Advanced) - EarthStick needs it too.
+- **Too many beacons:** untick or delete them under **My Drawings** on the left of ArcGIS Earth.
+- **Two gate packs at once (rings fire twice or the console lists 40+ gates):** keep only one `World_Gates_JAX_ATL_v*.kmz` in the `Gates` folder and restart EarthStick.

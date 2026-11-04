@@ -1,5 +1,16 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.1 - Round the world (2026-11-03)
+
+Flying and gates work exactly as in 1.3.
+
+- larger, thicker crosshair (80 px, 5 px lines; was 48 px, 3 px)
+- World Gates pack v14: round-the-world tour gates (New York > London > Paris > Rome > Tokyo > Sydney > Rio > Atlanta), welcome signs, five site stars per city with one-click coloured beacons, signs and names shown only when near
+- City Beacons: double-click to go straight to any city
+- ArcGIS Earth Flight one-click launcher (`Make_Taskbar_Shortcut.bat`, `Fly_ArcGIS_Earth.bat`)
+
+Details and verification: [docs/EARTHSTICK_V1.3.1_CHANGES.md](docs/EARTHSTICK_V1.3.1_CHANGES.md).
+
 ## EarthStick 1.3 - World Gates (2026-11-02)
 
 Flying is identical to 1.2.
