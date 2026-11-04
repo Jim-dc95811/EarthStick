@@ -101,6 +101,19 @@ Gold side = way in. Red side = wrong way. The number under each name is the eye 
 
 **Shortcut to any city:** the `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atlanta, Go to Paris ...). Drag them onto ArcGIS Earth, then double-click one in the Data list to jump straight there without the gates (you arrive above it; nudge the view to see the beacon). Also available as a [separate download](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_City_Beacons_v2.zip).
 
+### Make your own gates
+
+### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.0](releases/World_Gate_Maker_v1.0.zip)**
+**📖 [User manual](docs/WORLD_GATE_MAKER.md)**
+
+Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden rings between them for EarthStick.
+
+![A World Gate named Home floating over Central Park, New York, at 520 ft](images/world_gate_maker_central_park.jpg)
+
+*Made with World Gate Maker: the "Home" gate over Central Park, partnered with a "Central Park" gate near home in Jacksonville.*
+
+Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and ring size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; restart EarthStick and fly. `World_Gate_Maker_v1.0.zip` SHA-256: `15bf077395307eda1fa988e9c1b2da003a7c1ec0d231ca594481f585aa0c91a1`
+
 ### One-click start (new in 1.3.1)
 
 Put **ArcGIS Earth Flight** on your taskbar: one click starts ArcGIS Earth, then EarthStick.

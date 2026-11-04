@@ -8,6 +8,8 @@
 
 **EarthStick 1.3.1 RELEASED 2026-11-03** (Jim: "expedite to now", after flying and filming the World Gates tour on it): 1.3 + a larger crosshair (80 px, 5 px lines; accepted), World Gates pack **v14** (`Gates/World_Gates_JAX_ATL_v14.kmz`, 22 gates: round-the-world tour, welcome signs, one-click coloured site beacons, near-only text), `City_Beacons/` and the ArcGIS Earth Flight launcher v1.0 (`Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`; accepted). See `docs/EARTHSTICK_V1.3.1_CHANGES.md`. Video: `2N8-4cWMoPw`. Next gate pack (v15, queued): ATL hub sign above the rings, 'Coca-Cola Museum', remove the unused pin-hiding code.
 
+**World Gate Maker 1.0 RELEASED 2026-11-04** (Jim's idea; accepted live: Home <-> Central Park, 'truly a marvel'): standalone tool, two places (name, lat/lon or Google Maps clipboard, ground elev ft) + height above ground + ring size -> `Gate_<a>_<b>.kmz` in the Gates folder. `releases/World_Gate_Maker_v1.0.zip` SHA-256 `15bf077395307eda1fa988e9c1b2da003a7c1ec0d231ca594481f585aa0c91a1`, `gate_maker/World_Gate_Maker.py` `d1e678c91871406b8242947ae650506f416b3c41445a74ef382d976f4d5c8b9a`, manual `docs/WORLD_GATE_MAKER.md` + PDF. Section 'Make your own gates' on the README.
+
 `EarthStick.py` 1.3.1 SHA-256: `3ec65b44c0bfa55c6b85f1ec101298a29b18205f794d13e68297705ac6f81488`
 `releases/EarthStick_v1.3.1.zip` SHA-256: `fd739b5189318966d9b91170cb0d33764335fffe7cdb4c7499a00eea4d34d2f0` (folder `EarthStick_v1.3.1/`)
 
