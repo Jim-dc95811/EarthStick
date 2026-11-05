@@ -1,4 +1,4 @@
-# EarthStick 1.3.3 Technical Notes
+# EarthStick 1.3.4 Technical Notes
 
 ## Architecture
 
@@ -126,6 +126,10 @@ RETICLE_SIZE = 80, RETICLE_WIDTH = 5, RETICLE_COLOR = #ff2020 (1.3.1; 1.3 was 48
 SHOW_READOUT = True, READOUT_FONT = Segoe UI 16 bold, READOUT_COLOR = #ffffff, READOUT_RIGHT_PX = 60,
 READOUT_BOTTOM_PX = 480 (full screen), READOUT_BOTTOM_WINDOWED_PX = 695, VIEW_WIDTH_DEG = 78.0 (1.3.3 readout;
 zoom = log2(156543.03392 * cos(lat) / (height_m / f)), f = (window_px / 2) / tan(39 deg))
+RING_LIGHT = True, RING_LIGHT_RANGE_M = 10000, RING_LIGHT_CONE_DEG = 15, RING_LIGHT_FACING_DEG = 60,
+RING_LIGHT_TOLERANCE = 0.5 (x radius), TRACTOR_BEAM = True, TRACTOR_RANGE_M = 1500, TRACTOR_CAPTURE = 1.0 (x radius),
+TRACTOR_HALF_LIFE_S = 1.0, TRACTOR_SETTLE_M = 0.3 (1.3.4; gate ahead = nearest within the cone, gold side facing you;
+pull per step = max(half-life, travel / distance) - a straight glide path ending at the mouth; buttons 3/4 release)
 CLICK_LOCKOUT_S = 0.8
 ACTIVATE_PAUSE_S = 0.7
 HOVER_BEFORE_S = 0.25, PRESS_S = 0.08, HOVER_AFTER_S = 0.4

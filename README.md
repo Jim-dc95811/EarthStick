@@ -1,4 +1,4 @@
-# EarthStick 1.3.3
+# EarthStick 1.3.4
 
 [![Fly the real world in 7 steps: 1 get ArcGIS Earth, 2 turn on the Automation API, 3 get Python 3, 4 install the Thrustmaster driver then plug in the joystick, 5 download EarthStick and Extract All, 6 start it, 7 open the KMZ file, then fly through the gold side of a ring](images/earthstick_getting_started.png)](images/earthstick_getting_started_full.png)
 
@@ -17,11 +17,11 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.3](releases/EarthStick_v1.3.3.zip)**
+### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.4](releases/EarthStick_v1.3.4.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 
-Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
+Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
 [![Flying ArcGIS Earth with EarthStick: low over the St. Johns River with a beacon and sky compass letters on the horizon](images/earthstick_flight_arcgis_earth.jpg)](https://www.youtube.com/watch?v=5Wn14qlC7n4)
 
@@ -48,7 +48,7 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.3.3.zip` and open the `EarthStick_v1.3.3` folder.
+6. Extract `EarthStick_v1.3.4.zip` and open the `EarthStick_v1.3.4` folder.
 7. Double-click `EarthStick.bat` (or set up the one-click taskbar start - see *One-click start* below).
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
@@ -85,7 +85,10 @@ A red crosshair sits in the middle of the ArcGIS Earth window. Fly an object (he
 
 *The World Gates hub over Atlanta. ▶️ [Watch the video: ArcGIS Earth Flight - City to City Using Wormholes](https://www.youtube.com/watch?v=2N8-4cWMoPw) (YouTube).*
 
-Golden rings float in the sky. **Fly through one and you come out on the other side of the world.** EarthStick comes with the **World Gates** pack (v19, since 1.3.2):
+Golden gates float in the sky. **Fly through one and you come out on the other side of the world.** EarthStick comes with the **World Gates** pack (v21, since 1.3.4):
+
+- **Square gates with legs (new in 1.3.4):** each gate is a gold square with four legs running back the way you fly. Lined up, the legs make an even X; off line, they lean toward where you need to go.
+- **Ring-height light and tractor beam (new in 1.3.4):** a green **● RING HEIGHT** comes on above the readout when you're at the height of the gate you're flying toward; get within about a mile and **● LOCKED ON** - EarthStick glides you onto its height. Climb or descend lets go.
 
 - **Jacksonville to Atlanta:** a gate over Jacksonville International takes you to a hub over Atlanta's airport, where eight gates in a circle lead to New York, London, Paris, Rome, Tokyo, Sydney, Rio and home to Jacksonville - connect in Atlanta, just like real flights.
 - **Round-the-world tour (new in 1.3.1):** every city also has a gate to the next one - New York, London, Paris, Rome, Tokyo, Sydney, Rio - and Rio's onward gate brings you back to Atlanta. Each city still has its **ATL** gate home.
@@ -101,12 +104,12 @@ Golden rings float in the sky. **Fly through one and you come out on the other s
 
 *Paris after two trigger-clicks: orange beacon on Sacré-Cœur, red on the Eiffel Tower.*
 
-1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v19.kmz` (in the EarthStick folder) onto the map, so you can see the rings.
+1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v21.kmz` (in the EarthStick folder) onto the map, so you can see the gates.
 2. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
-3. Fly to a ring, line up on its **gold** side (from the red side nothing happens), match the altitude shown under its name using **eye alt** at the bottom of ArcGIS Earth, and fly through the middle.
+3. Fly to a gate and put it under the crosshair, gold side toward you (from the red side nothing happens). Look down the legs - an even X means lined up. The green light (and the tractor beam, close in) takes care of the height. Fly through the middle.
 4. The view jumps to the destination and the console says `Wormhole: through the ... gate.` You arrive still flying, already facing the landmark.
 
-Gold side = way in. Red side = wrong way. The number under each name is the eye alt to fly at. Want the rings without EarthStick, just to look at? [Download the World Gates file](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_JAX_ATL_v19.kmz) and drag it onto ArcGIS Earth.
+Gold side = way in. Red side = wrong way. The number under each name is the eye alt to fly at. Want the gates without EarthStick, just to look at? [Download the World Gates file](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_JAX_ATL_v21.kmz) and drag it onto ArcGIS Earth.
 
 **Shortcut to any city:** the `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atlanta, Go to Paris ...). Drag them onto ArcGIS Earth, then double-click one in the Data list to jump straight there without the gates (you arrive above it; nudge the view to see the beacon). Also available as a [separate download](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_City_Beacons_v2.zip).
 
@@ -135,17 +138,17 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 ## Release details
 
-**EarthStick 1.3.3** (2026-11-04) - a readout above the globe button on the right of ArcGIS Earth: height in feet, compass heading and the equivalent map zoom, visible in full-screen mode too. Flying, gates and trigger-click are the same as 1.3.2. See [docs/EARTHSTICK_V1.3.3_CHANGES.md](docs/EARTHSTICK_V1.3.3_CHANGES.md).
+**EarthStick 1.3.4** (2026-11-05) - World Gates v21 (square gates with legs), the green ring-height light and the tractor beam. Flying, trigger-click and the readout are the same as 1.3.3. See [docs/EARTHSTICK_V1.3.4_CHANGES.md](docs/EARTHSTICK_V1.3.4_CHANGES.md).
 
-![The EarthStick readout above the globe button in full-screen ArcGIS Earth: 486,275 ft, N 359 degrees, about zoom 11](images/earthstick_readout_arcgis_earth.jpg)
+![A square ATL gate over London with the tractor beam LOCKED ON at 1,500 ft](images/world_gates_v21_locked_on.jpg)
 
-`EarthStick_v1.3.3.zip` SHA-256:
+`EarthStick_v1.3.4.zip` SHA-256:
 
-`758dc8537c16ef5e789db0353422cf2661ab10edaad41ddfcb66f0719d816079`
+`cd600e6281bb07f7281cc1d2097e51d30646c1b605bccd8d6829afd002c2d3d2`
 
-The release contains one folder, `EarthStick_v1.3.3`, holding `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates\World_Gates_JAX_ATL_v19.kmz` and a `City_Beacons` folder.
+The release contains one folder, `EarthStick_v1.3.4`, holding `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz` and a `City_Beacons` folder.
 
-**Earlier releases** (1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
+**Earlier releases** (1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 
 ## What makes EarthStick different
 
@@ -186,6 +189,7 @@ How EarthStick works inside - the movement math, technical constants, architectu
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
 - [`docs/WORLD_GATE_MAKER.md`](docs/WORLD_GATE_MAKER.md) - World Gate Maker user manual ([PDF](docs/World_Gate_Maker_User_Manual.pdf))
+- [`docs/EARTHSTICK_V1.3.4_CHANGES.md`](docs/EARTHSTICK_V1.3.4_CHANGES.md) - 1.3.4 change document (square gates, ring-height light, tractor beam)
 - [`docs/EARTHSTICK_V1.3.3_CHANGES.md`](docs/EARTHSTICK_V1.3.3_CHANGES.md) - 1.3.3 change document (height / heading / zoom readout)
 - [`docs/EARTHSTICK_V1.3.2_CHANGES.md`](docs/EARTHSTICK_V1.3.2_CHANGES.md) - 1.3.2 change document (World Gates v19)
 - [`docs/EARTHSTICK_V1.3.1_CHANGES.md`](docs/EARTHSTICK_V1.3.1_CHANGES.md) - 1.3.1 change document
@@ -212,4 +216,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Status
 
-**EarthStick 1.3.3 is the current release.** The previous packages remain at `releases/EarthStick_v1.3.2.zip`, `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `releases/EarthStick_v1.2.zip`, `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.
+**EarthStick 1.3.4 is the current release.** The previous packages remain at `releases/EarthStick_v1.3.3.zip`, `releases/EarthStick_v1.3.2.zip`, `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `releases/EarthStick_v1.2.zip`, `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.

@@ -1,4 +1,4 @@
-# EarthStick 1.3.3 User Guide
+# EarthStick 1.3.4 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -11,6 +11,8 @@ A printable copy of this guide is available as [EarthStick_User_Guide.pdf](Earth
 EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of the ArcGIS Earth camera. The goal is free movement inside a functioning map: imagery, labels, roads, GIS layers, and offline content remain part of the environment while you fly the camera.
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
+
+New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
 
 New in 1.3.3: your **height, heading and map zoom** on screen, even in full-screen mode (see *The readout* below).
 
@@ -60,9 +62,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.3.zip`](../releases/EarthStick_v1.3.3.zip) and extract it. It contains a folder named `EarthStick_v1.3.3` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
+1. Download [`EarthStick_v1.3.4.zip`](../releases/EarthStick_v1.3.4.zip) and extract it. It contains a folder named `EarthStick_v1.3.4` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
 2. Open ArcGIS Earth first, with the Automation API enabled.
-3. Open the `EarthStick_v1.3.3` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.3** opens.
+3. Open the `EarthStick_v1.3.4` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.4** opens.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -125,18 +127,36 @@ Tips:
 
 ## World Gates: flying through wormholes
 
-![Eight golden World Gates around Atlanta's airport](../images/world_gates_atl_hub_arcgis_earth.jpg)
+![The Atlanta hub from 49,500 ft: eight square gates in a circle around Hartsfield-Jackson, legs pointing outward, with the five site stars to the north](../images/world_gates_v21_atl_hub_from_above.jpg)
 
-*The Atlanta hub: eight gates in a circle around Hartsfield-Jackson, all at the same height.*
+*The Atlanta hub from 49,500 ft: eight gates in a circle around Hartsfield-Jackson. Each gate's legs point the way you fly through it, so from above the picture is a map of where each one sends you.*
 
-A gate is a golden ring floating in the sky. Fly through it and EarthStick moves you to its destination in an instant. You arrive still flying, facing the landmark.
+A gate is a gold square (with legs) floating in the sky. Fly through it and EarthStick moves you to its destination in an instant. You arrive still flying, facing the landmark.
 
 ### Fly your first trip
 
-1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v19.kmz` (in the EarthStick folder) onto the map, so you can see the rings.
+1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v21.kmz` (in the EarthStick folder) onto the map, so you can see the gates.
 2. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
-3. Fly to a ring, line up on its **gold** side (from the red side nothing happens), match the altitude shown under its name using **eye alt** at the bottom of ArcGIS Earth, and fly through the middle.
+3. Fly to a gate, put it under the crosshair with its **gold** side toward you (from the red side nothing happens), and fly through the middle. The legs, the green light and the tractor beam help you line up - see *Lining up a gate* below.
 4. The view jumps to the destination and the console says `Wormhole: through the ... gate.` You arrive still flying, already facing the landmark.
+
+### Lining up a gate (1.3.4)
+
+EarthStick flies level: pushing the stick moves you straight ahead at the same height, and only buttons 3 and 4 change height. So **left and right** is easy - you go exactly where the crosshair points sideways - but **height** is easy to miss, because tilting the view moves the crosshair without moving you. Three things help:
+
+![Arriving in London: the square Paris gate ahead and the green RING HEIGHT light on at 1,499 ft](../images/world_gates_v21_london_square_gate.jpg)
+
+*Just arrived in London: the Paris gate ahead, and the green light already on - 1,499 ft for a 1,500 ft gate.*
+
+- **The legs.** Each gate is a gold square with four legs running back the way you fly through it. Lined up, you look straight down the legs and they make an even **X**. Too high, too low or off to one side, the legs lean toward where you need to go.
+- **The green light.** **● RING HEIGHT** comes on above the readout when you are within half a gate's size of its centre height (about ±370 ft for the World Gates). It only counts the gate you are flying toward - the nearest one within 15 degrees of your heading, gold side facing you - so a gate off to the side never lights it.
+- **The tractor beam.** Within about a mile of that gate and within about 740 ft of its height, EarthStick takes over the height and glides you onto the centre: the light says **● LOCKED ON**. It works hovering or flying, even at full throttle. Press climb or descend (buttons 3 / 4) and it lets go at once.
+
+![The square ATL gate over London with the tractor beam LOCKED ON at 1,500 ft](../images/world_gates_v21_locked_on.jpg)
+
+*Heading home: the tractor beam has locked on to the ATL gate at exactly 1,500 ft.*
+
+So: put the gate under the crosshair, let the light and the beam handle the height, push forward, and you are through.
 
 ### The World Gates pack (included)
 
@@ -171,8 +191,8 @@ The `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atla
 
 ### Rules of the gates
 
-- **Gold side only.** Each ring has a gold front and a red back. Fly in from the gold side; from the red side, from below, from above or beside it, nothing happens.
-- **Match the altitude.** The number under each name is the **eye alt** (shown at the bottom of ArcGIS Earth, measured from sea level) of the ring's centre. Rings are 450 m (about 1,500 ft) across, so within a few hundred feet is fine.
+- **Gold side only.** Each gate has a gold front and a red back. Fly in from the gold side; from the red side, from below, from above or beside it, nothing happens.
+- **Match the altitude.** The number under each name is the **eye alt** (shown at the bottom of ArcGIS Earth, measured from sea level) of the gate's centre. The square is about 320 m (1,040 ft) across; the green light and the tractor beam (above) take care of the height for you.
 - **Keep moving.** A gate fires while the joystick is moving the camera. Hovering or moving the map with the mouse does not trigger it.
 - **One trip per pass.** After a jump, gates rest for 2 seconds.
 - **Any speed works.** EarthStick checks the whole path between its updates, so even a fast pass cannot skip through a ring.

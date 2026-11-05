@@ -1,5 +1,21 @@
 #!/usr/bin/env python3
-"""EarthStick 1.3.3
+"""EarthStick 1.3.4
+
+1.3.4: the ring-height light (Jim, 2026-11-05) - a green light above the readout comes on when you are at
+  the height of the World Gate ring you are flying toward (EarthStick flies level, so height is the part
+  the crosshair cannot show). The ring that counts is the nearest one ahead of you (within 15 degrees of
+  your heading), whose gold side faces you, within 10 km - so a nearby ring off to the side never lights
+  it. Green = within half the ring's radius of its centre height. Flying, gates, trigger-click and the
+  readout are otherwise unchanged.
+  TEST5: the tractor beam (Jim) - flying forward at the ring ahead, within 1,500 m and within one ring
+  radius of its height, EarthStick glides you onto the ring's centre height (half the gap each second)
+  and the light says LOCKED ON. Stop pushing forward, turn away, or press climb/descend (buttons 3/4)
+  and it lets go at once.
+  TEST6: proximity, not motion - it also pulls while you hover near the ring (Jim: 'proximity snap'),
+  and when you are moving it lays a straight glide path to the ring's centre height so it is done by the
+  mouth even at full throttle (TEST5 pulled only while pushing forward, half the gap per second: too slow
+  at 668 m/s). Climb/descend buttons still release it at once.
+  TEST7: program as TEST6 (Jim: 'it works perfect'); ships with World Gates v21 - square gates with legs.
 
 1.3.3: a small readout at the bottom right of ArcGIS Earth (Jim, 2026-11-04) - height, compass heading and
   an equivalent map zoom level ("1,970 ft · NE 45° · ≈ Z19"), visible in full-screen mode too; flying,
@@ -73,7 +89,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
-VERSION = "1.3.3"
+VERSION = "1.3.4"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -116,6 +132,21 @@ HOVER_AFTER_S = 0.4           # pointer stays on the object after the click
 
 
 # Wormholes (1.3)
+# Ring-height light (1.3.4)
+RING_LIGHT = True             # green light above the readout when you are at the height of the ring ahead
+RING_LIGHT_RANGE_M = 10000.0  # only rings closer than this count
+RING_LIGHT_CONE_DEG = 15.0    # ...that are within this many degrees of your heading
+RING_LIGHT_FACING_DEG = 60.0  # ...whose gold side faces you (ring direction within this of your heading)
+RING_LIGHT_TOLERANCE = 0.5    # green within this fraction of the ring's radius above or below its centre
+RING_LIGHT_COLOR = "#39ff4a"
+RING_LIGHT_TEXT = "\u25cf RING HEIGHT"
+# Tractor beam (1.3.4 TEST5)
+TRACTOR_BEAM = True           # glide onto the ring's height on the final approach
+TRACTOR_RANGE_M = 1500.0      # starts pulling within this distance of the ring ahead
+TRACTOR_CAPTURE = 1.0         # ...when within this many ring radii above or below its centre
+TRACTOR_HALF_LIFE_S = 1.0     # half the remaining height gap is closed every this many seconds
+TRACTOR_TEXT = "\u25cf LOCKED ON"
+
 GATES_FOLDER = "Gates"        # beside EarthStick.py
 GATE_EXIT_M = 300.0           # arrive this far past the partner gate
 GATE_COOLDOWN_S = 2.0         # no second jump within this time
@@ -454,6 +485,66 @@ def zoom_equivalent(height_m: float, lat_deg: float, view_px: int) -> int:
     return int(clamp(round(z), 0, 23))
 
 
+def _angle_off(a, b):
+    return abs((a - b + 180.0) % 360.0 - 180.0)
+
+
+def ring_ahead(cam, gates):
+    """The ring you are flying toward: nearest one within RING_LIGHT_CONE_DEG of your heading, gold side
+    facing you, within RING_LIGHT_RANGE_M. None if there is no such ring."""
+    return ring_ahead_with_distance(cam, gates)[0]
+
+
+def ring_ahead_with_distance(cam, gates):
+    """(ring, horizontal metres) for ring_ahead(); (None, None) if there is none."""
+    pos = cam["position"]
+    lat, lon, hd = float(pos["y"]), float(pos["x"]), float(cam["heading"])
+    best, best_d = None, None
+    for g in gates or ():
+        n = math.radians(g["lat"] - lat) * EARTH_RADIUS_M
+        e = math.radians(g["lon"] - lon) * EARTH_RADIUS_M * math.cos(math.radians(lat))
+        d = math.hypot(e, n)
+        if d < 1.0 or d > RING_LIGHT_RANGE_M:
+            continue
+        if _angle_off(math.degrees(math.atan2(e, n)), hd) > RING_LIGHT_CONE_DEG:
+            continue
+        if _angle_off(g["facing"], hd) > RING_LIGHT_FACING_DEG:
+            continue
+        if best_d is None or d < best_d:
+            best, best_d = g, d
+    return best, best_d
+
+
+TRACTOR_SETTLE_M = 0.3        # closer than this to the ring's height = holding, nothing to send
+
+
+def tractor_pull(next_cam, gates, dt, travel_m, zoom_dir):
+    """Tractor beam: the ring ahead (same separation rule as the light), within TRACTOR_RANGE_M and within
+    TRACTOR_CAPTURE ring radii of its height, pulls next_cam's height toward the ring's centre height -
+    hovering or flying. Each step closes at least half the gap per TRACTOR_HALF_LIFE_S, and when moving at
+    least travel/distance of it (a straight glide path that ends at the mouth). Climb/descend = no pull.
+    Returns (locked, moved): locked = the beam has you; moved = the height was changed."""
+    if not (TRACTOR_BEAM and gates) or zoom_dir != 0 or dt <= 0.0:
+        return False, False
+    g, d = ring_ahead_with_distance(next_cam, gates)
+    if g is None or d > TRACTOR_RANGE_M:
+        return False, False
+    pos = next_cam["position"]
+    gap = g["alt_m"] - float(pos["z"])
+    if abs(gap) > TRACTOR_CAPTURE * g["radius_m"]:
+        return False, False
+    if abs(gap) <= TRACTOR_SETTLE_M:
+        return True, False
+    frac = max(1.0 - 0.5 ** (dt / TRACTOR_HALF_LIFE_S), min(1.0, max(float(travel_m), 0.0) / max(d, 1.0)))
+    pos["z"] = float(pos["z"]) + gap * frac
+    return True, True
+
+
+def ring_light_on(cam, gates):
+    g = ring_ahead(cam, gates)
+    return g is not None and abs(float(cam["position"]["z"]) - g["alt_m"]) <= RING_LIGHT_TOLERANCE * g["radius_m"]
+
+
 def readout_text(cam, view_px: int) -> str:
     pos = cam["position"]
     ft = float(pos["z"]) / 0.3048
@@ -553,7 +644,7 @@ class TriggerClick:
                     ro.attributes("-topmost", True)
                     ro.configure(bg=key)
                     ro.attributes("-transparentcolor", key)
-                    self.ro_w, self.ro_h = 1000, 220   # TEST2: room for the full text at any screen scaling (TEST3: two lines)
+                    self.ro_w, self.ro_h = 1000, 320   # room for the full text at any screen scaling (1.3.4: plus the ring light line)
                     rc = tk.Canvas(ro, width=self.ro_w, height=self.ro_h, bg=key, highlightthickness=0)
                     rc.pack()
                     self.ro_items = [rc.create_text(self.ro_w - 4 + dx, self.ro_h - 4 + dy, text="", anchor="se", justify="right",
@@ -561,6 +652,12 @@ class TriggerClick:
                                      for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2))]
                     self.ro_items.append(rc.create_text(self.ro_w - 4, self.ro_h - 4, text="", anchor="se", justify="right",
                                                         font=READOUT_FONT, fill=READOUT_COLOR))
+                    # 1.3.4: the ring-height light, one line above the readout
+                    self.light_items = [rc.create_text(self.ro_w - 4 + dx, 0 + dy, text="", anchor="se", font=READOUT_FONT, fill="#000000")
+                                        for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2))]
+                    self.light_items.append(rc.create_text(self.ro_w - 4, 0, text="", anchor="se", font=READOUT_FONT,
+                                                           fill=RING_LIGHT_COLOR))
+                    self.ring_light, self.light_shown = False, None
                     ro.update_idletasks()
                     self._click_through(ro)
                     ro.withdraw()
@@ -674,10 +771,21 @@ class TriggerClick:
     def _refresh_readout(self):
         try:
             text = self.readout or ""
-            if text != self.ro_shown:
+            changed = text != self.ro_shown
+            if changed:
                 for item in self.ro_items:
                     self.ro_canvas.itemconfigure(item, text=text)
                 self.ro_shown = text
+            light = "" if not text else (TRACTOR_TEXT if getattr(self, "tractor", False) else
+                                         RING_LIGHT_TEXT if getattr(self, "ring_light", False) else "")
+            if changed or light != self.light_shown:
+                bb = self.ro_canvas.bbox(self.ro_items[-1])
+                top = (bb[1] if bb else self.ro_h) - 2
+                offsets = ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2), (0, 0))
+                for item, (dx, dy) in zip(self.light_items, offsets):
+                    self.ro_canvas.coords(item, self.ro_w - 4 + dx, top + dy)
+                    self.ro_canvas.itemconfigure(item, text=light)
+                self.light_shown = light
         except Exception:
             pass
         self.root.after(250, self._refresh_readout)
@@ -1003,6 +1111,8 @@ def run():
             next_cam["heading"] = (next_cam["heading"] + state["yaw"] * YAW_RATE_DPS * dt) % 360.0
             next_cam["tilt"] = clamp(next_cam["tilt"] + state["tilt"] * TILT_RATE_DPS * dt, 0.0, 180.0)
 
+            tractor_on, _ = tractor_pull(next_cam, gates, dt, max(state["forward"], 0.0) * travel, zoom_dir)
+
             jumped = None
             if gates and loop_start - last_jump >= GATE_COOLDOWN_S:
                 p0 = (float(cam["position"]["x"]), float(cam["position"]["y"]), float(cam["position"]["z"]))
@@ -1031,6 +1141,22 @@ def run():
                 sys.stdout.flush()
         else:
             speed = speed_from_throttle(state["throttle"], cam["position"]["z"])
+            # TEST6: the tractor beam also works while hovering near a ring
+            tractor_on = False
+            if TRACTOR_BEAM and gates:
+                held = {"position": dict(cam["position"]), "heading": cam["heading"], "tilt": cam["tilt"], "roll": cam["roll"]}
+                tractor_on, moved = tractor_pull(held, gates, dt, 0.0, zoom_dir)
+                if moved:
+                    try:
+                        put_camera(held)
+                        cam = held
+                        last_idle_sync = loop_start
+                    except EarthAPIError:
+                        api_fault = True
+                        sys.stdout.write("\nArcGIS Earth connection lost. Holding position; waiting to re-synchronize...\n")
+                        sys.stdout.flush()
+                        time.sleep(0.25)
+                        continue
             if loop_start - last_idle_sync >= IDLE_RESYNC_SECONDS:
                 try:
                     cam = get_camera()
@@ -1048,6 +1174,8 @@ def run():
             if clicker is not None and SHOW_READOUT:
                 try:
                     clicker.readout = readout_text(cam, getattr(clicker, "view_px", 1920))
+                    clicker.ring_light = RING_LIGHT and ring_light_on(cam, gates)
+                    clicker.tractor = bool(tractor_on)
                 except Exception:
                     pass
 
@@ -1150,6 +1278,39 @@ def selftest():
     assert not gate_crossed(b, (-74.0, 40.0, 400.0), (lon, lat, 400.0))      # leaving B does not trigger B
     one = dict(g, to="", dest_lat=1.0, dest_lon=2.0, dest_alt_m=3.0, dest_heading=370.0)
     assert gate_arrival(one, [one]) == (2.0, 1.0, 3.0, 10.0)
+
+    # Ring-height light (1.3.4): the ATL hub - 8 rings on a 3 km circle facing outward, 771 m, radius 225
+    hub = []
+    for i, brg in enumerate((315, 0, 45, 90, 135, 180, 225, 270)):
+        la, lo = 33.6407 + 3000 * math.cos(math.radians(brg)) / 111195.0, \
+                 -84.4277 + 3000 * math.sin(math.radians(brg)) / (111195.0 * math.cos(math.radians(33.6407)))
+        hub.append({"name": f"g{brg}", "lat": la, "lon": lo, "alt_m": 771.0, "radius_m": 225.0, "facing": float(brg)})
+    def at(h, z=771.0, lat=33.6407, lon=-84.4277):
+        return {"position": {"x": lon, "y": lat, "z": z}, "heading": h, "tilt": 85.0, "roll": 0.0}
+    assert ring_ahead(at(0.0), hub)["name"] == "g0"                  # facing London
+    assert ring_ahead(at(44.0), hub)["name"] == "g45"                # turned to Paris
+    assert ring_ahead(at(22.5), hub) is None                          # arrival heading: between two rings
+    assert ring_light_on(at(0.0, 771.0 + 100), hub)                   # 100 m high: still green (half radius = 112 m)
+    assert not ring_light_on(at(0.0, 771.0 + 130), hub)               # 130 m high: off
+    assert ring_ahead(at(180.0, 771.0, lat=33.6407 + 3200 / 111195.0), hub)["name"] == "g180"   # past London looking back: its red side is ignored, Rio's gold side ahead counts
+    assert ring_ahead(at(180.0, 771.0, lat=33.6407 + 9500 / 111195.0), hub) is None   # 6.5 km north: London's red side ahead, Rio beyond 10 km
+    assert not ring_light_on(at(0.0), [])                             # no gates: never on
+    # Tractor beam (TEST6): 1,000 m short of London, 150 m low
+    near = 33.6407 + 2000 / 111195.0
+    c = at(0.0, 771.0 - 150.0, lat=near)
+    assert tractor_pull(c, hub, 1.0, 0.0, 0) == (True, True) and abs(c["position"]["z"] - (771.0 - 75.0)) < 0.5   # hovering: half the gap in 1 s
+    c = at(0.0, 771.0 - 150.0, lat=near)
+    assert tractor_pull(c, hub, 0.1, 500.0, 0)[1] and abs(c["position"]["z"] - (771.0 - 75.0)) < 0.5            # 500 m of 1,000 m flown: half the gap (glide path)
+    c = at(0.0, 771.0 - 150.0, lat=near)
+    assert tractor_pull(c, hub, 1.0, 0.0, -1) == (False, False) and c["position"]["z"] == 771.0 - 150.0         # descend button: lets go
+    assert tractor_pull(at(0.0, 771.0 - 300.0, lat=near), hub, 1.0, 0.0, 0) == (False, False)                   # 300 m low: outside capture
+    assert tractor_pull(at(0.0, 771.0 - 150.0), hub, 1.0, 0.0, 0) == (False, False)                             # 3 km out: too far
+    assert tractor_pull(at(30.0, 771.0 - 150.0, lat=near), hub, 1.0, 0.0, 0) == (False, False)                  # turned away
+    assert tractor_pull(at(0.0, 771.1, lat=near), hub, 1.0, 0.0, 0) == (True, False)                            # on height: holding, nothing sent
+    c = at(0.0, 771.0 - 150.0, lat=near)
+    for _ in range(60):
+        tractor_pull(c, hub, 0.1, 0.0, 0)
+    assert abs(c["position"]["z"] - 771.0) < 3.0                                                         # 6 s hovering: within 3 m
 
     print("EarthStick self-test PASS")
 

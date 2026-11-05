@@ -1,5 +1,14 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.4 - Square gates, ring-height light, tractor beam (2026-11-05)
+
+- World Gates v21: every gate is a gold square with legs - lined up, the legs make an even X
+- Green RING HEIGHT light when you are at the height of the gate you are flying toward
+- Tractor beam: near a gate, EarthStick glides you onto its height (LOCKED ON); climb/descend lets go
+- Flying, trigger-click and the readout unchanged
+
+Details: [docs/EARTHSTICK_V1.3.4_CHANGES.md](docs/EARTHSTICK_V1.3.4_CHANGES.md).
+
 ## EarthStick 1.3.3 - Height, heading and zoom readout (2026-11-04)
 
 - A readout on the right of the ArcGIS Earth window, above the globe button: height in feet on top, compass heading and equivalent map zoom underneath - visible in full-screen mode, where ArcGIS Earth hides its eye alt
