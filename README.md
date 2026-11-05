@@ -1,12 +1,16 @@
 # EarthStick 1.3.2
 
+[![Fly the real world in 7 steps: 1 get ArcGIS Earth, 2 turn on the Automation API, 3 get Python 3, 4 install the Thrustmaster driver then plug in the joystick, 5 download EarthStick and Extract All, 6 start it, 7 open the KMZ file, then fly through the gold side of a ring](images/earthstick_getting_started.png)](images/earthstick_getting_started_full.png)
+
+*The whole setup on one page - click the picture for the full-size version.*
+
 ## Get everything you need
 
 **1. ⬇️ [ArcGIS Earth](https://www.esri.com/en-us/arcgis/products/arcgis-earth/downloads)** - free 3D globe from Esri (Windows desktop version). After installing: Settings > Advanced > turn on **Automation API**.
 
 **2. ⬇️ [Python 3](https://www.python.org/downloads/windows/)** - free; install with the default options.
 
-**3. 🕹️ [Thrustmaster TCA Sidestick Airbus Edition](https://www.thrustmaster.com/en-us/products/tca-sidestick-airbus-edition/)** - the joystick EarthStick is built and tested with.
+**3. 🕹️ [Thrustmaster TCA Sidestick Airbus Edition](https://www.thrustmaster.com/en-us/products/tca-sidestick-airbus-edition/)** - the joystick EarthStick is built and tested with. **⬇️ [Download and install its driver](https://support.thrustmaster.com/en/product/tca-sidestick-x-airbus-ed-en/#drivers)** first, then plug it in.
 
 > **First time? Three quick tips**
 > 1. **Extract the zip first:** right-click the downloaded zip > **Extract All**, then open the new folder. Double-clicking files while they are still inside the zip does not work.

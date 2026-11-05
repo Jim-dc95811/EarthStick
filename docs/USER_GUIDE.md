@@ -2,6 +2,10 @@
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
+![Fly the real world in 7 steps: get ArcGIS Earth, turn on the Automation API, get Python 3, install the Thrustmaster driver then plug in the joystick, download EarthStick and Extract All, start it, open the KMZ file, fly through](../images/earthstick_getting_started.png)
+
+*The whole setup on one page.*
+
 ## Purpose
 
 EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of the ArcGIS Earth camera. The goal is free movement inside a functioning map: imagery, labels, roads, GIS layers, and offline content remain part of the environment while you fly the camera.
@@ -29,6 +33,8 @@ New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS 
 No third-party Python packages are required.
 
 ## Controller check
+
+First [download and install the Thrustmaster driver](https://support.thrustmaster.com/en/product/tca-sidestick-x-airbus-ed-en/#drivers) (TCA Sidestick X Airbus Edition), then plug the joystick in by USB.
 
 Before running EarthStick:
 
