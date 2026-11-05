@@ -19,6 +19,10 @@ Make your own **World Gates**: pick two places, and World Gate Maker builds a pa
 1. Download [`World_Gate_Maker_v1.0.zip`](../releases/World_Gate_Maker_v1.0.zip), right-click it > **Extract All**.
 2. Open the `World_Gate_Maker_v1.0` folder and double-click `World_Gate_Maker.bat`.
 
+## What's in the zip
+
+![What's in the World Gate Maker folder: World_Gate_Maker.bat opens the gate maker, World_Gate_Maker.py is the program, and it makes a Gate_ kmz file in EarthStick's Gates folder](../images/world_gate_maker_whats_in_the_zip.png)
+
 ## Make a pair of gates
 
 For **Place 1** and **Place 2**:

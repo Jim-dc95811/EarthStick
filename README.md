@@ -19,6 +19,7 @@
 
 ### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.3](releases/EarthStick_v1.3.3.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
+**🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
@@ -113,6 +114,7 @@ Gold side = way in. Red side = wrong way. The number under each name is the eye 
 
 ### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.0](releases/World_Gate_Maker_v1.0.zip)**
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
+**🗂️ [What's in the zip - every file explained](images/world_gate_maker_whats_in_the_zip_full.png)**
 
 Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden rings between them for EarthStick.
 
