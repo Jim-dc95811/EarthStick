@@ -1,4 +1,4 @@
-# EarthStick 1.3.2 Technical Notes
+# EarthStick 1.3.3 Technical Notes
 
 ## Architecture
 
@@ -123,6 +123,9 @@ BASE_URL = http://localhost:8000
 TRIGGER_BUTTON = 1
 CENTER_OFFSET_X = 0, CENTER_OFFSET_Y = 0
 RETICLE_SIZE = 80, RETICLE_WIDTH = 5, RETICLE_COLOR = #ff2020 (1.3.1; 1.3 was 48 px with 3 px lines)
+SHOW_READOUT = True, READOUT_FONT = Segoe UI 16 bold, READOUT_COLOR = #ffffff, READOUT_RIGHT_PX = 60,
+READOUT_BOTTOM_PX = 480 (full screen), READOUT_BOTTOM_WINDOWED_PX = 695, VIEW_WIDTH_DEG = 78.0 (1.3.3 readout;
+zoom = log2(156543.03392 * cos(lat) / (height_m / f)), f = (window_px / 2) / tan(39 deg))
 CLICK_LOCKOUT_S = 0.8
 ACTIVATE_PAUSE_S = 0.7
 HOVER_BEFORE_S = 0.25, PRESS_S = 0.08, HOVER_AFTER_S = 0.4

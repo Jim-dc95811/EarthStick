@@ -1,10 +1,12 @@
-# CONTINUITY - EarthStick 1.3.2
+# CONTINUITY - EarthStick 1.3.3
 
 ## Official baseline
 
 **2026-11-01 update:** the front page follows the family-wide layout (download link, user manual link, one line, screenshot that opens the video). Screenshot `images/earthstick_flight_arcgis_earth.jpg` opens video `5Wn14qlC7n4`. `docs/USER_GUIDE.md` was corrected against the code (updated for 1.2 the same day, with a trigger-click section) and `docs/EarthStick_User_Guide.pdf` is generated from it with the Unlocked `tools/md2pdf.py`.
 
 **EarthStick 1.3 (previous release, live-accepted 2026-11-02; superseded by 1.3.1 below).** 1.3 = 1.2 plus **World Gates** (wormholes, Jim's idea): gate KMZ files in a `Gates` folder beside EarthStick.py (ExtendedData `gate=1, lat, lon, alt_m` (sea level), `radius_m, facing, to` or `dest_lat/dest_lon/dest_alt_m/dest_heading`), read at startup; flying forwards through a ring (crossing test on each step, within radius) replaces the next camera position with the arrival; 2 s cooldown; only while the stick moves the camera; partners resolved in the same file first. Ships with `Gates/World_Gates_JAX_ATL.kmz` (also loose at `gates/`): JIA -> ATL hub (8 gates, 3 km circle, eye alt 2,530 ft) -> NYC/London/Paris/Rome/Tokyo/Sydney/Rio landmarks, each with an ATL return. Eye alt in ArcGIS Earth = sea level (measured). No gates = byte-identical to 1.2. Gate files are made with `tools/make_gate_kmz.py` / `tools/build_world_gates.py` in ArcGIS-Earth-Unlocked. See `docs/EARTHSTICK_V1.3_CHANGES.md`.
+
+**EarthStick 1.3.3 RELEASED 2026-11-04** (Jim: "Go!" after TEST3): 1.3.2 + a click-through readout (Tk Toplevel, transparent key colour) on the right of the ArcGIS Earth window above the globe button: height ft / compass + heading / ≈ zoom (two lines), set from the flying loop at the 0.10 s status cadence, no extra API calls; full screen 480 px up, windowed 695 px (windowed position not yet measured on Jim's screen). `releases/EarthStick_v1.3.3.zip` `758dc8537c16ef5e789db0353422cf2661ab10edaad41ddfcb66f0719d816079`, `EarthStick.py` `36429640d3affab6e6641679797a0a3afd1d04c57c21259c416ba9b6dfab848b`. See `docs/EARTHSTICK_V1.3.3_CHANGES.md`.
 
 **EarthStick 1.3.2 RELEASED 2026-11-04** (Jim: "go"): 1.3.1 program (version text only) + World Gates **v19** (`Gates/World_Gates_JAX_ATL_v19.kmz`, also `gates/`): signs and site stars in the sky, far out, two rows, clear of gates. `releases/EarthStick_v1.3.2.zip` `1631ab1c2c6a3c875ffa7e35a639faa8fb3242bfece1d8849d8231cb0b5e5f7f`, `EarthStick.py` `c55df61f78bf0bc46b9b413f515e3d0232d08961b840e1cc2e6a895ba99e493f`. See `docs/EARTHSTICK_V1.3.2_CHANGES.md`.
 
@@ -110,7 +112,7 @@ minimum altitude = 1.0 m
 
 ## Repository presentation
 
-The repository intentionally presents one product line only: **EarthStick 1.3.2**. `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `v1.2`, `v1.1` and `v1.0` are kept only so existing links keep working.
+The repository intentionally presents one product line only: **EarthStick 1.3.3**. `releases/EarthStick_v1.3.2.zip`, `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `v1.2`, `v1.1` and `v1.0` are kept only so existing links keep working.
 
 Current files:
 

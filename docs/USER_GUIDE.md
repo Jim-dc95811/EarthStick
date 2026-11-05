@@ -1,4 +1,4 @@
-# EarthStick 1.3.2 User Guide
+# EarthStick 1.3.3 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -11,6 +11,8 @@ A printable copy of this guide is available as [EarthStick_User_Guide.pdf](Earth
 EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of the ArcGIS Earth camera. The goal is free movement inside a functioning map: imagery, labels, roads, GIS layers, and offline content remain part of the environment while you fly the camera.
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
+
+New in 1.3.3: your **height, heading and map zoom** on screen, even in full-screen mode (see *The readout* below).
 
 New in 1.3.2: the World Gates pack v19 - each city's welcome sign and site stars float up in the sky, far away, where they stay clear of the gates.
 
@@ -58,9 +60,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.2.zip`](../releases/EarthStick_v1.3.2.zip) and extract it. It contains a folder named `EarthStick_v1.3.2` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
+1. Download [`EarthStick_v1.3.3.zip`](../releases/EarthStick_v1.3.3.zip) and extract it. It contains a folder named `EarthStick_v1.3.3` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
 2. Open ArcGIS Earth first, with the Automation API enabled.
-3. Open the `EarthStick_v1.3.2` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.2** opens.
+3. Open the `EarthStick_v1.3.3` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.3** opens.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -86,6 +88,17 @@ The tested controller normally appears as `T.A320 Pilot`.
 For precise inspection, lower the throttle, approach the target, release the stick, and hover. Use strafe and twist independently to inspect the target from different positions without being forced into forward motion.
 
 For long-distance movement, climb to a high altitude and increase the throttle. The maximum travel rate scales with altitude. Descend again when you reach the destination.
+
+## The readout: height, heading and zoom (1.3.3)
+
+![The readout above the globe button in full-screen ArcGIS Earth: 486,275 ft, N 359 degrees, about zoom 11](../images/earthstick_readout_arcgis_earth.jpg)
+
+On the right of the ArcGIS Earth window, just above the globe button, EarthStick shows two lines while you fly:
+
+- **Top line - height** in feet above sea level (the same number as ArcGIS Earth's eye alt, which disappears in full-screen mode).
+- **Bottom line - heading and zoom:** the compass point and degrees you are facing, then **≈ Z** and the web map zoom level that shows the ground at about the same detail from your height. Handy for knowing when your TPKX maps (for example Z17 or Z20) are at their sharpest.
+
+The readout lets mouse clicks pass through, follows the window, and hides while ArcGIS Earth is minimized. To turn it off, open `EarthStick.py` in Notepad and change `SHOW_READOUT = True` to `SHOW_READOUT = False`.
 
 ## Trigger-click: opening and closing information boxes
 

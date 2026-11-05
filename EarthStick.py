@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""EarthStick 1.3.2
+"""EarthStick 1.3.3
+
+1.3.3: a small readout at the bottom right of ArcGIS Earth (Jim, 2026-11-04) - height, compass heading and
+  an equivalent map zoom level ("1,970 ft · NE 45° · ≈ Z19"), visible in full-screen mode too; flying,
+  gates and trigger-click are unchanged
+  TEST2: moved up above the globe button (Jim: the bottom corner is ArcGIS Earth's), room for the whole text
+  TEST3: altitude on its own line above heading and zoom (Jim)
 
 1.3.2: release with the World Gates v19 pack; the program is unchanged apart from this version text
 
@@ -67,7 +73,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
-VERSION = "1.3.2"
+VERSION = "1.3.3"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -95,6 +101,13 @@ CENTER_OFFSET_Y = 0
 RETICLE_SIZE = 80              # crosshair size in pixels (1.3.1; was 48)
 RETICLE_WIDTH = 5             # line thickness (1.3.1; was 3)
 RETICLE_COLOR = "#ff2020"
+SHOW_READOUT = True            # 1.3.3: height / heading / zoom readout, bottom right of ArcGIS Earth
+READOUT_FONT = ("Segoe UI", 16, "bold")
+READOUT_COLOR = "#ffffff"
+READOUT_RIGHT_PX = 60          # gap from the right edge of the ArcGIS Earth window (lines up over the globe button)
+READOUT_BOTTOM_PX = 480        # text bottom above the window bottom, full screen: clear above the globe button (TEST2)
+READOUT_BOTTOM_WINDOWED_PX = 695   # same, when ArcGIS Earth is a normal window (status bar below) (TEST2)
+VIEW_WIDTH_DEG = 78.0          # ArcGIS Earth's horizontal field of view (measured on Jim's screenshots)
 CLICK_LOCKOUT_S = 0.8         # one click per pull, never two within a double-click time
 ACTIVATE_PAUSE_S = 0.7        # pause between an activating click and the real click
 HOVER_BEFORE_S = 0.25         # pointer rests on the object before the click
@@ -425,6 +438,30 @@ def window_center(rect, off_x=0, off_y=0):
     return (left + right) // 2 + off_x, (top + bottom) // 2 + off_y
 
 
+COMPASS_POINTS = ("N", "NE", "E", "SE", "S", "SW", "W", "NW")
+
+
+def compass_point(heading_deg: float) -> str:
+    return COMPASS_POINTS[int(((heading_deg % 360.0) + 22.5) // 45.0) % 8]
+
+
+def zoom_equivalent(height_m: float, lat_deg: float, view_px: int) -> int:
+    """Web-map zoom level whose tiles match ArcGIS Earth's sharpness straight below this height.
+    One screen pixel covers height / focal_length metres; zoom z covers 156543.03 * cos(lat) / 2**z."""
+    f = (view_px / 2.0) / math.tan(math.radians(VIEW_WIDTH_DEG / 2.0))
+    m_per_px = max(float(height_m), 1.0) / f
+    z = math.log2(156543.03392 * max(math.cos(math.radians(lat_deg)), 0.01) / m_per_px)
+    return int(clamp(round(z), 0, 23))
+
+
+def readout_text(cam, view_px: int) -> str:
+    pos = cam["position"]
+    ft = float(pos["z"]) / 0.3048
+    hdg = float(cam["heading"]) % 360.0
+    return (f"{ft:,.0f} ft\n{compass_point(hdg)} {hdg:.0f}\u00b0 \u00b7 "
+            f"\u2248 Z{zoom_equivalent(pos['z'], pos['y'], view_px)}")
+
+
 def is_earth_exe(path, needle=EARTH_EXE):
     name = os.path.basename(path or "").lower()
     return name.endswith(".exe") and needle in name
@@ -506,6 +543,31 @@ class TriggerClick:
             ov.withdraw()
             self.overlay = ov
             self.center = None
+            self.readout = None                     # 1.3.3: text set by the flying loop
+            self.view_px = 1920
+            self.ro = None
+            if SHOW_READOUT:
+                try:
+                    ro = tk.Toplevel(self.root)
+                    ro.overrideredirect(True)
+                    ro.attributes("-topmost", True)
+                    ro.configure(bg=key)
+                    ro.attributes("-transparentcolor", key)
+                    self.ro_w, self.ro_h = 1000, 220   # TEST2: room for the full text at any screen scaling (TEST3: two lines)
+                    rc = tk.Canvas(ro, width=self.ro_w, height=self.ro_h, bg=key, highlightthickness=0)
+                    rc.pack()
+                    self.ro_items = [rc.create_text(self.ro_w - 4 + dx, self.ro_h - 4 + dy, text="", anchor="se", justify="right",
+                                                    font=READOUT_FONT, fill="#000000")
+                                     for dx, dy in ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2))]
+                    self.ro_items.append(rc.create_text(self.ro_w - 4, self.ro_h - 4, text="", anchor="se", justify="right",
+                                                        font=READOUT_FONT, fill=READOUT_COLOR))
+                    ro.update_idletasks()
+                    self._click_through(ro)
+                    ro.withdraw()
+                    self.ro, self.ro_canvas, self.ro_shown = ro, rc, ""
+                    self.root.after(250, self._refresh_readout)
+                except Exception:
+                    self.ro = None
             self.ready.set()
             self.root.after(100, self._track)
             self.root.after(50, self._serve)
@@ -580,9 +642,45 @@ class TriggerClick:
                 self.overlay.geometry(f"{RETICLE_SIZE}x{RETICLE_SIZE}+{x - half}+{y - half}")
                 self.overlay.deiconify()
                 self.overlay.attributes("-topmost", True)
+                self._place_readout(rect)
         except Exception:
             pass
+        if self.center is None:
+            try:
+                if self.ro is not None:
+                    self.ro.withdraw()
+            except Exception:
+                pass
         self.root.after(400, self._track)
+
+    def _place_readout(self, rect):
+        if self.ro is None:
+            return
+        try:
+            left, top, right, bottom = rect
+            self.view_px = max(200, right - left)
+            screen_h = self.user32.GetSystemMetrics(1)
+            full = (bottom - top) >= screen_h - 2
+            gap = READOUT_BOTTOM_PX if full else READOUT_BOTTOM_WINDOWED_PX
+            x = right - READOUT_RIGHT_PX - self.ro_w
+            y = bottom - gap - self.ro_h
+            self.ro.geometry(f"{self.ro_w}x{self.ro_h}+{x}+{y}")
+            if self.readout:
+                self.ro.deiconify()
+                self.ro.attributes("-topmost", True)
+        except Exception:
+            pass
+
+    def _refresh_readout(self):
+        try:
+            text = self.readout or ""
+            if text != self.ro_shown:
+                for item in self.ro_items:
+                    self.ro_canvas.itemconfigure(item, text=text)
+                self.ro_shown = text
+        except Exception:
+            pass
+        self.root.after(250, self._refresh_readout)
 
     def _serve(self):
         try:
@@ -947,6 +1045,11 @@ def run():
         if loop_start - last_status >= 0.10:
             print_status(joy.caps.szPname, state, cam, speed, active)
             last_status = loop_start
+            if clicker is not None and SHOW_READOUT:
+                try:
+                    clicker.readout = readout_text(cam, getattr(clicker, "view_px", 1920))
+                except Exception:
+                    pass
 
         was_active = active
         elapsed = time.perf_counter() - loop_start

@@ -1,5 +1,12 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.3 - Height, heading and zoom readout (2026-11-04)
+
+- A readout on the right of the ArcGIS Earth window, above the globe button: height in feet on top, compass heading and equivalent map zoom underneath - visible in full-screen mode, where ArcGIS Earth hides its eye alt
+- Flying, World Gates and trigger-click unchanged
+
+Details: [docs/EARTHSTICK_V1.3.3_CHANGES.md](docs/EARTHSTICK_V1.3.3_CHANGES.md).
+
 ## EarthStick 1.3.2 - World Gates v19 (2026-11-04)
 
 The program is unchanged (version text only).

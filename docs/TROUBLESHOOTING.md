@@ -1,4 +1,4 @@
-# EarthStick 1.3.2 Troubleshooting
+# EarthStick 1.3.3 Troubleshooting
 
 ## EarthStick says no joystick is connected
 
