@@ -52,6 +52,10 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
 
+**What's in the folder you just extracted** (click the picture for a bigger copy):
+
+[![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates rings, City_Beacons has shortcuts to 9 cities](images/earthstick_whats_in_the_folder.png)](images/earthstick_whats_in_the_folder_full.png)
+
 ## Controls
 
 | Physical control | EarthStick action |

@@ -68,6 +68,10 @@ The tested controller normally appears as `T.A320 Pilot`.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
 7. Return the stick to neutral before beginning.
 
+### What each file in the folder does
+
+![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates rings, City_Beacons has shortcuts to 9 cities](../images/earthstick_whats_in_the_folder.png)
+
 ## Controls
 
 | Control | Action |
