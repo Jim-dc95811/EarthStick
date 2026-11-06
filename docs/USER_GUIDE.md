@@ -72,7 +72,7 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ### What each file in the folder does
 
-![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates rings, City_Beacons has shortcuts to 9 cities](../images/earthstick_whats_in_the_folder.png)
+![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates, City_Beacons has shortcuts to 9 cities](../images/earthstick_whats_in_the_folder.png)
 
 ## Controls
 
@@ -175,7 +175,7 @@ So: put the gate under the crosshair, let the light and the beam handle the heig
 - **Site stars:** below it, five gold stars in two rows (about 4 km away, still in the sky) name the city's famous sites (Atlanta and Jacksonville too). Each name is drawn in its beacon's colour: red, blue, green, magenta, orange.
 - **Beacon on:** aim the crosshair at a star and pull the trigger. A short information box opens and a beacon in that colour shoots up over the site (3 km tall), with its name at the bottom. Pull the trigger on open map to close the box, then fly to the beacon. Clicking the same star again does not add a second beacon.
 - **Beacon off:** untick it under **My Drawings** on the left of ArcGIS Earth.
-- Signs, stars and ring names only show within about 4 miles, so far-away views stay clean. Beacons use ArcGIS Earth's Automation API, the same setting EarthStick needs.
+- Signs, stars and gate names only show within about 4 miles, so far-away views stay clean. Beacons use ArcGIS Earth's Automation API, the same setting EarthStick needs.
 
 ![Paris with an orange beacon on Sacre-Coeur and a red one on the Eiffel Tower](../images/world_gates_paris_beacons_arcgis_earth.jpg)
 
@@ -185,9 +185,9 @@ So: put the gate under the crosshair, let the light and the beam handle the heig
 
 The `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atlanta, Go to New York ... Go to Rio de Janeiro). Drag them onto ArcGIS Earth. Double-click one in the Data list and ArcGIS Earth flies you there, skipping the gates. You arrive straight above the beacon, so nudge the view to see its line.
 
-![Approaching the Paris gate](../images/world_gates_paris_ring_arcgis_earth.jpg)
+![Approaching the Paris gate in an earlier version, when the gates were round](../images/world_gates_paris_ring_arcgis_earth.jpg)
 
-*Each gate's name sits beside its own ring, with the eye alt to fly at underneath.*
+*Before 1.3.4 the gates were round rings. Then as now, each gate's name sits beside it, with the eye alt to fly at underneath.*
 
 ### Rules of the gates
 
@@ -195,14 +195,14 @@ The `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atla
 - **Match the altitude.** The number under each name is the **eye alt** (shown at the bottom of ArcGIS Earth, measured from sea level) of the gate's centre. The square is about 320 m (1,040 ft) across; the green light and the tractor beam (above) take care of the height for you.
 - **Keep moving.** A gate fires while the joystick is moving the camera. Hovering or moving the map with the mouse does not trigger it.
 - **One trip per pass.** After a jump, gates rest for 2 seconds.
-- **Any speed works.** EarthStick checks the whole path between its updates, so even a fast pass cannot skip through a ring.
+- **Any speed works.** EarthStick checks the whole path between its updates, so even a fast pass cannot skip through a gate.
 
 ### Turning gates on and off
 
 EarthStick reads the gate files in the **Gates** folder beside `EarthStick.py` **when it starts**. ArcGIS Earth cannot tell EarthStick which layers are switched on, so the folder is the switch:
 
-- **On:** put a gate file (`.kmz`) in the Gates folder, open the same file in ArcGIS Earth so you can see the rings, and restart EarthStick.
-- **Off:** move the file out of the Gates folder and restart EarthStick. With an empty or missing Gates folder, EarthStick flies exactly as 1.2.
+- **On:** put a gate file (`.kmz`) in the Gates folder, open the same file in ArcGIS Earth so you can see the gates, and restart EarthStick.
+- **Off:** move the file out of the Gates folder and restart EarthStick. With an empty or missing Gates folder, EarthStick simply flies with no gates.
 - After adding or removing a gate file, always **restart EarthStick** - it only reads the folder at startup.
 
 Several gate files can be used at once. A gate's partner is looked up in its own file first, so two files may reuse names such as ATL or JAX.
@@ -220,7 +220,7 @@ If it says it cannot find ArcGIS Earth: right-click your normal ArcGIS Earth sho
 
 ### Making your own gates
 
-Gate files are ordinary KMZ files with the ring drawn in gold and the gate details stored inside. For now they are made with the `make_gate_kmz.py` script in the [ArcGIS Earth Unlocked toolbox](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/tree/main/tools) (for advanced users); a simpler way to make gates is planned. A gate can lead to a partner gate (a two-way route) or to a fixed spot with no way back (a one-way "trap door" - fly home the long way).
+Gate files are ordinary KMZ files with the gate drawn in gold and the gate details stored inside. The easy way to make your own pair between any two places is **World Gate Maker** ([download and manual](../README.md#make-your-own-gates)): type two places, press MAKE GATES, and the file lands in your Gates folder. For advanced users, the `make_gate_kmz.py` script in the [ArcGIS Earth Unlocked toolbox](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/tree/main/tools) can also make one-way gates that lead to a fixed spot with no way back (a "trap door" - fly home the long way).
 
 ## Using the mouse while EarthStick is running
 

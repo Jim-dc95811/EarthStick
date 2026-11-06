@@ -55,7 +55,7 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 
 **What's in the folder you just extracted** (click the picture for a bigger copy):
 
-[![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates rings, City_Beacons has shortcuts to 9 cities](images/earthstick_whats_in_the_folder.png)](images/earthstick_whats_in_the_folder_full.png)
+[![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates, City_Beacons has shortcuts to 9 cities](images/earthstick_whats_in_the_folder.png)](images/earthstick_whats_in_the_folder_full.png)
 
 ## Controls
 
@@ -83,7 +83,7 @@ A red crosshair sits in the middle of the ArcGIS Earth window. Fly an object (he
 
 [![Eight golden World Gates in a circle around Atlanta's Hartsfield-Jackson airport, labeled NYC, London, Paris, Rome, JAX, Rio, Sydney and Tokyo](images/world_gates_atl_hub_arcgis_earth.jpg)](https://www.youtube.com/watch?v=2N8-4cWMoPw)
 
-*The World Gates hub over Atlanta. ▶️ [Watch the video: ArcGIS Earth Flight - City to City Using Wormholes](https://www.youtube.com/watch?v=2N8-4cWMoPw) (YouTube).*
+*The World Gates hub over Atlanta, filmed when the gates were round (1.3). ▶️ [Watch the video: ArcGIS Earth Flight - City to City Using Wormholes](https://www.youtube.com/watch?v=2N8-4cWMoPw) (YouTube).*
 
 Golden gates float in the sky. **Fly through one and you come out on the other side of the world.** EarthStick comes with the **World Gates** pack (v21, since 1.3.4):
 
@@ -94,7 +94,7 @@ Golden gates float in the sky. **Fly through one and you come out on the other s
 - **Round-the-world tour (new in 1.3.1):** every city also has a gate to the next one - New York, London, Paris, Rome, Tokyo, Sydney, Rio - and Rio's onward gate brings you back to Atlanta. Each city still has its **ATL** gate home.
 - **Welcome signs (new in 1.3.1):** you arrive facing the landmark with "Welcome to ..." floating ahead of you, up in the sky.
 - **Sites with beacons (new in 1.3.1):** under the sign, five gold stars in two rows name the city's famous sites, all in clear sky well away from the gates. Aim the crosshair at a star and pull the trigger: a beacon in that site's colour shoots up over it to guide you there. To clear a beacon, untick it under **My Drawings** on the left. Atlanta and Jacksonville have their own five sites too.
-- Signs, stars and ring names only show when you are near (within about 4 miles), so the view stays clean from far away.
+- Signs, stars and gate names only show when you are near (within about 4 miles), so the view stays clean from far away.
 
 [![Arriving in London: Welcome to London high in the sky, with five coloured site names above gold stars in two rows - Tower Bridge, Tower of London, St Paul's Cathedral, London Eye, Big Ben](images/world_gates_london_sky_board_arcgis_earth.jpg)](https://www.youtube.com/watch?v=2N8-4cWMoPw)
 
