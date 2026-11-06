@@ -1,5 +1,13 @@
 # EarthStick Release Notes
 
+## World Gate Maker 1.1 - Square gates (2026-11-05)
+
+- Your own gates are now gold squares with legs, like the World Gates pack in 1.3.4
+- Sizes shown as the square's width (Small 70 m, Medium 180 m, Large 320 m); screen says gate instead of ring
+- Gate data unchanged: 1.0 gates still work
+
+Details: [docs/WORLD_GATE_MAKER_V1.1_CHANGES.md](docs/WORLD_GATE_MAKER_V1.1_CHANGES.md).
+
 ## EarthStick 1.3.4 - Square gates, ring-height light, tractor beam (2026-11-05)
 
 - World Gates v21: every gate is a gold square with legs - lined up, the legs make an even X

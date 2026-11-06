@@ -115,17 +115,17 @@ Gold side = way in. Red side = wrong way. The number under each name is the eye 
 
 ### Make your own gates
 
-### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.0](releases/World_Gate_Maker_v1.0.zip)**
+### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.1](releases/World_Gate_Maker_v1.1.zip)**
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
 **🗂️ [What's in the zip - every file explained](images/world_gate_maker_whats_in_the_zip_full.png)**
 
-Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden rings between them for EarthStick.
+Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in.
 
-![A World Gate named Home floating over Central Park, New York, at 520 ft](images/world_gate_maker_central_park.jpg)
+![A square World Gate named jax seen from the side over Seattle: the gold square and its legs make a box that points the way in](images/world_gate_maker_v1.1_seattle_arrival.jpg)
 
-*Made with World Gate Maker: the "Home" gate over Central Park, partnered with a "Central Park" gate near home in Jacksonville.*
+*Jacksonville to Seattle and back with World Gate Maker 1.1: the "jax" gate home, seen from the side in Seattle.*
 
-Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and ring size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; restart EarthStick and fly. `World_Gate_Maker_v1.0.zip` SHA-256: `15bf077395307eda1fa988e9c1b2da003a7c1ec0d231ca594481f585aa0c91a1`
+Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and gate size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; restart EarthStick and fly. `World_Gate_Maker_v1.1.zip` SHA-256: `9dd731c0bbc5d9ca6acc19e294a35d95055f09b30af8581b6f4d0b26a2d802e9` ([what changed in 1.1](docs/WORLD_GATE_MAKER_V1.1_CHANGES.md))
 
 ### One-click start (new in 1.3.1)
 
