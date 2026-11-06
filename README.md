@@ -17,11 +17,11 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.4](releases/EarthStick_v1.3.4.zip)**
+### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.5](releases/EarthStick_v1.3.5.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 
-Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
+Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
 [![Flying ArcGIS Earth with EarthStick: low over the St. Johns River with a beacon and sky compass letters on the horizon](images/earthstick_flight_arcgis_earth.jpg)](https://www.youtube.com/watch?v=5Wn14qlC7n4)
 
@@ -48,14 +48,14 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.3.4.zip` and open the `EarthStick_v1.3.4` folder.
-7. Double-click `EarthStick.bat` (or set up the one-click taskbar start - see *One-click start* below).
+6. Extract `EarthStick_v1.3.5.zip` and open the `EarthStick_v1.3.5` folder.
+7. Double-click `Fly_ArcGIS_Earth.bat` - it starts ArcGIS Earth if it is not open yet, then EarthStick (or set up the one-click taskbar start - see *One-click start* below).
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
 
 **What's in the folder you just extracted** (click the picture for a bigger copy):
 
-[![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates, City_Beacons has shortcuts to 9 cities](images/earthstick_whats_in_the_folder.png)](images/earthstick_whats_in_the_folder_full.png)
+[![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Gates holds the World Gates, City_Beacons has shortcuts to 9 cities, System Files holds the program (leave it alone)](images/earthstick_whats_in_the_folder.png)](images/earthstick_whats_in_the_folder_full.png)
 
 ## Controls
 
@@ -115,40 +115,40 @@ Gold side = way in. Red side = wrong way. The number under each name is the eye 
 
 ### Make your own gates
 
-### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.1](releases/World_Gate_Maker_v1.1.zip)**
+### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.2](releases/World_Gate_Maker_v1.2.zip)**
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
 **🗂️ [What's in the zip - every file explained](images/world_gate_maker_whats_in_the_zip_full.png)**
 
-Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in.
+Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.2: a tidy folder - `World_Gate_Maker.bat` plus `System Files`. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in.
 
 ![A square World Gate named jax seen from the side over Seattle: the gold square and its legs make a box that points the way in](images/world_gate_maker_v1.1_seattle_arrival.jpg)
 
 *Jacksonville to Seattle and back with World Gate Maker 1.1: the "jax" gate home, seen from the side in Seattle.*
 
-Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and gate size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; restart EarthStick and fly. `World_Gate_Maker_v1.1.zip` SHA-256: `9dd731c0bbc5d9ca6acc19e294a35d95055f09b30af8581b6f4d0b26a2d802e9` ([what changed in 1.1](docs/WORLD_GATE_MAKER_V1.1_CHANGES.md))
+Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and gate size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; restart EarthStick and fly. `World_Gate_Maker_v1.2.zip` SHA-256: `d06c88152c40f6d08b3df382948cebb0dbe1962cf1572be79c4c655e7e03549f` ([what changed in 1.2](docs/WORLD_GATE_MAKER_V1.2_CHANGES.md))
 
 ### One-click start (new in 1.3.1)
 
 Put **ArcGIS Earth Flight** on your taskbar: one click starts ArcGIS Earth, then EarthStick.
 
-1. In the EarthStick folder, double-click `Make_Taskbar_Shortcut.bat` once. It finds ArcGIS Earth and puts an **ArcGIS Earth Flight** shortcut (ArcGIS Earth icon) on your desktop.
+1. In the EarthStick folder, open **System Files** and double-click `Make_Taskbar_Shortcut.bat` once. It finds ArcGIS Earth and puts an **ArcGIS Earth Flight** shortcut (ArcGIS Earth icon) on your desktop.
 2. Right-click the shortcut > **Show more options** > **Pin to taskbar**.
 
 Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, which waits until ArcGIS Earth is ready. You can also just double-click `Fly_ArcGIS_Earth.bat`.
 
 ## Release details
 
-**EarthStick 1.3.4** (2026-11-05) - World Gates v21 (square gates with legs), the green ring-height light and the tractor beam. Flying, trigger-click and the readout are the same as 1.3.3. See [docs/EARTHSTICK_V1.3.4_CHANGES.md](docs/EARTHSTICK_V1.3.4_CHANGES.md).
+**EarthStick 1.3.5** (2026-11-06) - one obvious file: the folder shows only `Fly_ArcGIS_Earth.bat`, `Gates`, `City_Beacons` and `System Files`. Flying is identical to 1.3.4 (World Gates v21, ring-height light, tractor beam). See [docs/EARTHSTICK_V1.3.5_CHANGES.md](docs/EARTHSTICK_V1.3.5_CHANGES.md).
 
 ![A square ATL gate over London with the tractor beam LOCKED ON at 1,500 ft](images/world_gates_v21_locked_on.jpg)
 
-`EarthStick_v1.3.4.zip` SHA-256:
+`EarthStick_v1.3.5.zip` SHA-256:
 
-`cd600e6281bb07f7281cc1d2097e51d30646c1b605bccd8d6829afd002c2d3d2`
+`a9b81467cb840bf1ef177616565fb43b76469fc03f0d256c215b7945f6b8c5f3`
 
-The release contains one folder, `EarthStick_v1.3.4`, holding `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz` and a `City_Beacons` folder.
+The release contains one folder, `EarthStick_v1.3.5`, holding `Fly_ArcGIS_Earth.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
 
-**Earlier releases** (1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
+**Earlier releases** (1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 
 ## What makes EarthStick different
 
@@ -174,7 +174,7 @@ A flight simulator moves an aircraft through scenery. **EarthStick moves you thr
 - **ArcGIS Earth Automation API enabled**
 - **Python 3.x** - tested with Python 3.14.5
 - **Thrustmaster TCA Sidestick Airbus Edition** connected by USB
-- `EarthStick.py` and `EarthStick.bat`
+- the EarthStick folder (`Fly_ArcGIS_Earth.bat` + `System Files`)
 - Thrustmaster driver/control panel recommended
 
 The tested controller appears in Windows as **T.A320 Pilot**. EarthStick also contains a capability-based fallback for installations where WinMM exposes the device using a generic joystick-driver name.

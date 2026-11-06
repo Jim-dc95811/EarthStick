@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""EarthStick 1.3.4
+"""EarthStick 1.3.5
+
+1.3.5: one obvious file (Jim, 2026-11-06) - the package now shows only Fly_ArcGIS_Earth.bat, Gates,
+  City_Beacons and System Files. This file lives in System Files, so the Gates folder is read from the
+  folder above it. Flying is unchanged.
 
 1.3.4: the ring-height light (Jim, 2026-11-05) - a green light above the readout comes on when you are at
   the height of the World Gate ring you are flying toward (EarthStick flies level, so height is the part
@@ -89,7 +93,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
-VERSION = "1.3.4"
+VERSION = "1.3.5"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -147,7 +151,7 @@ TRACTOR_CAPTURE = 1.0         # ...when within this many ring radii above or bel
 TRACTOR_HALF_LIFE_S = 1.0     # half the remaining height gap is closed every this many seconds
 TRACTOR_TEXT = "\u25cf LOCKED ON"
 
-GATES_FOLDER = "Gates"        # beside EarthStick.py
+GATES_FOLDER = "Gates"        # 1.3.5: in the EarthStick folder (one level above System Files)
 GATE_EXIT_M = 300.0           # arrive this far past the partner gate
 GATE_COOLDOWN_S = 2.0         # no second jump within this time
 GATE_MAX_RANGE_M = 50000.0    # gates farther away than this are not checked
@@ -980,13 +984,15 @@ def run():
             time.sleep(1.0)
     print("ArcGIS Earth: connected")
     clicker = TriggerClick.start()
-    gates, gate_problems = load_gates(Path(__file__).resolve().parent / GATES_FOLDER)
+    here = Path(__file__).resolve().parent
+    top = here.parent if here.name == "System Files" else here   # 1.3.5
+    gates, gate_problems = load_gates(top / GATES_FOLDER)
     for msg in gate_problems:
         print(f"Wormholes: skipped - {msg}")
     if gates:
         print(f"Wormholes: {len(gates)} gate(s) armed: " + ", ".join(gate_label(g) for g in gates))
     else:
-        print(f"Wormholes: none (put gate files in the {GATES_FOLDER} folder beside EarthStick.py)")
+        print(f"Wormholes: none (put gate files in the {GATES_FOLDER} folder in the EarthStick folder)")
     last_jump = -1e9
     print("Close this window or press Ctrl+C to stop EarthStick.\n")
 

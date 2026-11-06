@@ -1,4 +1,4 @@
-# World Gate Maker 1.1 - User Manual
+# World Gate Maker 1.2 - User Manual
 
 Printable copy: [World_Gate_Maker_User_Manual.pdf](World_Gate_Maker_User_Manual.pdf)
 
@@ -26,12 +26,14 @@ Make your own **World Gates**: pick two places, and World Gate Maker builds a pa
 
 ## Start
 
-1. Download [`World_Gate_Maker_v1.1.zip`](../releases/World_Gate_Maker_v1.1.zip), right-click it > **Extract All**.
-2. Open the `World_Gate_Maker_v1.1` folder and double-click `World_Gate_Maker.bat`.
+1. Download [`World_Gate_Maker_v1.2.zip`](../releases/World_Gate_Maker_v1.2.zip), right-click it > **Extract All**.
+2. Open the `World_Gate_Maker_v1.2` folder and double-click `World_Gate_Maker.bat`. (The other item, `System Files`, holds the program - leave it alone.)
+
+Tip: extract it next to your EarthStick folder (for example both in Downloads) and World Gate Maker finds EarthStick's **Gates** folder by itself.
 
 ## What's in the zip
 
-![What's in the World Gate Maker folder: World_Gate_Maker.bat opens the gate maker, World_Gate_Maker.py is the program, and it makes a Gate_ kmz file in EarthStick's Gates folder](../images/world_gate_maker_whats_in_the_zip.png)
+![What's in the World Gate Maker folder: World_Gate_Maker.bat opens the gate maker, System Files holds the program, and it makes a Gate_ kmz file in EarthStick's Gates folder](../images/world_gate_maker_whats_in_the_zip.png)
 
 ## Make a pair of gates
 
@@ -77,6 +79,8 @@ It saves `Gate_<Place 1>_<Place 2>.kmz` and shows the eye alt to fly at for each
 Move the `.kmz` out of the Gates folder (and remove it from ArcGIS Earth), then restart EarthStick.
 
 ## Self-test
+
+From a command prompt in the World Gate Maker folder's **System Files**:
 
 ```text
 py -3 World_Gate_Maker.py --selftest

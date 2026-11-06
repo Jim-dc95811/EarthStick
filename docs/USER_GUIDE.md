@@ -1,4 +1,4 @@
-# EarthStick 1.3.4 User Guide
+# EarthStick 1.3.5 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -12,7 +12,7 @@ EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of t
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
 
-New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
+New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
 
 New in 1.3.3: your **height, heading and map zoom** on screen, even in full-screen mode (see *The readout* below).
 
@@ -32,7 +32,7 @@ New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS 
 - Python 3 from python.org; tested with Python 3.14.5 (the standard install includes Tkinter, which draws the crosshair)
 - Thrustmaster TCA Sidestick Airbus Edition connected by USB
 - Thrustmaster driver/control panel recommended
-- `EarthStick.py` and `EarthStick.bat` in the same folder
+- the EarthStick folder as it comes out of the zip (`Fly_ArcGIS_Earth.bat` next to `System Files`)
 
 No third-party Python packages are required.
 
@@ -62,9 +62,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.4.zip`](../releases/EarthStick_v1.3.4.zip) and extract it. It contains a folder named `EarthStick_v1.3.4` holding `EarthStick.py`, `EarthStick.bat`, the one-click start files `Fly_ArcGIS_Earth.bat` and `Make_Taskbar_Shortcut.bat`, a `Gates` folder with the World Gates pack and a `City_Beacons` folder.
-2. Open ArcGIS Earth first, with the Automation API enabled.
-3. Open the `EarthStick_v1.3.4` folder and double-click `EarthStick.bat`. A console window titled **EarthStick 1.3.4** opens.
+1. Download [`EarthStick_v1.3.5.zip`](../releases/EarthStick_v1.3.5.zip) and extract it. It contains a folder named `EarthStick_v1.3.5` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
+2. Make sure ArcGIS Earth's Automation API is enabled (above).
+3. Open the `EarthStick_v1.3.5` folder and double-click `Fly_ArcGIS_Earth.bat`. It starts ArcGIS Earth if it is not open yet, then a console window titled **EarthStick 1.3.5** opens. (The first time it may spend a minute finding ArcGIS Earth.)
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -72,7 +72,7 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ### What each file in the folder does
 
-![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Make_Taskbar_Shortcut.bat makes a taskbar button (run once), EarthStick.bat starts just the joystick part, EarthStick.py is the program (leave it alone), Gates holds the World Gates, City_Beacons has shortcuts to 9 cities](../images/earthstick_whats_in_the_folder.png)
+![What's in the EarthStick folder: Fly_ArcGIS_Earth.bat is the go button, Gates holds the World Gates, City_Beacons has shortcuts to 9 cities, System Files holds the program (leave it alone)](../images/earthstick_whats_in_the_folder.png)
 
 ## Controls
 
@@ -211,12 +211,12 @@ Several gate files can be used at once. A gate's partner is looked up in its own
 
 Start ArcGIS Earth and EarthStick with one click from the taskbar.
 
-1. In the EarthStick folder, double-click `Make_Taskbar_Shortcut.bat` once. It looks for ArcGIS Earth (the first time can take a minute), remembers where it is in `ArcGIS_Earth_path.txt`, and puts an **ArcGIS Earth Flight** shortcut with the ArcGIS Earth icon on your desktop.
+1. In the EarthStick folder, open **System Files** and double-click `Make_Taskbar_Shortcut.bat` once. It looks for ArcGIS Earth (the first time can take a minute), remembers where it is in `System Files\ArcGIS_Earth_path.txt`, and puts an **ArcGIS Earth Flight** shortcut with the ArcGIS Earth icon on your desktop.
 2. Right-click the shortcut > **Show more options** > **Pin to taskbar**. You can then delete the desktop copy.
 
 Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick. EarthStick waits until ArcGIS Earth is ready, so the order takes care of itself. Double-clicking `Fly_ArcGIS_Earth.bat` does the same.
 
-If it says it cannot find ArcGIS Earth: right-click your normal ArcGIS Earth shortcut > **Properties**, copy the **Target** (it ends in `.exe`), paste it as the only line of a text file named `ArcGIS_Earth_path.txt` in the EarthStick folder, and run it again.
+If it says it cannot find ArcGIS Earth: right-click your normal ArcGIS Earth shortcut > **Properties**, copy the **Target** (it ends in `.exe`), paste it as the only line of a text file named `ArcGIS_Earth_path.txt` in the EarthStick folder's **System Files**, and run it again.
 
 ### Making your own gates
 

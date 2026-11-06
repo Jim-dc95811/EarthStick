@@ -1,5 +1,13 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.5 + World Gate Maker 1.2 - One obvious file (2026-11-06)
+
+- EarthStick folder: `Fly_ArcGIS_Earth.bat` (double-click this), `Gates`, `City_Beacons`, `System Files` (the program, its .bat and the taskbar-shortcut maker)
+- World Gate Maker folder: `World_Gate_Maker.bat` + `System Files`; finds the newest EarthStick Gates folder next to it
+- Flying unchanged (camera streams identical to 1.3.4)
+
+Details: [docs/EARTHSTICK_V1.3.5_CHANGES.md](docs/EARTHSTICK_V1.3.5_CHANGES.md), [docs/WORLD_GATE_MAKER_V1.2_CHANGES.md](docs/WORLD_GATE_MAKER_V1.2_CHANGES.md).
+
 ## World Gate Maker 1.1 - Square gates (2026-11-05)
 
 - Your own gates are now gold squares with legs, like the World Gates pack in 1.3.4

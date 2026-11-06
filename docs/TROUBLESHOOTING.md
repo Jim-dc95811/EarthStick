@@ -53,23 +53,23 @@ Release the joystick to neutral before using the mouse. EarthStick periodically 
 - **No crosshair, but no error:** make sure ArcGIS Earth is open and not minimized. The crosshair hides while ArcGIS Earth is minimized.
 - **The trigger zooms in instead of opening the box:** let go of the stick and hover before pulling the trigger, and pull it once. Check in `joy.cpl` that the trigger shows as Button 1.
 - **The box will not close:** aim the crosshair at open map, away from the box, and pull the trigger. `Esc` on the keyboard or a normal mouse click outside the box also closes it.
-- **The crosshair is not over the spot that gets clicked:** adjust `CENTER_OFFSET_X` / `CENTER_OFFSET_Y` near the top of `EarthStick.py` (screen pixels).
+- **The crosshair is not over the spot that gets clicked:** adjust `CENTER_OFFSET_X` / `CENTER_OFFSET_Y` near the top of `System Files\EarthStick.py` (screen pixels).
 
 ## World Gates
 
 - **I fly through a gate and nothing happens:**
-  - Check the console at startup for `Wormholes: N gate(s) armed`. If it says `none`, the gate file is not in the **Gates** folder beside `EarthStick.py`, or EarthStick was started before the file was put there - restart EarthStick.
+  - Check the console at startup for `Wormholes: N gate(s) armed`. If it says `none`, the gate file is not in the **Gates** folder of the EarthStick folder you started, or EarthStick was started before the file was put there - restart EarthStick.
   - Approach from the **gold** side; the red side is the back.
   - Match the altitude under the gate's name (eye alt). Too high or low and you pass over or under the centre area.
   - Keep the stick moving as you go through; a hovering camera does not trigger a gate.
 - **I arrive somewhere unexpected:** look at which gate you actually went through - each name sits beside its own gate at the gate's centre height.
-- **The green RING HEIGHT light never comes on (1.3.4):** it only counts the gate you are flying toward - within 10 km, within 15 degrees of your heading, gold side facing you - and comes on within half the gate's size of its centre height (about ±370 ft for the World Gates pack; World Gate Maker gates: Small ±82 ft, Medium ±205 ft, Large ±369 ft). Turn to face the gate, then climb or descend toward the eye alt under its name. `RING_LIGHT = False` near the top of `EarthStick.py` turns the light off.
-- **The tractor beam grabs me when I want to fly over or under a gate (1.3.4):** it only grabs within about 1,500 m of the gate you are facing and within one gate size of its height (World Gates ±738 ft; World Gate Maker Small ±164 ft, Medium ±410 ft, Large ±738 ft). Pass higher or lower than that, or off to one side, or hold climb / descend (buttons 3 / 4) - it lets go at once. `TRACTOR_BEAM = False` near the top of `EarthStick.py` turns it off.
+- **The green RING HEIGHT light never comes on (1.3.4):** it only counts the gate you are flying toward - within 10 km, within 15 degrees of your heading, gold side facing you - and comes on within half the gate's size of its centre height (about ±370 ft for the World Gates pack; World Gate Maker gates: Small ±82 ft, Medium ±205 ft, Large ±369 ft). Turn to face the gate, then climb or descend toward the eye alt under its name. `RING_LIGHT = False` near the top of `System Files\EarthStick.py` turns the light off.
+- **The tractor beam grabs me when I want to fly over or under a gate (1.3.4):** it only grabs within about 1,500 m of the gate you are facing and within one gate size of its height (World Gates ±738 ft; World Gate Maker Small ±164 ft, Medium ±410 ft, Large ±738 ft). Pass higher or lower than that, or off to one side, or hold climb / descend (buttons 3 / 4) - it lets go at once. `TRACTOR_BEAM = False` near the top of `System Files\EarthStick.py` turns it off.
 - **`Wormholes: skipped - ...`:** a gate in that file leads to a partner that is missing or ambiguous; the message names the file and gate.
 
 ## Run the self-test
 
-From a command prompt in the EarthStick folder:
+From a command prompt in the EarthStick folder's **System Files**:
 
 ```text
 py -3 EarthStick.py --selftest
@@ -101,7 +101,7 @@ Install Python 3 if neither command works.
 
 ## One-click start and site beacons (1.3.1)
 
-- **The launcher says it cannot find ArcGIS Earth:** right-click your normal ArcGIS Earth shortcut > **Properties**, copy the **Target** (ends in `.exe`), paste it as the only line of `ArcGIS_Earth_path.txt` in the EarthStick folder, and run it again. If ArcGIS Earth moves after an update, delete that file and it searches again.
+- **The launcher says it cannot find ArcGIS Earth:** right-click your normal ArcGIS Earth shortcut > **Properties**, copy the **Target** (ends in `.exe`), paste it as the only line of `ArcGIS_Earth_path.txt` in the EarthStick folder's **System Files**, and run it again. If ArcGIS Earth moves after an update, delete that file and it searches again.
 - **The shortcut will not pin:** right-click it and choose **Show more options** first; **Pin to taskbar** is in that longer menu.
 - **A site star opens its box but no beacon appears:** the beacon is drawn through the Automation API, so check that ArcGIS Earth's **Automation API** is on (Settings > Advanced) - EarthStick needs it too.
 - **Too many beacons:** untick or delete them under **My Drawings** on the left of ArcGIS Earth.

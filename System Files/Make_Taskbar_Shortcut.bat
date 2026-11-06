@@ -1,19 +1,20 @@
 @echo off
-rem ArcGIS Earth Flight launcher v1.0: makes a desktop shortcut "ArcGIS Earth Flight" (ArcGIS Earth icon)
+rem ArcGIS Earth Flight launcher v1.1 (lives in System Files since EarthStick 1.3.5): makes a desktop shortcut "ArcGIS Earth Flight" (ArcGIS Earth icon)
 rem that runs Fly_ArcGIS_Earth.bat. Right-click it and choose Pin to taskbar.
 setlocal
 title ArcGIS Earth Flight - make shortcut
 cd /d "%~dp0"
-if exist "%~dp0Fly_ArcGIS_Earth.bat" goto :have_fly
-echo Fly_ArcGIS_Earth.bat must be in the same folder as this file.
+for %%I in ("%~dp0..") do set "TOP=%%~fI\"
+if exist "%TOP%Fly_ArcGIS_Earth.bat" goto :have_fly
+echo Fly_ArcGIS_Earth.bat must be in the EarthStick folder, one level above this file.
 pause
 exit /b 1
 :have_fly
-call "%~dp0Fly_ArcGIS_Earth.bat" /find
+call "%TOP%Fly_ArcGIS_Earth.bat" /find
 if errorlevel 1 exit /b 1
 set /p AE=<"%~dp0ArcGIS_Earth_path.txt"
-set "FLY=%~dp0Fly_ArcGIS_Earth.bat"
-set "DIR=%~dp0"
+set "FLY=%TOP%Fly_ArcGIS_Earth.bat"
+set "DIR=%TOP%"
 powershell -NoProfile -ExecutionPolicy Bypass -Command ^
   "$s = New-Object -ComObject WScript.Shell; $d = [Environment]::GetFolderPath('Desktop');" ^
   "$l = $s.CreateShortcut((Join-Path $d 'ArcGIS Earth Flight.lnk'));" ^
