@@ -1,4 +1,4 @@
-# EarthStick 1.3.5 User Guide
+# EarthStick 1.3.6 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -12,7 +12,7 @@ EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of t
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
 
-New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
+New in 1.3.6: the **Gate Dropper** - press Button 2 at two places and a pair of gates appears there (see *Drop gates as you fly* below). New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
 
 New in 1.3.3: your **height, heading and map zoom** on screen, even in full-screen mode (see *The readout* below).
 
@@ -62,9 +62,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.5.zip`](../releases/EarthStick_v1.3.5.zip) and extract it. It contains a folder named `EarthStick_v1.3.5` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
+1. Download [`EarthStick_v1.3.6.zip`](../releases/EarthStick_v1.3.6.zip) and extract it. It contains a folder named `EarthStick_v1.3.6` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
 2. Make sure ArcGIS Earth's Automation API is enabled (above).
-3. Open the `EarthStick_v1.3.5` folder and double-click `Fly_ArcGIS_Earth.bat`. It starts ArcGIS Earth if it is not open yet, then a console window titled **EarthStick 1.3.5** opens. (The first time it may spend a minute finding ArcGIS Earth.)
+3. Open the `EarthStick_v1.3.6` folder and double-click `Fly_ArcGIS_Earth.bat`. It starts ArcGIS Earth if it is not open yet, then a console window titled **EarthStick 1.3.6** opens. (The first time it may spend a minute finding ArcGIS Earth.)
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -87,6 +87,8 @@ The tested controller normally appears as `T.A320 Pilot`.
 | Red Button 4 | Hold to descend / zoom in |
 | Black Button 3 | Hold to climb / zoom out |
 | Trigger (Button 1) | Click the object under the red crosshair |
+| Button 2 (press) | Gate Dropper: mark a place (two marks = a gate pair) |
+| Button 2 (hold 2 s) | Undo the last gate drop |
 | Neutral | Stop and hover |
 
 ## Flying technique
@@ -203,7 +205,7 @@ EarthStick reads the gate files in the **Gates** folder beside `EarthStick.py` *
 
 - **On:** put a gate file (`.kmz`) in the Gates folder, open the same file in ArcGIS Earth so you can see the gates, and restart EarthStick.
 - **Off:** move the file out of the Gates folder and restart EarthStick. With an empty or missing Gates folder, EarthStick simply flies with no gates.
-- After adding or removing a gate file, always **restart EarthStick** - it only reads the folder at startup.
+- After adding or removing a gate file, always **restart EarthStick** - it only reads the folder at startup. (Gates you drop with Button 2 are the exception: they are armed and removed at once - see *Drop gates as you fly*.)
 
 Several gate files can be used at once. A gate's partner is looked up in its own file first, so two files may reuse names such as ATL or JAX.
 
@@ -217,6 +219,26 @@ Start ArcGIS Earth and EarthStick with one click from the taskbar.
 Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick. EarthStick waits until ArcGIS Earth is ready, so the order takes care of itself. Double-clicking `Fly_ArcGIS_Earth.bat` does the same.
 
 If it says it cannot find ArcGIS Earth: right-click your normal ArcGIS Earth shortcut > **Properties**, copy the **Target** (it ends in `.exe`), paste it as the only line of a text file named `ArcGIS_Earth_path.txt` in the EarthStick folder's **System Files**, and run it again.
+
+### Drop gates as you fly (1.3.6)
+
+The **Gate Dropper** makes a pair of gates right where you fly - no coordinates, no typing, no restart.
+
+1. Fly to the first place. **Face the way you want to fly** and come down to the height you want the gate at (down in the detail, not high above it). Press **Button 2**. The light above the readout says **MARK 1 SAVED** with your height.
+2. Fly to the second place (at least about 1.1 km away - another painting, another city, home). Face your way and press **Button 2** again: **GATES DROPPED · Dropped_Gate_01**.
+3. Each gate now stands **500 m in front of where you pressed**, at your height, open side toward you. **Push forward** and fly through. You come out 300 m past the other gate, looking the way you looked when you marked it - the gate behind you, so you never bounce straight back.
+
+The gates are armed at once, and EarthStick also puts the file on the ArcGIS Earth map for you (it appears in the Data list as *Dropped Gate 01*). The file is saved in the **Gates** folder (`Dropped_Gate_01.kmz`, then 02, 03 ...), so the gates are still there next time.
+
+**Undo:** **hold Button 2 for 2 seconds.** If you have only marked one place, the mark is cleared (**MARK 1 CLEARED**). Otherwise the last pair you dropped is removed: the file is deleted, the gates are disarmed and the layer leaves the map (**UNDONE · Dropped_Gate_01**). Hold again to undo the pair before that. The number is reused. (If EarthStick was restarted since the drop, untick or remove the old layer in ArcGIS Earth yourself.)
+
+**How dropped gates look and grab you:** thin **black** lines with a red back and white names, with a big opening (about 425 m / 1,390 ft across), so they stay quiet over a painting. Their tractor beam reaches much further than other gates: from **3 km** out and up to **2,000 ft above or below**, with a countdown in the light - **LOCKED ON · 560 ft**. At the gate's height you are usually looking down at the picture, so the gate itself is above your view: push forward and trust the countdown, or tilt up with the hat to see it. Tap Button 3 or 4 to break free.
+
+![A thin black dropped gate in Bruegel's Tower of Babel](../images/gate_dropper_babel_black_gate.jpg)
+
+![LOCKED ON · 560 ft - the countdown on the way into a dropped gate over the London panorama](../images/gate_dropper_london_locked_on_countdown.jpg)
+
+**Art tours:** with [Picture World Maker](https://github.com/Jim-dc95811/Picture-World-Maker), put each painting on its own World spot, then drop a pair from each painting to the next - an artist's paintings one after another, joined by gates.
 
 ### Making your own gates
 

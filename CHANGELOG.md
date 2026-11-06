@@ -1,5 +1,15 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.6 - The Gate Dropper (2026-11-06)
+
+- Button 2: press at one place, then at another - a pair of gates appears, 500 m ahead of each press, at your height, facing your way; no typing, no restart
+- Hold Button 2 for 2 seconds: undo the last drop (file, gates and map layer)
+- Dropped gates: thin black lines, a 425 m opening, lock on from 3 km and 2,000 ft above or below
+- LOCKED ON light counts down the distance to the gate
+- Flying without Button 2 unchanged
+
+Details: [docs/EARTHSTICK_V1.3.6_CHANGES.md](docs/EARTHSTICK_V1.3.6_CHANGES.md).
+
 ## EarthStick 1.3.5 + World Gate Maker 1.2 - One obvious file (2026-11-06)
 
 - EarthStick folder: `Fly_ArcGIS_Earth.bat` (double-click this), `Gates`, `City_Beacons`, `System Files` (the program, its .bat and the taskbar-shortcut maker)

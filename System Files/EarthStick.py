@@ -1,5 +1,28 @@
 #!/usr/bin/env python3
-"""EarthStick 1.3.5
+"""EarthStick 1.3.6
+
+1.3.6: the Gate Dropper (Jim, 2026-11-06: 'manually entering that info is a huge pain ... I would love
+  to automate that procedure') - fly to a place and hover, press Button 2: mark 1 saved. Fly to a second
+  place (at least 750 m away), press Button 2 again: EarthStick writes a pair of World Gates there into
+  the Gates folder (Dropped_Gate_01.kmz, 02, ...), each at exactly the height you were hovering, arms
+  them at once (no restart) and asks ArcGIS Earth to show the file on the map. Same look as World Gate
+  Maker gates (Medium size, square with legs).
+  TEST2 (Jim: 'I can not orient myself to face the gate in the babel pic ... at 90 degrees'): each gate
+  now faces the way you were LOOKING when you pressed Button 2 (TEST faced the other mark, like World Gate
+  Maker), and going through it lands you 300 m past the other gate looking the way you looked when you
+  marked it - the gate behind you, so no bounce back.
+  TEST3 (Jim: TEST2 'is impossible' - the way in was behind you, over the water): each gate now appears
+  500 m IN FRONT of you at your height, facing the way you look - press Button 2, then just push forward.
+  TEST4 (Jim: 'the manual delete thing sucks'): HOLD Button 2 for 2 seconds = undo. With a mark 1 waiting,
+  it clears the mark; otherwise it deletes the newest Dropped_Gate file, disarms its gates at once and
+  removes it from the ArcGIS Earth map (if EarthStick put it there in this session). The number is reused.
+  A short press now acts when you let go of the button.
+  TEST5 (Jim: the picture islands are huge, so you approach far above or below; gold is an eyesore on a
+  painting): a gate may carry its own grab zone (lock_capture_m / lock_range_m in its data) - dropped gates
+  grab you from 3 km out and +-2,000 ft; World Gates and World Gate Maker gates keep the 1.5 km / 1 radius
+  zone. Dropped gates are drawn thin and black (red back), with a bigger opening (about 425 m across) and
+  white names. While locked on, the light counts down the distance: LOCKED ON · 1,380 ft. Press Button 2 again near mark 1 (closer than 750 m) to clear
+  the mark. The drawing code is in gate_dropper.py beside this file. Flying is unchanged.
 
 1.3.5: one obvious file (Jim, 2026-11-06) - the package now shows only Fly_ArcGIS_Earth.bat, Gates,
   City_Beacons and System Files. This file lives in System Files, so the Gates folder is read from the
@@ -72,6 +95,7 @@ Controls:
 Button 4 (red top button) zooms in / descends.
 Button 3 (black thumb button) zooms out / climbs.
 Button 1 (trigger) clicks the object under the crosshair.
+Button 2 drops gates: press once at each of two places (1.3.6).
 Neutral controls stop and hover in place.
 
 Standard-library only. Windows desktop ArcGIS Earth Automation API is expected
@@ -93,7 +117,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 import zipfile
 
-VERSION = "1.3.5"
+VERSION = "1.3.6"
 BASE_URL = "http://localhost:8000"
 CAMERA_URL = BASE_URL + "/arcgisearth/camera"
 TARGET_NAME = "T.A320 Pilot"
@@ -151,6 +175,11 @@ TRACTOR_CAPTURE = 1.0         # ...when within this many ring radii above or bel
 TRACTOR_HALF_LIFE_S = 1.0     # half the remaining height gap is closed every this many seconds
 TRACTOR_TEXT = "\u25cf LOCKED ON"
 
+DROP_BUTTON = 2               # 1.3.6: Gate Dropper button (joy.cpl numbering)
+DROP_ADD_TO_MAP = True        # 1.3.6: ask ArcGIS Earth to show a dropped gate file on the map
+DROP_UNDO_HOLD_S = 2.0        # 1.3.6 TEST4: hold Button 2 this long = undo
+NOTICE_S = 5.0                # 1.3.6: how long a Gate Dropper message stays above the readout
+NOTICE_COLOR = "#ffd700"      # gold, like the gates
 GATES_FOLDER = "Gates"        # 1.3.5: in the EarthStick folder (one level above System Files)
 GATE_EXIT_M = 300.0           # arrive this far past the partner gate
 GATE_COOLDOWN_S = 2.0         # no second jump within this time
@@ -531,11 +560,11 @@ def tractor_pull(next_cam, gates, dt, travel_m, zoom_dir):
     if not (TRACTOR_BEAM and gates) or zoom_dir != 0 or dt <= 0.0:
         return False, False
     g, d = ring_ahead_with_distance(next_cam, gates)
-    if g is None or d > TRACTOR_RANGE_M:
+    if g is None or d > g.get("lock_range_m", TRACTOR_RANGE_M):        # TEST5: a gate may carry its own zone
         return False, False
     pos = next_cam["position"]
     gap = g["alt_m"] - float(pos["z"])
-    if abs(gap) > TRACTOR_CAPTURE * g["radius_m"]:
+    if abs(gap) > g.get("lock_capture_m", TRACTOR_CAPTURE * g["radius_m"]):
         return False, False
     if abs(gap) <= TRACTOR_SETTLE_M:
         return True, False
@@ -780,9 +809,14 @@ class TriggerClick:
                 for item in self.ro_items:
                     self.ro_canvas.itemconfigure(item, text=text)
                 self.ro_shown = text
-            light = "" if not text else (TRACTOR_TEXT if getattr(self, "tractor", False) else
+            light = "" if not text else (getattr(self, "tractor_text", TRACTOR_TEXT) if getattr(self, "tractor", False) else
                                          RING_LIGHT_TEXT if getattr(self, "ring_light", False) else "")
+            color = RING_LIGHT_COLOR
+            note = getattr(self, "notice", None)          # 1.3.6: Gate Dropper message, shown for NOTICE_S
+            if text and note and time.perf_counter() < note[1]:
+                light, color = note[0], NOTICE_COLOR
             if changed or light != self.light_shown:
+                self.ro_canvas.itemconfigure(self.light_items[-1], fill=color)
                 bb = self.ro_canvas.bbox(self.ro_items[-1])
                 top = (bb[1] if bb else self.ro_h) - 2
                 offsets = ((-2, 0), (2, 0), (0, -2), (0, 2), (-2, -2), (2, 2), (-2, 2), (2, -2), (0, 0))
@@ -835,6 +869,97 @@ class TriggerClick:
             self.overlay.attributes("-topmost", True)
 
 
+_GATE_DROPPER = None
+
+
+def gate_dropper_module():
+    """1.3.6: load gate_dropper.py from beside this file (once)."""
+    global _GATE_DROPPER
+    if _GATE_DROPPER is None:
+        import importlib.util
+        spec = importlib.util.spec_from_file_location("gate_dropper", Path(__file__).resolve().with_name("gate_dropper.py"))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        _GATE_DROPPER = mod
+    return _GATE_DROPPER
+
+
+class GateDropper:
+    """1.3.6: Button 2 marks a place; the second mark writes a gate pair (gate_dropper.py)."""
+
+    def __init__(self, folder):
+        self.folder = Path(folder)
+        self.mark = None
+        self.layers = {}          # TEST4: dropped file name -> ArcGIS Earth layer id (this session)
+        self.down_at = None
+        self.undo_fired = False
+        self.last_press = -1e9
+
+    def update(self, down, now):
+        """TEST4: 'press' when a short press is let go, 'undo' once when held DROP_UNDO_HOLD_S, else None."""
+        if down:
+            if self.down_at is None:
+                self.down_at, self.undo_fired = now, False
+            elif not self.undo_fired and now - self.down_at >= DROP_UNDO_HOLD_S:
+                self.undo_fired = True
+                return "undo"
+            return None
+        if self.down_at is None:
+            return None
+        held_undo, self.down_at = self.undo_fired, None
+        if held_undo or now - self.last_press < CLICK_LOCKOUT_S:
+            return None
+        self.last_press = now
+        return "press"
+
+    def undo(self):
+        """TEST4: clear mark 1, or delete the newest dropped gate file. Returns (message, deleted_name_or_None)."""
+        if self.mark is not None:
+            self.mark = None
+            return "MARK 1 CLEARED", None
+        gd = gate_dropper_module()
+        files = sorted(self.folder.glob(gd.DROP_FILE_PREFIX + "*.kmz"), key=lambda f: f.name)
+        if not files:
+            return "NOTHING TO UNDO", None
+        last = files[-1]
+        last.unlink()
+        layer = self.layers.pop(last.name, None)
+        if layer is not None:
+            try:
+                http_json("DELETE", BASE_URL + f"/arcgisearth/layer/{layer}")
+            except EarthAPIError:
+                pass
+        return f"UNDONE · {last.stem}", last.name
+
+    def press(self, cam):
+        """Handle one Button 2 press at camera cam. Returns (message, written_path_or_None)."""
+        gd = gate_dropper_module()
+        here = (float(cam["position"]["y"]), float(cam["position"]["x"]), float(cam["position"]["z"]),
+                float(cam.get("heading", 0.0)))           # TEST2: the gate faces the way you are looking
+        ft = round(here[2] / gd.FT / 10) * 10
+        if self.mark is None:
+            self.mark = here
+            return f"MARK 1 SAVED · {ft:,} ft", None
+        apart = gd.distance_m(self.mark[0], self.mark[1], here[0], here[1])
+        if apart < gd.min_apart_m():
+            self.mark = None
+            return "MARK 1 CLEARED", None
+        path = gd.drop_pair(self.folder, self.mark, here)
+        self.mark = None
+        return f"GATES DROPPED · {path.stem}", path
+
+
+def add_layer_to_map(path):
+    """1.3.6: ask ArcGIS Earth to show a KMZ (Automation API add layer). Returns the layer id
+    ArcGIS Earth gives back ("" if it gave none), or None if it refused."""
+    try:
+        reply = http_json("POST", BASE_URL + "/arcgisearth/layer",
+                          {"URI": str(Path(path).resolve()), "target": "operationalLayers", "type": "KML"})
+        return str(reply.get("id", "")) if isinstance(reply, dict) else ""
+    except EarthAPIError:
+        return None
+
+
 # ---------------------------------------------------------------------------
 # Wormholes (1.3). A gate is a vertical ring: centre (lat, lon, alt_m absolute),
 # radius_m, and facing = compass direction a pilot flies to go through it.
@@ -854,6 +979,9 @@ def _gate_from_placemark(pm):
     for k in ("lat", "lon", "alt_m", "radius_m", "facing"):
         gate[k] = float(data[k])
     gate["to"] = data.get("to", "")
+    for k in ("lock_capture_m", "lock_range_m"):      # 1.3.6 TEST5: a gate's own grab zone (optional)
+        if data.get(k, "") != "":
+            gate[k] = float(data[k])
     if not gate["to"]:
         for k in ("dest_lat", "dest_lon", "dest_alt_m", "dest_heading"):
             gate[k] = float(data[k])
@@ -952,6 +1080,7 @@ def run():
     print("Minimal T.A320 Pilot -> ArcGIS Earth bridge")
     print("Button 4 = descend/zoom in; Button 3 = climb/zoom out; neutral = hover.")
     print(f"Button {TRIGGER_BUTTON} (trigger) = click the object under the crosshair.")
+    print(f"Button {DROP_BUTTON} = Gate Dropper: press at one place, then at another - a gate pair appears there.")
     print()
 
     if os.name != "nt":
@@ -994,6 +1123,7 @@ def run():
     else:
         print(f"Wormholes: none (put gate files in the {GATES_FOLDER} folder in the EarthStick folder)")
     last_jump = -1e9
+    dropper = GateDropper(top / GATES_FOLDER)
     print("Close this window or press Ctrl+C to stop EarthStick.\n")
 
     dt_target = 1.0 / POLL_HZ
@@ -1060,6 +1190,50 @@ def run():
 
         if clicker is not None:
             clicker.on_buttons(state["buttons"])
+
+        # 1.3.6: Gate Dropper (Button 2)
+        drop_action = dropper.update(bool(state["buttons"] & (1 << (DROP_BUTTON - 1))), loop_start)
+        if drop_action == "undo":                          # TEST4: hold Button 2 = undo
+            try:
+                msg, removed = dropper.undo()
+                if removed is not None:
+                    gates, gate_problems = load_gates(top / GATES_FOLDER)
+                    sys.stdout.write(f"\nGate Dropper: {removed} deleted and disarmed ({len(gates)} gates armed).\n")
+                else:
+                    sys.stdout.write(f"\nGate Dropper: {msg}\n")
+            except Exception as exc:
+                msg = "UNDO FAILED"
+                sys.stdout.write(f"\nGate Dropper: could not undo ({exc}).\n")
+            sys.stdout.flush()
+            if clicker is not None:
+                clicker.notice = (msg, time.perf_counter() + NOTICE_S)
+        if drop_action == "press":
+            try:
+                try:
+                    here_cam = get_camera()
+                except EarthAPIError:
+                    here_cam = cam
+                msg, written = dropper.press(here_cam)
+                if written is not None:
+                    gates, gate_problems = load_gates(top / GATES_FOLDER)
+                    for p_msg in gate_problems:
+                        sys.stdout.write(f"\nWormholes: skipped - {p_msg}")
+                    last_jump = loop_start                 # never jump through the gate you are sitting in
+                    layer = add_layer_to_map(written) if DROP_ADD_TO_MAP else None
+                    if layer:
+                        dropper.layers[written.name] = layer
+                    shown = layer is not None
+                    msg_more = (" - shown on the map" if shown else
+                                f" - drag {written.name} from the Gates folder onto ArcGIS Earth to see it")
+                    sys.stdout.write(f"\nGate Dropper: {written.name} written and armed ({len(gates)} gates armed){msg_more}.\n")
+                else:
+                    sys.stdout.write(f"\nGate Dropper: {msg}\n")
+            except Exception as exc:
+                msg = "GATE DROP FAILED"
+                sys.stdout.write(f"\nGate Dropper: could not write the gates ({exc}).\n")
+            sys.stdout.flush()
+            if clicker is not None:
+                clicker.notice = (msg, time.perf_counter() + NOTICE_S)
 
         # Button 4 (red trigger) = zoom in.
         # Button 3 (black thumb) = zoom out.
@@ -1182,6 +1356,9 @@ def run():
                     clicker.readout = readout_text(cam, getattr(clicker, "view_px", 1920))
                     clicker.ring_light = RING_LIGHT and ring_light_on(cam, gates)
                     clicker.tractor = bool(tractor_on)
+                    if tractor_on:                      # TEST5: count down the distance to the gate
+                        _g, _d = ring_ahead_with_distance(cam, gates)
+                        clicker.tractor_text = TRACTOR_TEXT + (f" \u00b7 {round(_d / 0.3048 / 10) * 10:,.0f} ft" if _d is not None else "")
                 except Exception:
                     pass
 
@@ -1317,6 +1494,52 @@ def selftest():
     for _ in range(60):
         tractor_pull(c, hub, 0.1, 0.0, 0)
     assert abs(c["position"]["z"] - 771.0) < 3.0                                                         # 6 s hovering: within 3 m
+
+    # 1.3.6: Gate Dropper - mark, clear, drop, armed, flyable
+    import tempfile
+    folder = Path(tempfile.mkdtemp(prefix="es_drop_"))
+    d = GateDropper(folder)
+    def cam_at(lat, lon, z):
+        return {"position": {"x": lon, "y": lat, "z": z}, "heading": 0.0, "tilt": 80.0, "roll": 0.0}
+    assert d.press(cam_at(30.0, -80.0, 152.4))[1] is None and d.mark is not None            # mark 1
+    assert d.press(cam_at(30.001, -80.0, 160.0)) == ("MARK 1 CLEARED", None) and d.mark is None   # close by: clears
+    d.press(cam_at(30.0, -80.0, 152.4))
+    msg, path = d.press(cam_at(30.0, -79.0, 300.0))                                          # 1 degree east
+    assert path is not None and path.name == "Dropped_Gate_01.kmz" and msg.startswith("GATES DROPPED")
+    dropped, problems = load_gates(folder)
+    assert not problems and len(dropped) == 2
+    ga = next(g for g in dropped if g["name"] == "Drop 01 B")                                 # the gate at mark 1 leads to B
+    gd = gate_dropper_module()
+    alat, alon = gd.dest(30.0, -80.0, 0.0, gd.DROP_AHEAD_M)                                   # TEST3: 500 m in front of mark 1
+    assert abs(ga["lat"] - alat) < 1e-6 and abs(ga["lon"] - alon) < 1e-6 and abs(ga["alt_m"] - 152.4) < 0.01
+    assert abs(ga["facing"] - 0.0) < 1e-6                                                     # TEST2: faces the way you looked (north)
+    assert not gate_crossed(ga, (-80.0, 29.999, 152.4), (-80.0, 30.001, 152.4))               # not where you pressed...
+    assert gate_crossed(ga, (-80.0, 30.001, 152.4), (-80.0, 30.010, 152.4))                   # ...but 500 m ahead: push forward
+    lon, lat, alt, hd = gate_arrival(ga, dropped)
+    blat, blon = gd.dest(30.0, -79.0, 0.0, gd.DROP_AHEAD_M + 300.0)
+    assert abs(lon - blon) < 1e-5 and abs(lat - blat) < 1e-5 and abs(alt - 300.0) < 0.01 and hd == 0.0   # 300 m past gate B, looking north
+    d.press(cam_at(30.0, -79.0, 300.0)); assert d.press(cam_at(30.0, -78.0, 300.0))[1].name == "Dropped_Gate_02.kmz"
+    # TEST5: dropped gates carry their own wide grab zone (3 km, +-2,000 ft); other gates keep 1.5 km / 1 radius
+    assert abs(ga["lock_capture_m"] - 609.6) < 0.01 and ga["lock_range_m"] == 3000.0 and ga["radius_m"] == 300.0
+    def behind(g, dist_m, dz):
+        lon, lat = move_lonlat(g["lon"], g["lat"], g["facing"], -dist_m, 0.0)
+        return {"position": {"x": lon, "y": lat, "z": g["alt_m"] + dz}, "heading": g["facing"], "tilt": 80.0, "roll": 0.0}
+    assert tractor_pull(behind(ga, 2800.0, 580.0), [ga], 0.1, 0.0, 0)[0]                    # 2.8 km out, 1,900 ft high: grabbed
+    assert not tractor_pull(behind(ga, 3200.0, 0.0), [ga], 0.1, 0.0, 0)[0]                 # 3.2 km out: not yet
+    assert not tractor_pull(behind(ga, 1000.0, 640.0), [ga], 0.1, 0.0, 0)[0]                # 2,100 ft high: not grabbed
+    plain = {k: v for k, v in ga.items() if k not in ("lock_capture_m", "lock_range_m")}
+    assert not tractor_pull(behind(plain, 2800.0, 0.0), [plain], 0.1, 0.0, 0)[0]            # a normal gate: 1.5 km as before
+    assert not tractor_pull(behind(plain, 1000.0, 310.0), [plain], 0.1, 0.0, 0)[0]          # ...and 1 radius (300 m) as before
+
+    # TEST4: hold = undo (newest file first, number reused), short press acts on release
+    assert d.undo() == ("UNDONE · Dropped_Gate_02", "Dropped_Gate_02.kmz") and not (folder / "Dropped_Gate_02.kmz").exists()
+    d.press(cam_at(30.0, -79.0, 300.0)); assert d.undo() == ("MARK 1 CLEARED", None) and (folder / "Dropped_Gate_01.kmz").exists()
+    assert d.undo()[1] == "Dropped_Gate_01.kmz" and d.undo() == ("NOTHING TO UNDO", None)
+    d.press(cam_at(30.0, -80.0, 152.4)); assert d.press(cam_at(30.0, -79.0, 300.0))[1].name == "Dropped_Gate_01.kmz"
+    b = GateDropper(folder)
+    assert [b.update(x, t) for x, t in ((True, 0.0), (True, 0.5), (False, 0.6))] == [None, None, "press"]       # short press
+    assert [b.update(x, t) for x, t in ((True, 1.0), (True, 2.9), (True, 3.1), (True, 5.0), (False, 5.1))] == [None, None, "undo", None, None]  # hold
+    assert [b.update(x, t) for x, t in ((True, 6.0), (False, 6.1), (True, 6.2), (False, 6.3))] == [None, "press", None, None]   # bounce ignored
 
     print("EarthStick self-test PASS")
 

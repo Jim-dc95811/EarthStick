@@ -1,4 +1,4 @@
-# EarthStick 1.3.4
+# EarthStick 1.3.6
 
 [![Fly the real world in 7 steps: 1 get ArcGIS Earth, 2 turn on the Automation API, 3 get Python 3, 4 install the Thrustmaster driver then plug in the joystick, 5 download EarthStick and Extract All, 6 start it, 7 open the KMZ file, then fly through the gold side of a ring](images/earthstick_getting_started.png)](images/earthstick_getting_started_full.png)
 
@@ -17,11 +17,11 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.5](releases/EarthStick_v1.3.5.zip)**
+### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.6](releases/EarthStick_v1.3.6.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 
-Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
+Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. **New in 1.3.6: the Gate Dropper** - press Button 2 at two places and a pair of gates appears there, no typing. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
 [![Flying ArcGIS Earth with EarthStick: low over the St. Johns River with a beacon and sky compass letters on the horizon](images/earthstick_flight_arcgis_earth.jpg)](https://www.youtube.com/watch?v=5Wn14qlC7n4)
 
@@ -48,7 +48,7 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.3.5.zip` and open the `EarthStick_v1.3.5` folder.
+6. Extract `EarthStick_v1.3.6.zip` and open the `EarthStick_v1.3.6` folder.
 7. Double-click `Fly_ArcGIS_Earth.bat` - it starts ArcGIS Earth if it is not open yet, then EarthStick (or set up the one-click taskbar start - see *One-click start* below).
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
@@ -69,6 +69,8 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 | Red top button - Button 4 | Hold to zoom in / descend |
 | Black thumb button - Button 3 | Hold to zoom out / climb |
 | Trigger - Button 1 | Click the object under the red crosshair (opens its information box; on open map, closes it) |
+| Button 2 - press | Gate Dropper: mark a place (press at two places = a gate pair) |
+| Button 2 - hold 2 s | Undo the last gate drop |
 | Neutral controls | Stop and hover in place |
 
 Other joystick buttons are intentionally unassigned.
@@ -113,6 +115,18 @@ Gold side = way in. Red side = wrong way. The number under each name is the eye 
 
 **Shortcut to any city:** the `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atlanta, Go to Paris ...). Drag them onto ArcGIS Earth, then double-click one in the Data list to jump straight there without the gates (you arrive above it; nudge the view to see the beacon). Also available as a [separate download](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_City_Beacons_v2.zip).
 
+### Drop gates as you fly (new in 1.3.6)
+
+No coordinates, no typing: fly to a place, face the way you want to go, and press **Button 2**. Fly to a second place and press it again. A pair of gates appears, each **500 m in front of where you pressed**, at your height, facing your way. Push forward and fly through. **Hold Button 2 for 2 seconds** to undo. Dropped gates are thin and black so they stay quiet over a painting or a picture world, and they lock on from 3 km out and 2,000 ft above or below, with a countdown.
+
+![A thin black dropped gate down in Bruegel's Tower of Babel, among the workers on the scaffolding](images/gate_dropper_babel_black_gate.jpg)
+
+*A dropped gate down among Bruegel's workers in the Tower of Babel (a picture world made with [Picture World Maker](https://github.com/Jim-dc95811/Picture-World-Maker)) - fly through it and you come out in London.*
+
+![LOCKED ON at 560 ft: the countdown to the dropped gate in the London panorama](images/gate_dropper_london_locked_on_countdown.jpg)
+
+*On the way back in: LOCKED ON · 560 ft - the light counts down to the gate.*
+
 ### Make your own gates
 
 ### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.2](releases/World_Gate_Maker_v1.2.zip)**
@@ -138,17 +152,19 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 ## Release details
 
+**EarthStick 1.3.6** (2026-11-06) - the Gate Dropper: Button 2 drops gate pairs where you fly (500 m ahead, your height, your heading), hold Button 2 to undo; dropped gates are thin black with a 425 m opening and lock on from 3 km / 2,000 ft; the LOCKED ON light counts down the distance. Flying with no Button 2 is identical to 1.3.5. See [docs/EARTHSTICK_V1.3.6_CHANGES.md](docs/EARTHSTICK_V1.3.6_CHANGES.md).
+
 **EarthStick 1.3.5** (2026-11-06) - one obvious file: the folder shows only `Fly_ArcGIS_Earth.bat`, `Gates`, `City_Beacons` and `System Files`. Flying is identical to 1.3.4 (World Gates v21, ring-height light, tractor beam). See [docs/EARTHSTICK_V1.3.5_CHANGES.md](docs/EARTHSTICK_V1.3.5_CHANGES.md).
 
 ![A square ATL gate over London with the tractor beam LOCKED ON at 1,500 ft](images/world_gates_v21_locked_on.jpg)
 
-`EarthStick_v1.3.5.zip` SHA-256:
+`EarthStick_v1.3.6.zip` SHA-256:
 
-`a9b81467cb840bf1ef177616565fb43b76469fc03f0d256c215b7945f6b8c5f3`
+`5b443f85a748ee049902f472c6a5a14597b3c434f44dc633858cbf4126757454`
 
-The release contains one folder, `EarthStick_v1.3.5`, holding `Fly_ArcGIS_Earth.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
+The release contains one folder, `EarthStick_v1.3.6`, holding `Fly_ArcGIS_Earth.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
 
-**Earlier releases** (1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
+**Earlier releases** (1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 
 ## What makes EarthStick different
 
