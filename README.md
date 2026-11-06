@@ -198,6 +198,12 @@ How EarthStick works inside - the movement math, technical constants, architectu
 - [`docs/EARTHSTICK_V1.1_CHANGES.md`](docs/EARTHSTICK_V1.1_CHANGES.md) - 1.1 change document
 - [`CHANGELOG.md`](CHANGELOG.md) - release history
 
+## Human-AI engineering collaboration
+
+EarthStick was conceived, directed, flown and live-tested by **Jim Gaddy**, working with **OpenAI's ChatGPT** and **Anthropic's Claude** as AI coding and documentation partners. Jim supplied the idea of flying the map itself, every feature request, the joystick and ArcGIS Earth acceptance tests and the screenshots that measured how ArcGIS Earth really behaves. ChatGPT helped build the original EarthStick (up to 1.0). Claude built every release since: the 1.1 hardening, trigger-click (1.2), **World Gates** and the round-the-world pack (1.3-1.3.2), City Beacons and the one-click launcher, the height / heading / zoom readout (1.3.3), square gates, the ring-height light and the tractor beam (1.3.4), and **World Gate Maker** - plus the test rigs, the viewer model used to lay out everything in the sky, the user guides and the picture guides.
+
+This acknowledgment is not a claim of OpenAI or Anthropic sponsorship or endorsement.
+
 ## Safety and scope
 
 EarthStick controls the **ArcGIS Earth map camera**. It is not an aircraft flight-control system, certified navigation system, dispatch system, or safety-of-life product. Users remain responsible for validating maps, layers, imagery, coordinates, and operational procedures.
