@@ -170,7 +170,7 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 `18229d3ebf8c7dbb1c6acf4e080ed50803c75263dd7fc5234c85fcf399c8a4c3`
 
-The release contains one folder, `EarthStick_v1.3.10`, holding `Fly_ArcGIS_Earth.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `Ready_To_Fly.ps1`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
+The release contains one folder, `EarthStick_v1.3.10`, holding `Fly_ArcGIS_Earth.bat`, the user guide `EarthStick_User_Guide.pdf`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `Ready_To_Fly.ps1`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
 
 **Earlier releases** (1.3.9, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 

@@ -1,5 +1,19 @@
 # World Gate Maker 1.2.1 - User Manual
 
+<!-- install-blurb:start -->
+> ### Installing World Gate Maker - read this first
+>
+> 1. **Extract All first:** right-click the downloaded zip > **Extract All**, then open the new folder. (Double-clicking files while they are still inside the zip does not work.)
+> 2. **Double-click `World_Gate_Maker.bat`** - the only .bat in the folder. This manual sits right next to it. The **System Files** folder holds the program - leave it alone.
+> 3. **Blue "Windows protected your PC" box?** Click **More info**, then **Run anyway**. It only asks the first time. (Or, before extracting: right-click the zip > **Properties** > tick **Unblock** > **OK**.)
+> 4. **Python - nothing to install by hand.** If Python is missing, the window asks **Install Python now? [Y/N]**: type **Y** and press Enter. It installs just for you (no admin needed). On an older PC this can take several minutes and Windows Defender may make the PC look frozen - **do not close the window**.
+> 5. Extract it next to your EarthStick folder (both in Downloads, say) and it finds EarthStick's **Gates** folder by itself.
+> 6. To fly through the gates you need EarthStick; to see them, **ArcGIS Earth** (free from Esri: https://www.esri.com/en-us/arcgis/products/arcgis-earth/downloads).
+>
+> Something stops it? The window says what to do in plain words, and keeps a log in `System Files\Ready_To_Fly_log.txt`. On a work computer that blocks installs, ask IT to install Python 3 from python.org.
+<!-- install-blurb:end -->
+
+
 Printable copy: [World_Gate_Maker_User_Manual.pdf](World_Gate_Maker_User_Manual.pdf)
 
 Make your own **World Gates**: pick two places, and World Gate Maker builds a pair of golden gates. Fly through the gate at one place with EarthStick and you come out at the other; the gate there brings you back.
@@ -27,7 +41,7 @@ Make your own **World Gates**: pick two places, and World Gate Maker builds a pa
 ## Start
 
 1. Download [`World_Gate_Maker_v1.2.1.zip`](../releases/World_Gate_Maker_v1.2.1.zip), right-click it > **Extract All**.
-2. Open the `World_Gate_Maker_v1.2.1` folder and double-click `World_Gate_Maker.bat`. (The other item, `System Files`, holds the program - leave it alone.)
+2. Open the `World_Gate_Maker_v1.2.1` folder and double-click `World_Gate_Maker.bat`. (Beside it: this manual as a PDF. `System Files` holds the program - leave it alone.)
 
 Tip: extract it next to your EarthStick folder (for example both in Downloads) and World Gate Maker finds EarthStick's **Gates** folder by itself.
 

@@ -1,5 +1,19 @@
 # EarthStick 1.3.10 User Guide
 
+<!-- install-blurb:start -->
+> ### Installing EarthStick - read this first
+>
+> 1. **Extract All first:** right-click the downloaded zip > **Extract All**, then open the new folder. (Double-clicking files while they are still inside the zip does not work.)
+> 2. **Double-click `Fly_ArcGIS_Earth.bat`** - the only .bat in the folder. This manual sits right next to it. The **System Files** folder holds the program - leave it alone.
+> 3. **Blue "Windows protected your PC" box?** Click **More info**, then **Run anyway**. It only asks the first time. (Or, before extracting: right-click the zip > **Properties** > tick **Unblock** > **OK**.)
+> 4. **Python - nothing to install by hand.** If Python is missing, the window asks **Install Python now? [Y/N]**: type **Y** and press Enter. It installs just for you (no admin needed). On an older PC this can take several minutes and Windows Defender may make the PC look frozen - **do not close the window**.
+> 5. Install **ArcGIS Earth** (free from Esri: https://www.esri.com/en-us/arcgis/products/arcgis-earth/downloads). The .bat starts it for you and checks its Automation API is on (Settings > Advanced application settings > tick **Enable Automation API**).
+> 6. Plug the joystick in by USB - no driver needed.
+>
+> Something stops it? The window says what to do in plain words, and keeps a log in `System Files\Ready_To_Fly_log.txt`. On a work computer that blocks installs, ask IT to install Python 3 from python.org.
+<!-- install-blurb:end -->
+
+
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
 ![Fly the real world in 7 steps: get ArcGIS Earth, turn on the Automation API, get Python 3, plug in the joystick (no driver needed), download EarthStick and Extract All, start it, open the KMZ file, fly through](../images/earthstick_getting_started.png)
@@ -62,7 +76,7 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.10.zip`](../releases/EarthStick_v1.3.10.zip) and extract it. It contains a folder named `EarthStick_v1.3.10` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
+1. Download [`EarthStick_v1.3.10.zip`](../releases/EarthStick_v1.3.10.zip) and extract it. It contains a folder named `EarthStick_v1.3.10` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), this guide as a PDF (`EarthStick_User_Guide.pdf`), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
 2. Make sure ArcGIS Earth's Automation API is enabled (above).
 3. Open the `EarthStick_v1.3.10` folder and double-click `Fly_ArcGIS_Earth.bat`. A window titled **Ready to Fly** gets the PC ready, with a green **OK** for each check:
    - **Internet** - if you are offline it says so (online basemaps won't load; your offline TPKX maps still work) and carries on.
