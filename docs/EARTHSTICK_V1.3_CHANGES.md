@@ -2,7 +2,7 @@
 
 **Released:** 2026-11-02
 **Type:** feature release. One new feature: World Gates (wormholes).
-**Download:** [`releases/EarthStick_v1.3.zip`](../releases/EarthStick_v1.3.zip)
+**Download:** [`archive/EarthStick_v1.3.zip`](../archive/EarthStick_v1.3.zip)
 
 **Flying is unchanged.** Controls, constants, speed and zoom laws, trigger-click and both recovery paths are identical to 1.2. With no gate files, EarthStick sends exactly the same camera positions as 1.2.
 

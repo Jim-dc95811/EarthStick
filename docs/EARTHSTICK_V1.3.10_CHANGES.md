@@ -18,4 +18,4 @@ Everything else is 1.3.9: Ready to Fly launcher, one copy at a time, the tractor
 
 ## Files
 
-`releases/EarthStick_v1.3.10.zip` SHA-256 `18229d3ebf8c7dbb1c6acf4e080ed50803c75263dd7fc5234c85fcf399c8a4c3` (folder `EarthStick_v1.3.10`, 20 files); `System Files/EarthStick.py` `6720cf690f3f133732bf735f68bca96e6d9da01363ec9bac37f8edf0f4404266`. `gate_dropper.py`, `Ready_To_Fly.ps1`, `Make_Taskbar_Shortcut.bat`, gates and beacons unchanged from 1.3.9.
+`archive/EarthStick_v1.3.10.zip` SHA-256 `18229d3ebf8c7dbb1c6acf4e080ed50803c75263dd7fc5234c85fcf399c8a4c3` (folder `EarthStick_v1.3.10`, 20 files); `System Files/EarthStick.py` `6720cf690f3f133732bf735f68bca96e6d9da01363ec9bac37f8edf0f4404266`. `gate_dropper.py`, `Ready_To_Fly.ps1`, `Make_Taskbar_Shortcut.bat`, gates and beacons unchanged from 1.3.9.

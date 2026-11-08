@@ -1,4 +1,4 @@
-# EarthStick 1.3.10 Troubleshooting
+# EarthStick 2.0 Troubleshooting
 
 ## The Ready to Fly window (1.3.9)
 
@@ -68,13 +68,17 @@ Release the joystick to neutral before using the mouse. EarthStick periodically 
 ## World Gates
 
 - **I fly through a gate and nothing happens:**
-  - Check the console at startup for `Wormholes: N gate(s) armed`. If it says `none`, the gate file is not in the **Gates** folder of the EarthStick folder you started, or EarthStick was started before the file was put there - restart EarthStick.
+  - Check the console at startup for `Wormholes: N gate(s) armed`. If it says `none`, the gate file is not in the **Gates** folder of the EarthStick folder you started. Since 2.0 a file added while EarthStick runs is armed within a few seconds (**NEW GATES ARMED**) - no restart needed.
+  - **Opened the file with ArcGIS Earth's Add Data?** ArcGIS Earth only draws it; EarthStick cannot see what is on the map. Click **+ ADD GATES** (above the readout) and pick the same file - it is copied into the Gates folder and armed.
   - Approach from the **gold** side; the red side is the back.
   - Match the altitude under the gate's name (eye alt). Too high or low and you pass over or under the centre area.
   - Keep the stick moving as you go through; a hovering camera does not trigger a gate.
 - **I arrive somewhere unexpected:** look at which gate you actually went through - each name sits beside its own gate at the gate's centre height.
 - **The green RING HEIGHT light never comes on (1.3.4):** it only counts the gate you are flying toward - within 10 km, within 15 degrees of your heading, gold side facing you - and comes on within half the gate's size of its centre height (about ±370 ft for the World Gates pack; World Gate Maker gates: Small ±82 ft, Medium ±205 ft, Large ±369 ft). Turn to face the gate, then climb or descend toward the eye alt under its name. `RING_LIGHT = False` near the top of `System Files\EarthStick.py` turns the light off.
 - **The tractor beam grabs me when I want to fly over or under a gate (1.3.4):** it only grabs within about 1,500 m of the gate you are facing and within one gate size of its height (World Gates ±738 ft; World Gate Maker Small ±164 ft, Medium ±410 ft, Large ±738 ft). Pass higher or lower than that, or off to one side, or hold climb / descend (buttons 3 / 4) - it lets go at once. `TRACTOR_BEAM = False` near the top of `System Files\EarthStick.py` turns it off.
+- **+ ADD GATES says NO GATES IN ...:** the file you picked is an ordinary map file, not a gate file (no gate data inside). It was not copied.
+- **No + ADD GATES button:** it sits above the readout on the right of the ArcGIS Earth window and hides while ArcGIS Earth is minimized. If the console says `Trigger-click: unavailable`, the button is missing too (see *Clicking objects*); copying gate files into the Gates folder still works.
+- **A dropped pair from before 2.0 behaves the old way:** each gate file keeps the directions it was made with. Hold the trigger 2 s to undo it (or delete the file) and drop the pair again.
 - **`Wormholes: skipped - ...`:** a gate in that file leads to a partner that is missing or ambiguous; the message names the file and gate.
 
 ## Run the self-test

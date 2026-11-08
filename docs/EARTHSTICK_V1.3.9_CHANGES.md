@@ -33,7 +33,7 @@ Held: 4 (ArcGIS Earth gets 0.75 s to answer each request; may be tight on old PC
 
 ## Files
 
-`releases/EarthStick_v1.3.9.zip` SHA-256 `2352e1c6fe4facb7d727db7d5a0ba1abecc32cf439db32a5a93a0508f341126b` (folder `EarthStick_v1.3.9`, 20 files)
+`archive/EarthStick_v1.3.9.zip` SHA-256 `2352e1c6fe4facb7d727db7d5a0ba1abecc32cf439db32a5a93a0508f341126b` (folder `EarthStick_v1.3.9`, 20 files)
 
 | File | SHA-256 |
 |---|---|

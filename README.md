@@ -1,4 +1,4 @@
-# EarthStick 1.3.10
+# EarthStick 2.0
 
 > 🤖 **Using AI assistance?** Have the agent read the [CLAUDE.md](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/blob/main/CLAUDE.md) file first.
 
@@ -19,12 +19,12 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.10](releases/EarthStick_v1.3.10.zip)**
+### **⬇️ [4. DOWNLOAD EARTHSTICK v2.0](releases/EarthStick_v2.0.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 **📦 [Download the Whole ArcGIS Earth Unlocked Series of Tools - all 10 in one zip](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/raw/main/downloads/ArcGIS_Earth_Unlocked_All_Tools.zip)**
 
-Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. **New in 1.3.10: the trigger drops gates** (Button 2 now clicks objects). **New in 1.3.9: Ready to Fly** - one double-click gets the PC ready: it installs Python for you if it is missing, starts ArcGIS Earth and checks it is ready to fly. New in 1.3.6: the Gate Dropper - press Button 2 at two places and a pair of gates appears there, no typing. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
+Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. **New in 2.0: new gates without a restart** - add a gate file while you fly (the **+ ADD GATES** button, or World Gate Maker) and within seconds it is armed and on the map; dropped gates now face each other, so the way back is one turn round. New in 1.3.10: the trigger drops gates (Button 2 now clicks objects). **New in 1.3.9: Ready to Fly** - one double-click gets the PC ready: it installs Python for you if it is missing, starts ArcGIS Earth and checks it is ready to fly. New in 1.3.6: the Gate Dropper - press Button 2 at two places and a pair of gates appears there, no typing. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
 [![Flying ArcGIS Earth with EarthStick: low over the St. Johns River with a beacon and sky compass letters on the horizon](images/earthstick_flight_arcgis_earth.jpg)](https://www.youtube.com/watch?v=5Wn14qlC7n4)
 
@@ -51,7 +51,7 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.3.10.zip` and open the `EarthStick_v1.3.10` folder.
+6. Extract `EarthStick_v2.0.zip` and open the `EarthStick_v2.0` folder.
 7. Double-click `Fly_ArcGIS_Earth.bat` - it gets the PC ready (installs Python if it is missing - answer **Y**; on an older PC this can take several minutes), starts ArcGIS Earth if it is not open yet, checks the Automation API, then starts EarthStick (or set up the one-click taskbar start - see *One-click start* below).
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
@@ -109,10 +109,12 @@ Golden gates float in the sky. **Fly through one and you come out on the other s
 
 *Paris after two clicks: orange beacon on Sacré-Cœur, red on the Eiffel Tower.*
 
-1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v21.kmz` (in the EarthStick folder) onto the map, so you can see the gates.
-2. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
+1. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
+2. Show the gates on the map: click **+ ADD GATES** (above the readout) and pick `Gates\World_Gates_JAX_ATL_v21.kmz` in the EarthStick folder - or drag it onto ArcGIS Earth.
 3. Fly to a gate and put it under the crosshair, gold side toward you (from the red side nothing happens). Look down the legs - an even X means lined up. The green light (and the tractor beam, close in) takes care of the height. Fly through the middle.
 4. The view jumps to the destination and the console says `Wormhole: through the ... gate.` You arrive still flying, already facing the landmark.
+
+**Adding more gates (2.0):** click **+ ADD GATES** and pick any gate file - it is copied into the `Gates` folder, armed and put on the map within seconds, no restart. Delete a file from `Gates` and its gates are disarmed. ArcGIS Earth's own Add Data only *draws* a gate file (EarthStick cannot see what is on the map), so open gates with + ADD GATES.
 
 Gold side = way in. Red side = wrong way. The number under each name is the eye alt to fly at. Want the gates without EarthStick, just to look at? [Download the World Gates file](https://github.com/Jim-dc95811/EarthStick/raw/main/gates/World_Gates_JAX_ATL_v21.kmz) and drag it onto ArcGIS Earth.
 
@@ -120,7 +122,7 @@ Gold side = way in. Red side = wrong way. The number under each name is the eye 
 
 ### Drop gates as you fly (new in 1.3.6)
 
-No coordinates, no typing: fly to a place, face the way you want to go, and pull the **trigger** (Button 1; Button 2 before 1.3.10). Fly to a second place and pull it again. A pair of gates appears, each **500 m in front of where you pressed**, at your height, facing your way. Push forward and fly through. **Hold the trigger for 2 seconds** to undo. Dropped gates are thin and black so they stay quiet over a painting or a picture world, and they lock on from 3 km out and 2,000 ft above or below, with a countdown.
+No coordinates, no typing: fly to a place, face the way you want to go, and pull the **trigger** (Button 1; Button 2 before 1.3.10). Fly to a second place and pull it again. A pair of gates appears, each **500 m in front of where you pressed**, at your height - and since 2.0 the two **face each other**, like World Gate Maker gates. Fly through one and you come out past the other, facing away; **turn round once to go back**. Perfect for favorites: mark a spot you love, fly home, mark again - a two-way shortcut. **Hold the trigger for 2 seconds** to undo. Dropped gates are thin and black so they stay quiet over a painting or a picture world, and they lock on from 3 km out and 2,000 ft above or below, with a countdown.
 
 ![A thin black dropped gate down in Bruegel's Tower of Babel, among the workers on the scaffolding](images/gate_dropper_babel_black_gate.jpg)
 
@@ -132,18 +134,18 @@ No coordinates, no typing: fly to a place, face the way you want to go, and pull
 
 ### Make your own gates
 
-### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.2.1](releases/World_Gate_Maker_v1.2.1.zip)**
+### **⬇️ [DOWNLOAD WORLD GATE MAKER v2.0](releases/World_Gate_Maker_v2.0.zip)**
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
 **🗂️ [What's in the zip - every file explained](images/world_gate_maker_whats_in_the_zip_full.png)**
 **📦 [Download the Whole ArcGIS Earth Unlocked Series of Tools - all 10 in one zip](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/raw/main/downloads/ArcGIS_Earth_Unlocked_All_Tools.zip)**
 
-Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.2: a tidy folder - `World_Gate_Maker.bat` plus `System Files`. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in. **New in 1.2.1 (Ready to Fly):** the .bat installs Python for you if it is missing - answer **Y**, no admin needed.
+Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.2: a tidy folder - `World_Gate_Maker.bat` plus `System Files`. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in. New in 1.2.1 (Ready to Fly): the .bat installs Python for you if it is missing - answer **Y**, no admin needed. **New in 2.0:** it saves straight into the EarthStick you fly, and with EarthStick 2.0 running the new gates appear within seconds. **Needs EarthStick:** start EarthStick 2.0 once first so World Gate Maker knows where its Gates folder is.
 
 ![A square World Gate named jax seen from the side over Seattle: the gold square and its legs make a box that points the way in](images/world_gate_maker_v1.1_seattle_arrival.jpg)
 
 *Jacksonville to Seattle and back with World Gate Maker 1.1: the "jax" gate home, seen from the side in Seattle.*
 
-Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and gate size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; restart EarthStick and fly. `World_Gate_Maker_v1.2.zip` SHA-256: `d06c88152c40f6d08b3df382948cebb0dbe1962cf1572be79c4c655e7e03549f` ([what changed in 1.2](docs/WORLD_GATE_MAKER_V1.2_CHANGES.md))
+Type a name for each place, paste its coordinates from Google Maps (**From Clipboard**), type the ground **elev** from ArcGIS Earth's status bar, choose a height and gate size, and press **MAKE GATES**. The file goes straight into your EarthStick **Gates** folder; with EarthStick 2.0 running it is armed and on the map within seconds - just fly. ([what changed in 2.0](docs/EARTHSTICK_V2.0_CHANGES.md))
 
 ### One-click start (new in 1.3.1)
 
@@ -156,6 +158,8 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 ## Release details
 
+**EarthStick 2.0 - the 2.0 Reference** (2026-11-08) - the whole ArcGIS Earth Unlocked family moved to 2.0 as one reference point. New: gate files added while EarthStick runs are armed and shown within seconds (+ ADD GATES button, or saved by World Gate Maker 2.0) and removed ones disarmed - no restart; dropped gates face each other (World Gate Maker's rule); EarthStick leaves a note so World Gate Maker 2.0 saves into the EarthStick you fly; the notice line above the readout is wider. Flying is identical to 1.3.10. See [docs/EARTHSTICK_V2.0_CHANGES.md](docs/EARTHSTICK_V2.0_CHANGES.md).
+
 **EarthStick 1.3.10** (2026-11-08) - the trigger drops gates (press at two places, hold 2 s to undo) and Button 2 clicks the object under the crosshair, for two-handed flying with the mouse. Everything else as 1.3.9. See [docs/EARTHSTICK_V1.3.10_CHANGES.md](docs/EARTHSTICK_V1.3.10_CHANGES.md).
 
 **EarthStick 1.3.9** (2026-11-08) - Ready to Fly: the launcher checks the internet, finds or installs Python (per user, no admin), finds and starts ArcGIS Earth (or offers Esri's download page) and checks the Automation API; plus hardening: one copy at a time, the tractor beam respects mouse moves while hovering, the status line fits the window, undo by gate number, clearer API message. Flying, gates and the Gate Dropper as 1.3.6. See [docs/EARTHSTICK_V1.3.9_CHANGES.md](docs/EARTHSTICK_V1.3.9_CHANGES.md).
@@ -166,13 +170,13 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 ![A square ATL gate over London with the tractor beam LOCKED ON at 1,500 ft](images/world_gates_v21_locked_on.jpg)
 
-`EarthStick_v1.3.10.zip` SHA-256:
+`EarthStick_v2.0.zip` SHA-256:
 
-`18229d3ebf8c7dbb1c6acf4e080ed50803c75263dd7fc5234c85fcf399c8a4c3`
+`e6f9dab82e87867e256eb3aba6db489ad3ba0971807481a4a2c04f2759a724da`
 
-The release contains one folder, `EarthStick_v1.3.10`, holding `Fly_ArcGIS_Earth.bat`, the user guide `EarthStick_User_Guide.pdf`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `Ready_To_Fly.ps1`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
+The release contains one folder, `EarthStick_v2.0`, holding `Fly_ArcGIS_Earth.bat`, the user guide `EarthStick_User_Guide.pdf`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `Ready_To_Fly.ps1`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
 
-**Earlier releases** (1.3.9, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
+**Earlier releases** (1.3.10, 1.3.9, 1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0, and World Gate Maker 1.0-1.2.1): their zips are kept in [`archive/`](archive/). What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 
 ## What makes EarthStick different
 
@@ -213,6 +217,7 @@ How EarthStick works inside - the movement math, technical constants, architectu
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
 - [`docs/WORLD_GATE_MAKER.md`](docs/WORLD_GATE_MAKER.md) - World Gate Maker user manual ([PDF](docs/World_Gate_Maker_User_Manual.pdf))
+- [`docs/EARTHSTICK_V2.0_CHANGES.md`](docs/EARTHSTICK_V2.0_CHANGES.md) - 2.0 change document (gates picked up while flying, + ADD GATES, dropped gates face each other, World Gate Maker 2.0)
 - [`docs/EARTHSTICK_V1.3.10_CHANGES.md`](docs/EARTHSTICK_V1.3.10_CHANGES.md) - 1.3.10 change document (trigger = Gate Dropper, Button 2 = click)
 - [`docs/EARTHSTICK_V1.3.9_CHANGES.md`](docs/EARTHSTICK_V1.3.9_CHANGES.md) - 1.3.9 change document (Ready to Fly launcher, hardening)
 - [`docs/EARTHSTICK_V1.3.4_CHANGES.md`](docs/EARTHSTICK_V1.3.4_CHANGES.md) - 1.3.4 change document (square gates, ring-height light, tractor beam)
@@ -226,7 +231,7 @@ How EarthStick works inside - the movement math, technical constants, architectu
 
 ## Human-AI engineering collaboration
 
-EarthStick was conceived, directed, flown and live-tested by **Jim Gaddy**, working with **OpenAI's ChatGPT** and **Anthropic's Claude** as AI coding and documentation partners. Jim supplied the idea of flying the map itself, every feature request, the joystick and ArcGIS Earth acceptance tests and the screenshots that measured how ArcGIS Earth really behaves. ChatGPT helped build the original EarthStick (up to 1.0). Claude built every release since: the 1.1 hardening, trigger-click (1.2), **World Gates** and the round-the-world pack (1.3-1.3.2), City Beacons and the one-click launcher, the height / heading / zoom readout (1.3.3), square gates, the ring-height light and the tractor beam (1.3.4), and **World Gate Maker** - plus the test rigs, the viewer model used to lay out everything in the sky, the user guides and the picture guides.
+EarthStick was conceived, directed, flown and live-tested by **Jim Gaddy**, working with **OpenAI's ChatGPT** and **Anthropic's Claude** as AI coding and documentation partners. Jim supplied the idea of flying the map itself, every feature request, the joystick and ArcGIS Earth acceptance tests and the screenshots that measured how ArcGIS Earth really behaves. ChatGPT helped build the original EarthStick (up to 1.0). Claude built every release since: the 1.1 hardening, Ready to Fly and the 2.0 gate pickup, trigger-click (1.2), **World Gates** and the round-the-world pack (1.3-1.3.2), City Beacons and the one-click launcher, the height / heading / zoom readout (1.3.3), square gates, the ring-height light and the tractor beam (1.3.4), and **World Gate Maker** - plus the test rigs, the viewer model used to lay out everything in the sky, the user guides and the picture guides.
 
 This acknowledgment is not a claim of OpenAI or Anthropic sponsorship or endorsement.
 
@@ -248,4 +253,4 @@ MIT License. See [`LICENSE`](LICENSE).
 
 ## Status
 
-**EarthStick 1.3.4 is the current release.** The previous packages remain at `releases/EarthStick_v1.3.3.zip`, `releases/EarthStick_v1.3.2.zip`, `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `releases/EarthStick_v1.2.zip`, `releases/EarthStick_v1.1.zip` and `releases/EarthStick_v1.0.zip` for existing links.
+**EarthStick 2.0 and World Gate Maker 2.0 are the current release - part of the [2.0 Reference](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/blob/main/REFERENCE_2.0.md) of the whole family (8 Nov 2026).** Earlier packages are kept in [`archive/`](archive/).

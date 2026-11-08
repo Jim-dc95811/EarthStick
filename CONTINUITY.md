@@ -1,6 +1,9 @@
-# CONTINUITY - EarthStick 1.3.10
+# CONTINUITY - EarthStick 2.0
 
 ## Official baseline
+
+**2026-11-08 ~16:30 - EarthStick 2.0 + World Gate Maker 2.0 released as part of the 2.0 Reference** (Jim: 'I want all of the programs to go to 2.0, and to establish today's product as a reference'; 2.0 test zip 'all pass' 16:14). EarthStick 2.0 = 1.3.11 TEST3 (live-accepted 15:48) + notice canvas 1000 -> 1600 px: Gates folder re-read every 2 s (new/changed file armed + POST layer, removed disarmed + DELETE layer, two equal looks before reading), + ADD GATES button (copy into Gates, never over a different file, shows a file already there), `%LOCALAPPDATA%\ArcGIS Earth Unlocked\last_earthstick.txt` written at startup, Gate Dropper uses World Gate Maker's kernel (gates face each other; land 300 m past the other gate facing away). World Gate Maker 2.0 = 1.2.2 TEST2 (note first, 'running now / flown last / found nearby / not found' line, Choose... Gates-only, gold gates). Zips `releases/EarthStick_v2.0.zip` `e6f9dab82e87867e256eb3aba6db489ad3ba0971807481a4a2c04f2759a724da`, `releases/World_Gate_Maker_v2.0.zip` `50dff90f7c74bf38896f6fea1be574878472da4a80bd5e5fdf16a12f6a81285a`; every older zip moved to `archive/`. Rigs: replay/unplugged/proxy/port_conflict/trigger identical to 1.3.10, wormhole/dropper/pickup/mouse/roundtrip PASS. Details: `docs/EARTHSTICK_V2.0_CHANGES.md`. Tag `v2.0-reference`. Next EarthStick feature release = 2.1 (The Void).
+
 
 **2026-11-08 ~13:50 - 1.3.10 released (Jim: 'release1.3.10'):** 1.3.9 + buttons swapped - `DROP_BUTTON = 1` (trigger: press = mark/drop, hold 2 s = undo), `TRIGGER_BUTTON = 2` (object click). Zip `18229d3e...`, py `6720cf69...`. Docs (README, guide + PDF, troubleshooting, hardware map, folder sheet tip, Unlocked front page, PWM README) say trigger = Gate Dropper, Button 2 = click. 1.4 stays reserved for The Void.
 
@@ -16,35 +19,35 @@
 
 **EarthStick 1.3.5 + World Gate Maker 1.2 RELEASED 2026-11-06** (Jim's one-obvious-file rule; he tests the released zips, fix forward). EarthStick: `Fly_ArcGIS_Earth.bat` + `Gates` + `City_Beacons` + `System Files/` (EarthStick.py, EarthStick.bat, Make_Taskbar_Shortcut.bat - Jim's choices); the repo root mirrors that layout. `EarthStick.py` reads `<top>/Gates` where top = parent of `System Files`; launcher v1.1 calls `System Files\EarthStick.bat`, path file in System Files; shortcut maker finds the Fly bat one level up. Flying byte-identical to 1.3.4 (replay + trigger streams), wormhole rig `--system-files` PASS. World Gate Maker: `gate_maker/World_Gate_Maker.bat` + `gate_maker/System Files/World_Gate_Maker.py`; `guess_gates_folder` also searches one level higher, newest EarthStick* first. Zips `EarthStick_v1.3.5.zip` `a9b81467...`, `World_Gate_Maker_v1.2.zip` `d06c8815...`.
 
-**EarthStick 1.3.4 RELEASED 2026-11-05** (Jim: TEST7 'to london and back, working great' ... 'perfect please do'): 1.3.3 + ring-height light (`ring_ahead`: nearest gate within 15 deg of heading, facing within 60, within 10 km; green within 0.5 radius) + tractor beam (`tractor_pull`: within 1,500 m and 1 radius; hovering or flying; max(half-life 1 s, travel/distance glide path); buttons 3/4 release) + World Gates **v21** (square gates with 320 m legs; gate data = v19). `releases/EarthStick_v1.3.4.zip` `cd600e6281bb07f7281cc1d2097e51d30646c1b605bccd8d6829afd002c2d3d2`, `EarthStick.py` `7ab8f8cd94cdf35b9be903e7b581f71604e9d95d0484d40c86afed1e850739b0` (= TEST7), `gates/World_Gates_JAX_ATL_v21.kmz` `df42e344317e1abaa7d40a9a659ab579fe1ed38e825273d708a88ba56e228d94`. Shelved: trigger beam (TEST-TEST3), v20 approach arrows. See `docs/EARTHSTICK_V1.3.4_CHANGES.md`.
+**EarthStick 1.3.4 RELEASED 2026-11-05** (Jim: TEST7 'to london and back, working great' ... 'perfect please do'): 1.3.3 + ring-height light (`ring_ahead`: nearest gate within 15 deg of heading, facing within 60, within 10 km; green within 0.5 radius) + tractor beam (`tractor_pull`: within 1,500 m and 1 radius; hovering or flying; max(half-life 1 s, travel/distance glide path); buttons 3/4 release) + World Gates **v21** (square gates with 320 m legs; gate data = v19). `archive/EarthStick_v1.3.4.zip` `cd600e6281bb07f7281cc1d2097e51d30646c1b605bccd8d6829afd002c2d3d2`, `EarthStick.py` `7ab8f8cd94cdf35b9be903e7b581f71604e9d95d0484d40c86afed1e850739b0` (= TEST7), `gates/World_Gates_JAX_ATL_v21.kmz` `df42e344317e1abaa7d40a9a659ab579fe1ed38e825273d708a88ba56e228d94`. Shelved: trigger beam (TEST-TEST3), v20 approach arrows. See `docs/EARTHSTICK_V1.3.4_CHANGES.md`.
 
-**World Gate Maker 1.1 RELEASED 2026-11-05** (Jim flew JAX <-> Seattle: 'my safe return home'; asked for gate-not-ring wording before posting): square gates with legs (1.42 x radius: Small 71 m, Medium 178 m, Large 320 m); sizes labelled by square width (70/180/320 m, same trigger radii 50/125/225 m); gate data identical to 1.0. `releases/World_Gate_Maker_v1.1.zip` `9dd731c0bbc5d9ca6acc19e294a35d95055f09b30af8581b6f4d0b26a2d802e9`, `gate_maker/World_Gate_Maker.py` `7c018f7aea5e1789791f86429071517e48433ba88f344b116ccd106d0286fbf5`; change doc `docs/WORLD_GATE_MAKER_V1.1_CHANGES.md`; pictures `images/world_gate_maker_v1.1_seattle_arrival.jpg`, `_home_ring_height.jpg`. 1.0 zip kept. The full gate-alignment math (ring separation, light, tractor beam, square geometry) is in the umbrella repo's CLAUDE.md section 3a.
+**World Gate Maker 1.1 RELEASED 2026-11-05** (Jim flew JAX <-> Seattle: 'my safe return home'; asked for gate-not-ring wording before posting): square gates with legs (1.42 x radius: Small 71 m, Medium 178 m, Large 320 m); sizes labelled by square width (70/180/320 m, same trigger radii 50/125/225 m); gate data identical to 1.0. `archive/World_Gate_Maker_v1.1.zip` `9dd731c0bbc5d9ca6acc19e294a35d95055f09b30af8581b6f4d0b26a2d802e9`, `gate_maker/World_Gate_Maker.py` `7c018f7aea5e1789791f86429071517e48433ba88f344b116ccd106d0286fbf5`; change doc `docs/WORLD_GATE_MAKER_V1.1_CHANGES.md`; pictures `images/world_gate_maker_v1.1_seattle_arrival.jpg`, `_home_ring_height.jpg`. 1.0 zip kept. The full gate-alignment math (ring separation, light, tractor beam, square geometry) is in the umbrella repo's CLAUDE.md section 3a.
 
-**EarthStick 1.3.3 RELEASED 2026-11-04** (Jim: "Go!" after TEST3): 1.3.2 + a click-through readout (Tk Toplevel, transparent key colour) on the right of the ArcGIS Earth window above the globe button: height ft / compass + heading / ≈ zoom (two lines), set from the flying loop at the 0.10 s status cadence, no extra API calls; full screen 480 px up, windowed 695 px (windowed position not yet measured on Jim's screen). `releases/EarthStick_v1.3.3.zip` `758dc8537c16ef5e789db0353422cf2661ab10edaad41ddfcb66f0719d816079`, `EarthStick.py` `36429640d3affab6e6641679797a0a3afd1d04c57c21259c416ba9b6dfab848b`. See `docs/EARTHSTICK_V1.3.3_CHANGES.md`.
+**EarthStick 1.3.3 RELEASED 2026-11-04** (Jim: "Go!" after TEST3): 1.3.2 + a click-through readout (Tk Toplevel, transparent key colour) on the right of the ArcGIS Earth window above the globe button: height ft / compass + heading / ≈ zoom (two lines), set from the flying loop at the 0.10 s status cadence, no extra API calls; full screen 480 px up, windowed 695 px (windowed position not yet measured on Jim's screen). `archive/EarthStick_v1.3.3.zip` `758dc8537c16ef5e789db0353422cf2661ab10edaad41ddfcb66f0719d816079`, `EarthStick.py` `36429640d3affab6e6641679797a0a3afd1d04c57c21259c416ba9b6dfab848b`. See `docs/EARTHSTICK_V1.3.3_CHANGES.md`.
 
 **Pictograms (2026-11-04):** 'Fly the real world in 7 steps' (`images/earthstick_getting_started*.png`, top of README + user guide, dark style) and 'What's in the EarthStick folder?' (`images/earthstick_whats_in_the_folder*.png`, bright style; under the README quick start, the README download line and the user guide). World Gate Maker has its own sheet `images/world_gate_maker_whats_in_the_zip*.png` (README + manual). Sources: Unlocked `tools/graphics/`. **If the EarthStick or World Gate Maker zip contents change, update the sheet** (EarthStick: `earthstick_whats_in_the_folder.html`; Gate Maker: `make_zip_sheets.py`).
 
-**EarthStick 1.3.2 RELEASED 2026-11-04** (Jim: "go"): 1.3.1 program (version text only) + World Gates **v19** (`Gates/World_Gates_JAX_ATL_v19.kmz`, also `gates/`): signs and site stars in the sky, far out, two rows, clear of gates. `releases/EarthStick_v1.3.2.zip` `1631ab1c2c6a3c875ffa7e35a639faa8fb3242bfece1d8849d8231cb0b5e5f7f`, `EarthStick.py` `c55df61f78bf0bc46b9b413f515e3d0232d08961b840e1cc2e6a895ba99e493f`. See `docs/EARTHSTICK_V1.3.2_CHANGES.md`.
+**EarthStick 1.3.2 RELEASED 2026-11-04** (Jim: "go"): 1.3.1 program (version text only) + World Gates **v19** (`Gates/World_Gates_JAX_ATL_v19.kmz`, also `gates/`): signs and site stars in the sky, far out, two rows, clear of gates. `archive/EarthStick_v1.3.2.zip` `1631ab1c2c6a3c875ffa7e35a639faa8fb3242bfece1d8849d8231cb0b5e5f7f`, `EarthStick.py` `c55df61f78bf0bc46b9b413f515e3d0232d08961b840e1cc2e6a895ba99e493f`. See `docs/EARTHSTICK_V1.3.2_CHANGES.md`.
 
 **EarthStick 1.3.1 RELEASED 2026-11-03** (Jim: "expedite to now", after flying and filming the World Gates tour on it): 1.3 + a larger crosshair (80 px, 5 px lines; accepted), World Gates pack **v14** (`Gates/World_Gates_JAX_ATL_v14.kmz`, 22 gates: round-the-world tour, welcome signs, one-click coloured site beacons, near-only text), `City_Beacons/` and the ArcGIS Earth Flight launcher v1.0 (`Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`; accepted). See `docs/EARTHSTICK_V1.3.1_CHANGES.md`. Video: `2N8-4cWMoPw`. Next gate pack (v15, queued): ATL hub sign above the rings, 'Coca-Cola Museum', remove the unused pin-hiding code.
 
-**World Gate Maker 1.0 RELEASED 2026-11-04** (Jim's idea; accepted live: Home <-> Central Park, 'truly a marvel'): standalone tool, two places (name, lat/lon or Google Maps clipboard, ground elev ft) + height above ground + ring size -> `Gate_<a>_<b>.kmz` in the Gates folder. `releases/World_Gate_Maker_v1.0.zip` SHA-256 `15bf077395307eda1fa988e9c1b2da003a7c1ec0d231ca594481f585aa0c91a1`, `gate_maker/World_Gate_Maker.py` `d1e678c91871406b8242947ae650506f416b3c41445a74ef382d976f4d5c8b9a`, manual `docs/WORLD_GATE_MAKER.md` + PDF. Section 'Make your own gates' on the README.
+**World Gate Maker 1.0 RELEASED 2026-11-04** (Jim's idea; accepted live: Home <-> Central Park, 'truly a marvel'): standalone tool, two places (name, lat/lon or Google Maps clipboard, ground elev ft) + height above ground + ring size -> `Gate_<a>_<b>.kmz` in the Gates folder. `archive/World_Gate_Maker_v1.0.zip` SHA-256 `15bf077395307eda1fa988e9c1b2da003a7c1ec0d231ca594481f585aa0c91a1`, `gate_maker/World_Gate_Maker.py` `d1e678c91871406b8242947ae650506f416b3c41445a74ef382d976f4d5c8b9a`, manual `docs/WORLD_GATE_MAKER.md` + PDF. Section 'Make your own gates' on the README.
 
 `EarthStick.py` 1.3.1 SHA-256: `3ec65b44c0bfa55c6b85f1ec101298a29b18205f794d13e68297705ac6f81488`
-`releases/EarthStick_v1.3.1.zip` SHA-256: `fd739b5189318966d9b91170cb0d33764335fffe7cdb4c7499a00eea4d34d2f0` (folder `EarthStick_v1.3.1/`)
+`archive/EarthStick_v1.3.1.zip` SHA-256: `fd739b5189318966d9b91170cb0d33764335fffe7cdb4c7499a00eea4d34d2f0` (folder `EarthStick_v1.3.1/`)
 
 `EarthStick.py` 1.3 SHA-256: `df0e48dda1da08a7439b118bb5f44d731f6c215e4e86d4f7f223fae9dbde26fe`
-`releases/EarthStick_v1.3.zip` SHA-256: `0e8c394748f428eef42fed5aa1da5e5d317557082505ad4ca52e4d271ce0731f` (folder `EarthStick_v1.3/` with `Gates/`)
+`archive/EarthStick_v1.3.zip` SHA-256: `0e8c394748f428eef42fed5aa1da5e5d317557082505ad4ca52e4d271ce0731f` (folder `EarthStick_v1.3/` with `Gates/`)
 
 **EarthStick 1.2** (live-accepted 2026-11-01). 1.2 = 1.1 plus trigger-click: a click-through red crosshair centred on the ArcGIS Earth window; Button 1 (trigger) glides the Windows pointer there and clicks (opens a popup; on open map, closes it). Flying is byte-identical to 1.1 (335-write replay). A Button 2 = Esc close was tried in a test build, did not work on Jim's PC, and was dropped. See `docs/EARTHSTICK_V1.2_CHANGES.md`.
 
 `EarthStick.py` 1.2 SHA-256: `63dd9b55af8aa8273dee212ed2da41ea73395752da898b8a09877d6f9bbefe5a`
-`releases/EarthStick_v1.2.zip` SHA-256: `ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5` (zip holds folder `EarthStick_v1.2/`)
+`archive/EarthStick_v1.2.zip` SHA-256: `ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5` (zip holds folder `EarthStick_v1.2/`)
 
 EarthStick 1.1 (live-accepted 2026-10-31) was a hardening release on top of the 1.0 baseline: it waits for the joystick at startup, bypasses system proxies for the localhost API, prints the reason while waiting for ArcGIS Earth, and leaves the single post-error prompt to the .bat. Controls, constants, movement and recovery are unchanged from 1.0. See `docs/EARTHSTICK_V1.1_CHANGES.md`.
 
 `EarthStick.py` 1.1 SHA-256: `84894c2f2d6c857ba71b2153126cb274254e3dbf23099ca1b821dbc2ca7400c7`
-`releases/EarthStick_v1.1.zip` SHA-256: `505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e`
+`archive/EarthStick_v1.1.zip` SHA-256: `505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e`
 
 Purpose: use a Thrustmaster TCA Sidestick Airbus Edition to provide direct, helicopter-style free camera navigation in ArcGIS Earth desktop through the ArcGIS Earth Automation API.
 
@@ -128,15 +131,15 @@ minimum altitude = 1.0 m
 
 ## Repository presentation
 
-The repository intentionally presents one product line only: **EarthStick 1.3.4**. `releases/EarthStick_v1.3.3.zip`, `releases/EarthStick_v1.3.2.zip`, `releases/EarthStick_v1.3.1.zip`, `releases/EarthStick_v1.3.zip`, `v1.2`, `v1.1` and `v1.0` are kept only so existing links keep working.
+The repository intentionally presents one product line only: **EarthStick 1.3.4**. `archive/EarthStick_v1.3.3.zip`, `archive/EarthStick_v1.3.2.zip`, `archive/EarthStick_v1.3.1.zip`, `archive/EarthStick_v1.3.zip`, `v1.2`, `v1.1` and `v1.0` are kept only so existing links keep working.
 
 Current files:
 
 - `EarthStick.py`
 - `EarthStick.bat`
-- `releases/EarthStick_v1.3.1.zip`
-- `releases/EarthStick_v1.3.zip`
-- `releases/EarthStick_v1.2.zip`, `v1.1`, `v1.0` (previous releases)
+- `archive/EarthStick_v1.3.1.zip`
+- `archive/EarthStick_v1.3.zip`
+- `archive/EarthStick_v1.2.zip`, `v1.1`, `v1.0` (previous releases)
 - `gates/World_Gates_JAX_ATL_v14.kmz` (current gate pack, also inside the 1.3.1 zip), `gates/World_Gates_City_Beacons_v2.zip`, `gates/World_Gates_JAX_ATL.kmz` (1.3 pack, kept for links)
 - `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat` (launcher, also in the 1.3.1 zip)
 - `docs/EARTHSTICK_V1.3.1_CHANGES.md`, `docs/EARTHSTICK_V1.3_CHANGES.md`, `docs/EARTHSTICK_V1.2_CHANGES.md`, `docs/EARTHSTICK_V1.1_CHANGES.md`

@@ -48,6 +48,6 @@ Flying, trigger-click, the readout and the wormholes: the test rigs gave the sam
 
 ## Release file
 
-`releases/EarthStick_v1.3.4.zip` SHA-256: `cd600e6281bb07f7281cc1d2097e51d30646c1b605bccd8d6829afd002c2d3d2`
+`archive/EarthStick_v1.3.4.zip` SHA-256: `cd600e6281bb07f7281cc1d2097e51d30646c1b605bccd8d6829afd002c2d3d2`
 
 Folder `EarthStick_v1.3.4/`: `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates/World_Gates_JAX_ATL_v21.kmz`, `City_Beacons/` (9 KMZ). Earlier zips stay for existing links.

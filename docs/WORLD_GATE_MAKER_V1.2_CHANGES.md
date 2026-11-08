@@ -17,6 +17,6 @@ The gates themselves: same file, same look, same data as 1.1. Self-test: All che
 
 ## Files
 
-- `releases/World_Gate_Maker_v1.2.zip` (folder `World_Gate_Maker_v1.2/`) SHA-256 `d06c88152c40f6d08b3df382948cebb0dbe1962cf1572be79c4c655e7e03549f`
+- `archive/World_Gate_Maker_v1.2.zip` (folder `World_Gate_Maker_v1.2/`) SHA-256 `d06c88152c40f6d08b3df382948cebb0dbe1962cf1572be79c4c655e7e03549f`
 - `gate_maker/System Files/World_Gate_Maker.py` SHA-256 `27041036557ae970de68fec4bed95c485f31c39db8aa9043ba00647cc4c14743`
 - 1.0 and 1.1 zips kept for existing links.

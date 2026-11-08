@@ -22,6 +22,6 @@ Layout from v18 on was checked before flying with a viewer model of ArcGIS Earth
 
 ## Release file
 
-`releases/EarthStick_v1.3.2.zip` SHA-256: `1631ab1c2c6a3c875ffa7e35a639faa8fb3242bfece1d8849d8231cb0b5e5f7f`
+`archive/EarthStick_v1.3.2.zip` SHA-256: `1631ab1c2c6a3c875ffa7e35a639faa8fb3242bfece1d8849d8231cb0b5e5f7f`
 
 Folder `EarthStick_v1.3.2/`: `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates/World_Gates_JAX_ATL_v19.kmz`, `City_Beacons/` (9 KMZ, unchanged). Earlier zips and gate files stay for existing links.

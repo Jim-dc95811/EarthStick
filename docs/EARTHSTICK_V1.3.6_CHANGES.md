@@ -29,7 +29,7 @@ Flying with Button 2 untouched is identical to 1.3.5 (rig PUT streams: replay, u
 
 ## Files
 
-- `releases/EarthStick_v1.3.6.zip` SHA-256 `5b443f85a748ee049902f472c6a5a14597b3c434f44dc633858cbf4126757454` (folder `EarthStick_v1.3.6/`: `Fly_ArcGIS_Earth.bat`, `Gates`, `City_Beacons`, `System Files` with `EarthStick.py`, `gate_dropper.py`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`)
+- `archive/EarthStick_v1.3.6.zip` SHA-256 `5b443f85a748ee049902f472c6a5a14597b3c434f44dc633858cbf4126757454` (folder `EarthStick_v1.3.6/`: `Fly_ArcGIS_Earth.bat`, `Gates`, `City_Beacons`, `System Files` with `EarthStick.py`, `gate_dropper.py`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`)
 - `System Files/EarthStick.py` SHA-256 `cac0436c30cad87ebeee2bda35b61ea241b2bffc92e0030474cd7b4f60700c47`
 - `System Files/gate_dropper.py` SHA-256 `c0f7f1aac2f66ee9fda0a02d5014b85faa34860953c1cc68037a4aa5108ffc39`
 - Self-test: `py EarthStick.py --selftest` (adds Gate Dropper, undo and grab-zone checks). Flight rig: `tools/test-rigs/earthstick_rig_dropper.py` in ArcGIS-Earth-Unlocked.

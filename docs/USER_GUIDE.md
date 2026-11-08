@@ -1,4 +1,4 @@
-# EarthStick 1.3.10 User Guide
+# EarthStick 2.0 User Guide
 
 <!-- install-blurb:start -->
 > ### Installing EarthStick - read this first
@@ -9,6 +9,7 @@
 > 4. **Python - nothing to install by hand.** If Python is missing, the window asks **Install Python now? [Y/N]**: type **Y** and press Enter. It installs just for you (no admin needed). On an older PC this can take several minutes and Windows Defender may make the PC look frozen - **do not close the window**.
 > 5. Install **ArcGIS Earth** (free from Esri: https://www.esri.com/en-us/arcgis/products/arcgis-earth/downloads). The .bat starts it for you and checks its Automation API is on (Settings > Advanced application settings > tick **Enable Automation API**).
 > 6. Plug the joystick in by USB - no driver needed.
+> 7. Gate files work only from the **Gates** folder: add them with the **+ ADD GATES** button (or World Gate Maker). ArcGIS Earth's own Add Data only draws them.
 >
 > Something stops it? The window says what to do in plain words, and keeps a log in `System Files\Ready_To_Fly_log.txt`. On a work computer that blocks installs, ask IT to install Python 3 from python.org.
 <!-- install-blurb:end -->
@@ -25,6 +26,8 @@ A printable copy of this guide is available as [EarthStick_User_Guide.pdf](Earth
 EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of the ArcGIS Earth camera. The goal is free movement inside a functioning map: imagery, labels, roads, GIS layers, and offline content remain part of the environment while you fly the camera.
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
+
+**New in 2.0** (8 Nov 2026 - the whole ArcGIS Earth Unlocked family moved to 2.0 as one reference point): **new gates without a restart** - save or copy a gate file into the Gates folder while EarthStick runs and within a few seconds it is armed and shown on the map; a **+ ADD GATES** button above the readout opens gate files from anywhere; **dropped gates face each other**, like World Gate Maker gates, so the way back is one turn round; and World Gate Maker 2.0 saves straight into the EarthStick you are flying (see *Turning gates on and off* and *Drop gates as you fly*).
 
 New in 1.3.10: **the trigger drops gates** and **Button 2 clicks objects** (they were the other way round). New in 1.3.9: **Ready to Fly** - `Fly_ArcGIS_Earth.bat` gets the PC ready first: it installs Python for you if it is missing, starts ArcGIS Earth and checks its Automation API is on (see *Start EarthStick* below). New in 1.3.6: the **Gate Dropper** - press Button 2 at two places and a pair of gates appears there (see *Drop gates as you fly* below). New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
 
@@ -76,15 +79,15 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.10.zip`](../releases/EarthStick_v1.3.10.zip) and extract it. It contains a folder named `EarthStick_v1.3.10` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), this guide as a PDF (`EarthStick_User_Guide.pdf`), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
+1. Download [`EarthStick_v2.0.zip`](../releases/EarthStick_v2.0.zip) and extract it. It contains a folder named `EarthStick_v2.0` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), this guide as a PDF (`EarthStick_User_Guide.pdf`), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
 2. Make sure ArcGIS Earth's Automation API is enabled (above).
-3. Open the `EarthStick_v1.3.10` folder and double-click `Fly_ArcGIS_Earth.bat`. A window titled **Ready to Fly** gets the PC ready, with a green **OK** for each check:
+3. Open the `EarthStick_v2.0` folder and double-click `Fly_ArcGIS_Earth.bat`. A window titled **Ready to Fly** gets the PC ready, with a green **OK** for each check:
    - **Internet** - if you are offline it says so (online basemaps won't load; your offline TPKX maps still work) and carries on.
    - **Python** - if it is missing it asks **Install Python now? [Y/N]**. Type **Y** and press Enter: it installs Python just for you (no admin). On an older PC this can take several minutes and Windows Defender may make the PC look frozen - that is normal, **do not close the window**.
    - **ArcGIS Earth** - found and started if it is not open yet. Not installed? It offers to open Esri's free download page.
    - **Automation API** - if ArcGIS Earth is open but not answering, it tells you: **Settings > Advanced application settings > tick Enable Automation API**, then press Enter.
 
-   Then the same window becomes **EarthStick 1.3.10**. If something stops it, the message says what to do, and a log is kept in `System Files\Ready_To_Fly_log.txt`. Double-clicking again while EarthStick is running just tells you it is already running.
+   Then the same window becomes **EarthStick 2.0**. If something stops it, the message says what to do, and a log is kept in `System Files\Ready_To_Fly_log.txt`. Double-clicking again while EarthStick is running just tells you it is already running.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -159,8 +162,8 @@ A gate is a gold square (with legs) floating in the sky. Fly through it and Eart
 
 ### Fly your first trip
 
-1. Open the **World Gates** file in ArcGIS Earth: drag `Gates\World_Gates_JAX_ATL_v21.kmz` (in the EarthStick folder) onto the map, so you can see the gates.
-2. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
+1. Start EarthStick. The console lists the gates it armed: `Wormholes: 22 gate(s) armed: ATL, JAX, NYC, ...`
+2. Show the gates on the map: click **+ ADD GATES** (above the readout) and pick `Gates\World_Gates_JAX_ATL_v21.kmz` in the EarthStick folder - or drag that file onto ArcGIS Earth yourself.
 3. Fly to a gate, put it under the crosshair with its **gold** side toward you (from the red side nothing happens), and fly through the middle. The legs, the green light and the tractor beam help you line up - see *Lining up a gate* below.
 4. The view jumps to the destination and the console says `Wormhole: through the ... gate.` You arrive still flying, already facing the landmark.
 
@@ -223,11 +226,13 @@ The `City_Beacons` folder holds nine red beacons (Go to Jacksonville, Go to Atla
 
 ### Turning gates on and off
 
-EarthStick reads the gate files in the **Gates** folder beside `EarthStick.py` **when it starts**. ArcGIS Earth cannot tell EarthStick which layers are switched on, so the folder is the switch:
+The **Gates** folder in the EarthStick folder is the switch. ArcGIS Earth only *draws* a gate file - its Automation API cannot tell EarthStick what is on the map - so a gate works only when its file is in the Gates folder. Since 2.0 EarthStick looks in that folder every 2 seconds while it runs, so **no restart is needed**.
 
-- **On:** put a gate file (`.kmz`) in the Gates folder, open the same file in ArcGIS Earth so you can see the gates, and restart EarthStick.
-- **Off:** move the file out of the Gates folder and restart EarthStick. With an empty or missing Gates folder, EarthStick simply flies with no gates.
-- After adding or removing a gate file, always **restart EarthStick** - it only reads the folder at startup. (Gates you drop with the trigger are the exception: they are armed and removed at once - see *Drop gates as you fly*.)
+- **On:** click **+ ADD GATES** (the button above the readout, right side of the ArcGIS Earth window) and pick a gate file from anywhere - Downloads, a USB stick, an e-mail attachment. EarthStick checks the file really holds gates, copies it into the Gates folder (never over a different file with the same name - that one becomes `name_2.kmz`), arms it and puts it on the map within a few seconds: **NEW GATES ARMED · name**. Saving or copying a gate file into the Gates folder yourself does the same, and World Gate Maker 2.0 saves its gates there for you.
+- **Off:** delete the file from the Gates folder (or move it out). Within a few seconds the gates are disarmed (**GATES DISARMED · name**) and, if EarthStick put them on the map, the layer leaves the map.
+- **Already in the folder when EarthStick starts?** Those gates are armed at once but not drawn: click **+ ADD GATES** and pick the file to show it, or drag it onto ArcGIS Earth.
+- **Opened a gate file with ArcGIS Earth's own Add Data?** You will see the gates, but flying through does nothing until the same file is in the Gates folder. Use **+ ADD GATES** instead.
+- With an empty or missing Gates folder, EarthStick simply flies with no gates.
 
 Several gate files can be used at once. A gate's partner is looked up in its own file first, so two files may reuse names such as ATL or JAX.
 
@@ -248,7 +253,9 @@ The **Gate Dropper** makes a pair of gates right where you fly - no coordinates,
 
 1. Fly to the first place. **Face the way you want to fly** and come down to the height you want the gate at (down in the detail, not high above it). Pull the **trigger** (Button 1). The light above the readout says **MARK 1 SAVED** with your height.
 2. Fly to the second place (at least about 1.1 km away - another painting, another city, home). Face your way and pull the **trigger** again: **GATES DROPPED · Dropped_Gate_01**.
-3. Each gate now stands **500 m in front of where you pressed**, at your height, open side toward you. **Push forward** and fly through. You come out 300 m past the other gate, looking the way you looked when you marked it - the gate behind you, so you never bounce straight back.
+3. Each gate now stands **500 m in front of where you pressed**, at your height, and the two gates **face each other** (2.0 - the same rule as World Gate Maker gates). Fly through one and you come out 300 m past the other one, facing away from it - the gate behind you, so you never bounce straight back. **To go back, turn round once and push forward** into it; the tractor beam lines you up.
+
+**Favorites:** found a spot you want to come back to - in Babel, over a city? Pull the trigger there, fly home and pull it again: a two-way shortcut between home and that spot. Hold the trigger for 2 seconds when you are done with it. Over a painting the gate faces the other gate rather than the picture, so you may need to turn after a hop.
 
 The gates are armed at once, and EarthStick also puts the file on the ArcGIS Earth map for you (it appears in the Data list as *Dropped Gate 01*). The file is saved in the **Gates** folder (`Dropped_Gate_01.kmz`, then 02, 03 ...), so the gates are still there next time.
 

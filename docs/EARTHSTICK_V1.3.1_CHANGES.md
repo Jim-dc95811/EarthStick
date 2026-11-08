@@ -31,6 +31,6 @@ Known: the beacon's ground name sits on ArcGIS Earth's blue pin (left as is). Th
 
 ## Release file
 
-`releases/EarthStick_v1.3.1.zip` SHA-256: `fd739b5189318966d9b91170cb0d33764335fffe7cdb4c7499a00eea4d34d2f0`
+`archive/EarthStick_v1.3.1.zip` SHA-256: `fd739b5189318966d9b91170cb0d33764335fffe7cdb4c7499a00eea4d34d2f0`
 
 Folder `EarthStick_v1.3.1/`: `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates/World_Gates_JAX_ATL_v14.kmz`, `City_Beacons/` (9 KMZ). The 1.3 zip and the 1.3 gate file stay for existing links.

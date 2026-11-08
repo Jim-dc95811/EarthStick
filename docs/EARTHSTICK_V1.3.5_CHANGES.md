@@ -29,6 +29,6 @@ Not testable here: the Windows .bat files themselves - Jim's run of the release 
 
 ## Files
 
-- `releases/EarthStick_v1.3.5.zip` SHA-256 `a9b81467cb840bf1ef177616565fb43b76469fc03f0d256c215b7945f6b8c5f3`
+- `archive/EarthStick_v1.3.5.zip` SHA-256 `a9b81467cb840bf1ef177616565fb43b76469fc03f0d256c215b7945f6b8c5f3`
 - `System Files/EarthStick.py` SHA-256 `a928f356b5bf356a98bb1926513c4dd9daa462c2245845ae72cd98d53c516534`
 - Earlier zips kept in `releases/` for existing links.

@@ -1,5 +1,16 @@
 # EarthStick Release Notes
 
+## EarthStick 2.0 + World Gate Maker 2.0 - the 2.0 Reference (2026-11-08)
+
+- The whole ArcGIS Earth Unlocked family moved to 2.0 as one reference point (Jim)
+- Gate files added while EarthStick runs are armed and shown within seconds, removed ones disarmed - no restart
+- **+ ADD GATES** button above the readout: open gate files from anywhere
+- Dropped gates face each other (World Gate Maker's rule) - turn round once to go back
+- World Gate Maker 2.0 saves into the EarthStick you fly and says which; needs EarthStick 2.0 started once
+- Wider notice line; flying identical to 1.3.10; old zips moved to `archive/`
+
+Details: [docs/EARTHSTICK_V2.0_CHANGES.md](docs/EARTHSTICK_V2.0_CHANGES.md).
+
 ## Ready to Fly 1.1 in every package (2026-11-08, same version numbers)
 
 Microsoft Defender blocked the all-tools zip as 'Settings Modifier - potentially unwanted behavior'. Ready to Fly 1.1 installs Python only with Windows' own installer (winget), shown normally - the user answers its questions - with nothing silent, nothing downloaded and run by the script, and no Windows setting changed. Without winget it opens python.org's download page with three steps. Jim's Defender then downloaded the same tools cleanly. Every package's zip was replaced with only `System Files/Ready_To_Fly.ps1` changed.
@@ -149,4 +160,4 @@ Reliability behavior:
 - camera response validation
 - no third-party Python dependencies
 
-EarthStick 1.0 was superseded by 1.1 on 2026-10-31. Its package remains at `releases/EarthStick_v1.0.zip`.
+EarthStick 1.0 was superseded by 1.1 on 2026-10-31. Its package remains at `archive/EarthStick_v1.0.zip`.

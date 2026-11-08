@@ -2,7 +2,7 @@
 
 **Released:** 2026-11-01
 **Type:** feature release. One new control: trigger-click.
-**Download:** [`releases/EarthStick_v1.2.zip`](../releases/EarthStick_v1.2.zip)
+**Download:** [`archive/EarthStick_v1.2.zip`](../archive/EarthStick_v1.2.zip)
 
 **Flying is unchanged.** Every 1.1 control, constant, speed and zoom law, and both recovery paths are identical. The API address is still `http://localhost:8000`.
 
@@ -47,4 +47,4 @@ A test build mapped Button 2 to close the information box with `Esc`. It did not
 | `EarthStick.bat` | `e78fe1843674b5e1ffec5e60416e38032b757e203573cb52f5f6e271ec10c6c6` | `dbae78421544ae029e29d71f2f6d573fc64b65ec1453accc013de404935dbe8c` |
 | release zip | `EarthStick_v1.1.zip` `505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e` | `EarthStick_v1.2.zip` `ad114b6197037f8851db459b244f98befee70066b458369ea993b0dcd6f224a5` |
 
-`releases/EarthStick_v1.0.zip` and `releases/EarthStick_v1.1.zip` stay in the repository so existing links keep working.
+`archive/EarthStick_v1.0.zip` and `archive/EarthStick_v1.1.zip` stay in the repository so existing links keep working.

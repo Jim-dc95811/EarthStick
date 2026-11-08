@@ -21,6 +21,6 @@ Live test (Jim, 2026-11-05): made a Jacksonville <-> Seattle pair (Medium, 1,000
 
 ## Files
 
-- `releases/World_Gate_Maker_v1.1.zip` (folder `World_Gate_Maker_v1.1/`) SHA-256 `9dd731c0bbc5d9ca6acc19e294a35d95055f09b30af8581b6f4d0b26a2d802e9`
+- `archive/World_Gate_Maker_v1.1.zip` (folder `World_Gate_Maker_v1.1/`) SHA-256 `9dd731c0bbc5d9ca6acc19e294a35d95055f09b30af8581b6f4d0b26a2d802e9`
 - `gate_maker/World_Gate_Maker.py` SHA-256 `7c018f7aea5e1789791f86429071517e48433ba88f344b116ccd106d0286fbf5`
 - 1.0 zip kept for existing links.

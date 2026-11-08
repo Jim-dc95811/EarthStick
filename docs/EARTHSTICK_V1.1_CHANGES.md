@@ -2,7 +2,7 @@
 
 **Released:** 2026-10-31
 **Type:** hardening release. Startup, connection and messages only.
-**Download:** [`releases/EarthStick_v1.1.zip`](../releases/EarthStick_v1.1.zip)
+**Download:** [`archive/EarthStick_v1.1.zip`](../archive/EarthStick_v1.1.zip)
 
 **Flying is unchanged.** Every control and button mapping is identical to 1.0. So are the technical constants (30 Hz, deadzone 0.08, 55 deg/s heading, 45 deg/s tilt, 0.50 s idle resync, 0.75 s HTTP timeout), the throttle speed law, the zoom law, camera validation and both recovery paths. The API address is still `http://localhost:8000`.
 
@@ -55,4 +55,4 @@ The banner and window title show 1.1.
 | `EarthStick.bat` | `d707d1fc9b4bfbb13c5ae101f9957b4d9b248faef273fbee640cb47d27238e1c` | `e78fe1843674b5e1ffec5e60416e38032b757e203573cb52f5f6e271ec10c6c6` |
 | release zip | `EarthStick_v1.0.zip` `8b399d70df582c448ed2bfdf532d5dcc17f579187f99a4d165bd06ef1cb0c292` | `EarthStick_v1.1.zip` `505295a68e041bec7ae921f2c71b5240816946a8d5bb5f48459f3b237819c52e` |
 
-`releases/EarthStick_v1.0.zip` stays in the repository so existing links keep working. The PDF user guide was written for 1.0 and still applies to 1.1.
+`archive/EarthStick_v1.0.zip` stays in the repository so existing links keep working. The PDF user guide was written for 1.0 and still applies to 1.1.

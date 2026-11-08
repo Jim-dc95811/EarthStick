@@ -32,6 +32,6 @@ Flying, World Gates and trigger-click: the test rigs gave the same camera comman
 
 ## Release file
 
-`releases/EarthStick_v1.3.3.zip` SHA-256: `758dc8537c16ef5e789db0353422cf2661ab10edaad41ddfcb66f0719d816079`
+`archive/EarthStick_v1.3.3.zip` SHA-256: `758dc8537c16ef5e789db0353422cf2661ab10edaad41ddfcb66f0719d816079`
 
 Folder `EarthStick_v1.3.3/`: `EarthStick.py`, `EarthStick.bat`, `Fly_ArcGIS_Earth.bat`, `Make_Taskbar_Shortcut.bat`, `Gates/World_Gates_JAX_ATL_v19.kmz`, `City_Beacons/` (9 KMZ). Earlier zips stay for existing links.

@@ -1,4 +1,4 @@
-# EarthStick 1.3.10 Hardware Map
+# EarthStick 2.0 Hardware Map
 
 ## Tested controller
 
