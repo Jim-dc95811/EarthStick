@@ -1,6 +1,8 @@
-# CONTINUITY - EarthStick 1.3.9
+# CONTINUITY - EarthStick 1.3.10
 
 ## Official baseline
+
+**2026-11-08 ~13:50 - 1.3.10 released (Jim: 'release1.3.10'):** 1.3.9 + buttons swapped - `DROP_BUTTON = 1` (trigger: press = mark/drop, hold 2 s = undo), `TRIGGER_BUTTON = 2` (object click). Zip `18229d3e...`, py `6720cf69...`. Docs (README, guide + PDF, troubleshooting, hardware map, folder sheet tip, Unlocked front page, PWM README) say trigger = Gate Dropper, Button 2 = click. 1.4 stays reserved for The Void.
 
 **2026-11-08 13:03 - no Thrustmaster driver needed (Jim):** on his old Win10 laptop with NO Thrustmaster driver installed, Windows' built-in driver exposed the stick as 'Microsoft PC-joystick driver' and EarthStick's capability fallback (4+ axes, 17 buttons, POV) found it at once. Docs now say plug it in, driver optional; 7-steps picture step 4 = 'Plug in the joystick', step 3 = Python installs itself, step 6 = Fly_ArcGIS_Earth.bat (was the stale EarthStick.bat), step 2 = 'Advanced application settings > Enable Automation API'. Also proven on the laptop: Ready to Fly's API-off message (ticking the box connects at once, no restart) and the joystick wait; no API flicker on the old PC -> fix 4 closed, no change.
 

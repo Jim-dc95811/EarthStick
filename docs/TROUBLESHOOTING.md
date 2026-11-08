@@ -1,4 +1,4 @@
-# EarthStick 1.3.9 Troubleshooting
+# EarthStick 1.3.10 Troubleshooting
 
 ## The Ready to Fly window (1.3.9)
 
@@ -57,12 +57,12 @@ Leave EarthStick running and reconnect it. EarthStick will retry discovery and t
 
 Release the joystick to neutral before using the mouse. EarthStick periodically synchronizes while idle and also re-reads the camera when movement begins.
 
-## Trigger-click
+## Clicking objects (Button 2 since 1.3.10)
 
 - **No crosshair, and the console says `Trigger-click: unavailable`:** the reason follows in brackets. Flying still works. The usual cause is a Python install without Tkinter: rerun the python.org installer, choose **Modify**, and tick **tcl/tk and IDLE**.
 - **No crosshair, but no error:** make sure ArcGIS Earth is open and not minimized. The crosshair hides while ArcGIS Earth is minimized.
-- **The trigger zooms in instead of opening the box:** let go of the stick and hover before pulling the trigger, and pull it once. Check in `joy.cpl` that the trigger shows as Button 1.
-- **The box will not close:** aim the crosshair at open map, away from the box, and pull the trigger. `Esc` on the keyboard or a normal mouse click outside the box also closes it.
+- **Button 2 zooms in instead of opening the box:** let go of the stick and hover before pressing Button 2, and press it once. Check in `joy.cpl` which button shows as Button 2. (Since 1.3.10 the trigger drops gates instead of clicking.)
+- **The box will not close:** aim the crosshair at open map, away from the box, and press Button 2. `Esc` on the keyboard or a normal mouse click outside the box also closes it.
 - **The crosshair is not over the spot that gets clicked:** adjust `CENTER_OFFSET_X` / `CENTER_OFFSET_Y` near the top of `System Files\EarthStick.py` (screen pixels).
 
 ## World Gates

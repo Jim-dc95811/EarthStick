@@ -1,4 +1,4 @@
-# EarthStick 1.3.9 User Guide
+# EarthStick 1.3.10 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -12,7 +12,7 @@ EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of t
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
 
-New in 1.3.9: **Ready to Fly** - `Fly_ArcGIS_Earth.bat` gets the PC ready first: it installs Python for you if it is missing, starts ArcGIS Earth and checks its Automation API is on (see *Start EarthStick* below). New in 1.3.6: the **Gate Dropper** - press Button 2 at two places and a pair of gates appears there (see *Drop gates as you fly* below). New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
+New in 1.3.10: **the trigger drops gates** and **Button 2 clicks objects** (they were the other way round). New in 1.3.9: **Ready to Fly** - `Fly_ArcGIS_Earth.bat` gets the PC ready first: it installs Python for you if it is missing, starts ArcGIS Earth and checks its Automation API is on (see *Start EarthStick* below). New in 1.3.6: the **Gate Dropper** - press Button 2 at two places and a pair of gates appears there (see *Drop gates as you fly* below). New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
 
 New in 1.3.3: your **height, heading and map zoom** on screen, even in full-screen mode (see *The readout* below).
 
@@ -22,7 +22,7 @@ New in 1.3.1: a **round-the-world tour** through the World Gates, with welcome s
 
 New in 1.3: **World Gates** - golden rings in the sky; fly through one and you arrive somewhere else on Earth (see *World Gates* below).
 
-New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS Earth window. Put an object under it and pull the trigger to open the object's information box (popup) without touching the mouse.
+New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS Earth window. Put an object under it and press Button 2 (the trigger until 1.3.9) to open the object's information box (popup) without touching the mouse.
 
 ## Requirements
 
@@ -49,7 +49,7 @@ Before running EarthStick:
 5. Confirm twist/rudder responds.
 6. Confirm Slider 0 travels through its range.
 7. Confirm POV up/down responds.
-8. Confirm Button 4, Button 3 and the trigger (Button 1) respond.
+8. Confirm Button 4, Button 3, Button 2 and the trigger (Button 1) respond.
 
 The tested controller normally appears as `T.A320 Pilot`.
 
@@ -62,15 +62,15 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.9.zip`](../releases/EarthStick_v1.3.9.zip) and extract it. It contains a folder named `EarthStick_v1.3.9` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
+1. Download [`EarthStick_v1.3.10.zip`](../releases/EarthStick_v1.3.10.zip) and extract it. It contains a folder named `EarthStick_v1.3.10` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
 2. Make sure ArcGIS Earth's Automation API is enabled (above).
-3. Open the `EarthStick_v1.3.9` folder and double-click `Fly_ArcGIS_Earth.bat`. A window titled **Ready to Fly** gets the PC ready, with a green **OK** for each check:
+3. Open the `EarthStick_v1.3.10` folder and double-click `Fly_ArcGIS_Earth.bat`. A window titled **Ready to Fly** gets the PC ready, with a green **OK** for each check:
    - **Internet** - if you are offline it says so (online basemaps won't load; your offline TPKX maps still work) and carries on.
    - **Python** - if it is missing it asks **Install Python now? [Y/N]**. Type **Y** and press Enter: it installs Python just for you (no admin). On an older PC this can take several minutes and Windows Defender may make the PC look frozen - that is normal, **do not close the window**.
    - **ArcGIS Earth** - found and started if it is not open yet. Not installed? It offers to open Esri's free download page.
    - **Automation API** - if ArcGIS Earth is open but not answering, it tells you: **Settings > Advanced application settings > tick Enable Automation API**, then press Enter.
 
-   Then the same window becomes **EarthStick 1.3.9**. If something stops it, the message says what to do, and a log is kept in `System Files\Ready_To_Fly_log.txt`. Double-clicking again while EarthStick is running just tells you it is already running.
+   Then the same window becomes **EarthStick 1.3.10**. If something stops it, the message says what to do, and a log is kept in `System Files\Ready_To_Fly_log.txt`. Double-clicking again while EarthStick is running just tells you it is already running.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -92,9 +92,9 @@ The tested controller normally appears as `T.A320 Pilot`.
 | POV up/down | Camera tilt |
 | Red Button 4 | Hold to descend / zoom in |
 | Black Button 3 | Hold to climb / zoom out |
-| Trigger (Button 1) | Click the object under the red crosshair |
-| Button 2 (press) | Gate Dropper: mark a place (two marks = a gate pair) |
-| Button 2 (hold 2 s) | Undo the last gate drop |
+| Trigger (Button 1) - press | Gate Dropper: mark a place (two marks = a gate pair) |
+| Trigger (Button 1) - hold 2 s | Undo the last gate drop |
+| Button 2 | Click the object under the red crosshair |
 | Neutral | Stop and hover |
 
 ## Flying technique
@@ -118,16 +118,18 @@ The readout lets mouse clicks pass through, follows the window, and hides while 
 
 ![The red crosshair in the middle of the ArcGIS Earth window, beside a camera object over the SR-200 / I-95 interchange](../images/earthstick_trigger_click_crosshair.jpg)
 
-*The red crosshair (right) and a camera object (left). Fly until the camera sits under the crosshair, hover, then pull the trigger.*
+*The red crosshair (right) and a camera object (left). Fly until the camera sits under the crosshair, hover, then press Button 2.*
+
+Since 1.3.10 the click is on **Button 2**; the trigger drops gates (for two-handed flying the mouse in your other hand does most clicking anyway).
 
 1. Fly until the object (a beacon, a camera, a parcel, a point) sits under the red crosshair.
 2. Let go of the stick so the camera hovers.
-3. Pull the trigger once. EarthStick moves the Windows mouse pointer onto the object, clicks it, and puts the pointer back where it was. The object's information box opens.
-4. **To close the box,** aim the crosshair at open map, away from the box, and pull the trigger again.
+3. Press Button 2 once. EarthStick moves the Windows mouse pointer onto the object, clicks it, and puts the pointer back where it was. The object's information box opens.
+4. **To close the box,** aim the crosshair at open map, away from the box, and press Button 2 again.
 
 Tips:
 
-- One pull = one click. A second pull within 0.8 seconds is ignored, so a bouncy trigger can never turn into a double-click (a double-click makes ArcGIS Earth zoom in).
+- One press = one click. A second press within 0.8 seconds is ignored, so a bouncy button can never turn into a double-click (a double-click makes ArcGIS Earth zoom in).
 - If another window is in front, the first click brings ArcGIS Earth to the front and EarthStick then clicks the object.
 - The crosshair follows the ArcGIS Earth window if you move or resize it, and hides while ArcGIS Earth is minimized. Mouse clicks pass straight through it.
 - If the crosshair cannot be shown, the console says `Trigger-click: unavailable` and EarthStick flies normally.
@@ -181,7 +183,7 @@ So: put the gate under the crosshair, let the light and the beam handle the heig
 
 - **Welcome sign:** "Welcome to ..." floats ahead of you, up in the sky about 6 km away (at Atlanta, above the ring of gates).
 - **Site stars:** below it, five gold stars in two rows (about 4 km away, still in the sky) name the city's famous sites (Atlanta and Jacksonville too). Each name is drawn in its beacon's colour: red, blue, green, magenta, orange.
-- **Beacon on:** aim the crosshair at a star and pull the trigger. A short information box opens and a beacon in that colour shoots up over the site (3 km tall), with its name at the bottom. Pull the trigger on open map to close the box, then fly to the beacon. Clicking the same star again does not add a second beacon.
+- **Beacon on:** aim the crosshair at a star and press Button 2. A short information box opens and a beacon in that colour shoots up over the site (3 km tall), with its name at the bottom. Press Button 2 on open map to close the box, then fly to the beacon. Clicking the same star again does not add a second beacon.
 - **Beacon off:** untick it under **My Drawings** on the left of ArcGIS Earth.
 - Signs, stars and gate names only show within about 4 miles, so far-away views stay clean. Beacons use ArcGIS Earth's Automation API, the same setting EarthStick needs.
 
@@ -211,7 +213,7 @@ EarthStick reads the gate files in the **Gates** folder beside `EarthStick.py` *
 
 - **On:** put a gate file (`.kmz`) in the Gates folder, open the same file in ArcGIS Earth so you can see the gates, and restart EarthStick.
 - **Off:** move the file out of the Gates folder and restart EarthStick. With an empty or missing Gates folder, EarthStick simply flies with no gates.
-- After adding or removing a gate file, always **restart EarthStick** - it only reads the folder at startup. (Gates you drop with Button 2 are the exception: they are armed and removed at once - see *Drop gates as you fly*.)
+- After adding or removing a gate file, always **restart EarthStick** - it only reads the folder at startup. (Gates you drop with the trigger are the exception: they are armed and removed at once - see *Drop gates as you fly*.)
 
 Several gate files can be used at once. A gate's partner is looked up in its own file first, so two files may reuse names such as ATL or JAX.
 
@@ -230,13 +232,13 @@ If it says it cannot find ArcGIS Earth: right-click your normal ArcGIS Earth sho
 
 The **Gate Dropper** makes a pair of gates right where you fly - no coordinates, no typing, no restart.
 
-1. Fly to the first place. **Face the way you want to fly** and come down to the height you want the gate at (down in the detail, not high above it). Press **Button 2**. The light above the readout says **MARK 1 SAVED** with your height.
-2. Fly to the second place (at least about 1.1 km away - another painting, another city, home). Face your way and press **Button 2** again: **GATES DROPPED · Dropped_Gate_01**.
+1. Fly to the first place. **Face the way you want to fly** and come down to the height you want the gate at (down in the detail, not high above it). Pull the **trigger** (Button 1). The light above the readout says **MARK 1 SAVED** with your height.
+2. Fly to the second place (at least about 1.1 km away - another painting, another city, home). Face your way and pull the **trigger** again: **GATES DROPPED · Dropped_Gate_01**.
 3. Each gate now stands **500 m in front of where you pressed**, at your height, open side toward you. **Push forward** and fly through. You come out 300 m past the other gate, looking the way you looked when you marked it - the gate behind you, so you never bounce straight back.
 
 The gates are armed at once, and EarthStick also puts the file on the ArcGIS Earth map for you (it appears in the Data list as *Dropped Gate 01*). The file is saved in the **Gates** folder (`Dropped_Gate_01.kmz`, then 02, 03 ...), so the gates are still there next time.
 
-**Undo:** **hold Button 2 for 2 seconds.** If you have only marked one place, the mark is cleared (**MARK 1 CLEARED**). Otherwise the last pair you dropped is removed: the file is deleted, the gates are disarmed and the layer leaves the map (**UNDONE · Dropped_Gate_01**). Hold again to undo the pair before that. The number is reused. (If EarthStick was restarted since the drop, untick or remove the old layer in ArcGIS Earth yourself.)
+**Undo:** **hold the trigger for 2 seconds.** If you have only marked one place, the mark is cleared (**MARK 1 CLEARED**). Otherwise the last pair you dropped is removed: the file is deleted, the gates are disarmed and the layer leaves the map (**UNDONE · Dropped_Gate_01**). Hold again to undo the pair before that. The number is reused. (If EarthStick was restarted since the drop, untick or remove the old layer in ArcGIS Earth yourself.)
 
 **How dropped gates look and grab you:** thin **black** lines with a red back and white names, with a big opening (about 425 m / 1,390 ft across), so they stay quiet over a painting. Their tractor beam reaches much further than other gates: from **3 km** out and up to **2,000 ft above or below**, with a countdown in the light - **LOCKED ON · 560 ft**. At the gate's height you are usually looking down at the picture, so the gate itself is above your view: push forward and trust the countdown, or tilt up with the hat to see it. Tap Button 3 or 4 to break free.
 

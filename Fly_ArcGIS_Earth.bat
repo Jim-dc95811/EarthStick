@@ -1,8 +1,8 @@
 @echo off
-rem ArcGIS Earth Flight launcher v2.0 - EarthStick 1.3.9
+rem ArcGIS Earth Flight launcher v2.0 - EarthStick 1.3.10
 rem Ready to Fly: finds or installs Python, finds and starts ArcGIS Earth,
 rem checks its Automation API and the internet, then starts EarthStick.
-title EarthStick 1.3.9
+title EarthStick 1.3.10
 echo Starting Ready to Fly - on an older PC this first step can take a few minutes, please wait...
 echo (Windows Defender may check the files first and slow the PC. That is normal - do not close this window.)
 cd /d "%~dp0System Files"

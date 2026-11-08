@@ -1,5 +1,13 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.10 - The trigger drops gates (2026-11-08)
+
+- Trigger (Button 1): Gate Dropper - press at two places for a gate pair, hold 2 s to undo
+- Button 2: click the object under the red crosshair (was the trigger)
+- Everything else as 1.3.9
+
+Details: [docs/EARTHSTICK_V1.3.10_CHANGES.md](docs/EARTHSTICK_V1.3.10_CHANGES.md).
+
 ## World Gate Maker 1.2.1 - Ready to Fly (2026-11-08)
 
 - `World_Gate_Maker.bat`: the launcher now gets the PC ready first: it finds Python or installs it for you (just for you, no admin - answer **Y**), then starts the tool. New file `System Files\Ready_To_Fly.ps1` (log: `System Files\Ready_To_Fly_log.txt`). Program byte-identical to the previous release. Live-tested by Jim 2026-11-08.

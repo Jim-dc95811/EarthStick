@@ -19,7 +19,8 @@ Windows control-panel name observed during testing:
 | POV up/down | POV | Camera tilt |
 | Red top button | Button 4 | Descend / zoom in |
 | Black thumb button | Button 3 | Climb / zoom out |
-| Trigger | Button 1 | Click the object under the crosshair (1.2) |
+| Trigger | Button 1 | Gate Dropper: press = mark / drop, hold 2 s = undo (1.3.10; 1.3.6-1.3.9 on Button 2) |
+| Button 2 | Button 2 | Click the object under the crosshair (1.3.10; the trigger in 1.2-1.3.9) |
 
 Other buttons are intentionally unassigned.
 
