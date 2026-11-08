@@ -1,4 +1,4 @@
-# EarthStick 1.3.6 User Guide
+# EarthStick 1.3.9 User Guide
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
@@ -12,7 +12,7 @@ EarthStick gives a Thrustmaster TCA Sidestick Airbus Edition direct control of t
 
 The defining behavior is **neutral = hover**. When the movement controls return to neutral, EarthStick stops moving the camera.
 
-New in 1.3.6: the **Gate Dropper** - press Button 2 at two places and a pair of gates appears there (see *Drop gates as you fly* below). New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
+New in 1.3.9: **Ready to Fly** - `Fly_ArcGIS_Earth.bat` gets the PC ready first: it installs Python for you if it is missing, starts ArcGIS Earth and checks its Automation API is on (see *Start EarthStick* below). New in 1.3.6: the **Gate Dropper** - press Button 2 at two places and a pair of gates appears there (see *Drop gates as you fly* below). New in 1.3.5: a tidy folder - just `Fly_ArcGIS_Earth.bat` to double-click, with the program tucked into `System Files`. New in 1.3.4: **square gates** that show you how to line up, a green **ring-height light**, and a **tractor beam** that guides you through (see *Lining up a gate* below).
 
 New in 1.3.3: your **height, heading and map zoom** on screen, even in full-screen mode (see *The readout* below).
 
@@ -29,7 +29,7 @@ New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS 
 - Windows 11
 - ArcGIS Earth desktop
 - ArcGIS Earth Automation API enabled
-- Python 3 from python.org; tested with Python 3.14.5 (the standard install includes Tkinter, which draws the crosshair)
+- Python 3 (since 1.3.9 `Fly_ArcGIS_Earth.bat` installs it for you if it is missing; or get it from python.org); tested with Python 3.14.5 (the standard install includes Tkinter, which draws the crosshair)
 - Thrustmaster TCA Sidestick Airbus Edition connected by USB
 - Thrustmaster driver/control panel recommended
 - the EarthStick folder as it comes out of the zip (`Fly_ArcGIS_Earth.bat` next to `System Files`)
@@ -62,9 +62,15 @@ The tested controller normally appears as `T.A320 Pilot`.
 
 ## Start EarthStick
 
-1. Download [`EarthStick_v1.3.6.zip`](../releases/EarthStick_v1.3.6.zip) and extract it. It contains a folder named `EarthStick_v1.3.6` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
+1. Download [`EarthStick_v1.3.9.zip`](../releases/EarthStick_v1.3.9.zip) and extract it. It contains a folder named `EarthStick_v1.3.9` holding `Fly_ArcGIS_Earth.bat` (the one to double-click), a `Gates` folder with the World Gates pack, a `City_Beacons` folder and `System Files` (the program - leave it alone).
 2. Make sure ArcGIS Earth's Automation API is enabled (above).
-3. Open the `EarthStick_v1.3.6` folder and double-click `Fly_ArcGIS_Earth.bat`. It starts ArcGIS Earth if it is not open yet, then a console window titled **EarthStick 1.3.6** opens. (The first time it may spend a minute finding ArcGIS Earth.)
+3. Open the `EarthStick_v1.3.9` folder and double-click `Fly_ArcGIS_Earth.bat`. A window titled **Ready to Fly** gets the PC ready, with a green **OK** for each check:
+   - **Internet** - if you are offline it says so (online basemaps won't load; your offline TPKX maps still work) and carries on.
+   - **Python** - if it is missing it asks **Install Python now? [Y/N]**. Type **Y** and press Enter: it installs Python just for you (no admin). On an older PC this can take several minutes and Windows Defender may make the PC look frozen - that is normal, **do not close the window**.
+   - **ArcGIS Earth** - found and started if it is not open yet. Not installed? It offers to open Esri's free download page.
+   - **Automation API** - if ArcGIS Earth is open but not answering, it tells you: **Settings > Advanced application settings > tick Enable Automation API**, then press Enter.
+
+   Then the same window becomes **EarthStick 1.3.9**. If something stops it, the message says what to do, and a log is kept in `System Files\Ready_To_Fly_log.txt`. Double-clicking again while EarthStick is running just tells you it is already running.
 4. EarthStick reports the detected joystick and Slider 0 source. If the joystick is not plugged in, it says so and waits until it is.
 5. It then shows `Waiting for ArcGIS Earth Automation API at http://localhost:8000 ...`. If ArcGIS Earth is not ready, `Still waiting:` lines explain why.
 6. Wait for `ArcGIS Earth: connected`, followed by `Trigger-click: ready`. The red crosshair appears in the middle of the ArcGIS Earth window.
@@ -246,7 +252,7 @@ Gate files are ordinary KMZ files with the gate drawn in gold and the gate detai
 
 ## Using the mouse while EarthStick is running
 
-When the joystick is idle, EarthStick periodically re-reads the ArcGIS Earth camera. You can reposition the map with normal ArcGIS Earth controls, then return to the joystick. When movement begins, EarthStick synchronizes from the current camera state.
+When the joystick is idle, EarthStick periodically re-reads the ArcGIS Earth camera. You can reposition the map with normal ArcGIS Earth controls, then return to the joystick. Since 1.3.9 this also holds while the tractor beam is nudging you toward a gate: it changes only your height and never pulls back what you did with the mouse. When movement begins, EarthStick synchronizes from the current camera state.
 
 ## Automatic recovery
 

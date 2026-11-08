@@ -1,4 +1,14 @@
-# EarthStick 1.3.4 Troubleshooting
+# EarthStick 1.3.9 Troubleshooting
+
+## The Ready to Fly window (1.3.9)
+
+`Fly_ArcGIS_Earth.bat` first gets the PC ready and shows a green **OK** per check. If it stops, it says why in plain words; a log is kept in `System Files\Ready_To_Fly_log.txt`.
+
+- **The window stays blank or looks stuck for minutes** on an older PC: PowerShell starting up and Windows Defender scanning new files. Wait - do not close it.
+- **"Python ... is not installed"**: answer **Y** to install it for you (no admin). If that fails on a work computer, ask IT to install Python 3 from python.org.
+- **"ArcGIS Earth isn't installed"**: answer **Y** to open Esri's download page, install it, then click the .bat again.
+- **"Automation API is switched off"**: ArcGIS Earth > Settings > Advanced application settings > tick **Enable Automation API**, press Enter. If it still does not connect, close ArcGIS Earth, open it again and wait for the globe.
+- **"already running in another window"**: EarthStick (or Ready to Fly) is already open - use that window.
 
 ## EarthStick says no joystick is connected
 
@@ -12,7 +22,7 @@
 EarthStick prints the reason under `Still waiting:`. `connection refused` usually means ArcGIS Earth is closed or the Automation API is off. An HTTP error such as `404` means another program is using port 8000.
 
 - Open ArcGIS Earth desktop.
-- Enable Automation API under Settings > Advanced.
+- Enable Automation API: Settings > Advanced application settings > tick **Enable Automation API**.
 - Confirm the local API address is `http://localhost:8000`.
 - If ArcGIS Earth was restarted, leave EarthStick running; it will retry and re-synchronize automatically.
 

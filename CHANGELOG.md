@@ -1,5 +1,15 @@
 # EarthStick Release Notes
 
+## EarthStick 1.3.9 - Ready to Fly + hardening (2026-11-08)
+
+- `Fly_ArcGIS_Earth.bat` now gets the PC ready first: checks the internet, finds Python or installs it for you (no admin), finds and starts ArcGIS Earth (or offers Esri's download page), and checks its Automation API is switched on
+- Only one EarthStick (and one Ready to Fly) at a time - an extra double-click no longer starts a second copy
+- The tractor beam no longer pulls back what you do with the mouse while you hover near a gate
+- The status line fits the window (no scrolling); undo always removes the newest dropped gate; clearer 'switch on the Automation API' message
+- Flying, gates and the Gate Dropper unchanged (1.3.7 and 1.3.8 were test builds)
+
+Details: [docs/EARTHSTICK_V1.3.9_CHANGES.md](docs/EARTHSTICK_V1.3.9_CHANGES.md).
+
 ## EarthStick 1.3.6 - The Gate Dropper (2026-11-06)
 
 - Button 2: press at one place, then at another - a pair of gates appears, 500 m ahead of each press, at your height, facing your way; no typing, no restart

@@ -1,4 +1,4 @@
-# EarthStick 1.3.6
+# EarthStick 1.3.9
 
 > 🤖 **Using AI assistance?** Have the agent read the [CLAUDE.md](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/blob/main/CLAUDE.md) file first.
 
@@ -19,11 +19,11 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.6](releases/EarthStick_v1.3.6.zip)**
+### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.9](releases/EarthStick_v1.3.9.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 
-Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. **New in 1.3.6: the Gate Dropper** - press Button 2 at two places and a pair of gates appears there, no typing. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
+Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. **New in 1.3.9: Ready to Fly** - one double-click gets the PC ready: it installs Python for you if it is missing, starts ArcGIS Earth and checks it is ready to fly. New in 1.3.6: the Gate Dropper - press Button 2 at two places and a pair of gates appears there, no typing. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
 [![Flying ArcGIS Earth with EarthStick: low over the St. Johns River with a beacon and sky compass letters on the horizon](images/earthstick_flight_arcgis_earth.jpg)](https://www.youtube.com/watch?v=5Wn14qlC7n4)
 
@@ -50,8 +50,8 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
 5. Leave the default local API address at `http://localhost:8000` unless you intentionally changed it.
-6. Extract `EarthStick_v1.3.6.zip` and open the `EarthStick_v1.3.6` folder.
-7. Double-click `Fly_ArcGIS_Earth.bat` - it starts ArcGIS Earth if it is not open yet, then EarthStick (or set up the one-click taskbar start - see *One-click start* below).
+6. Extract `EarthStick_v1.3.9.zip` and open the `EarthStick_v1.3.9` folder.
+7. Double-click `Fly_ArcGIS_Earth.bat` - it gets the PC ready (installs Python if it is missing - answer **Y**; on an older PC this can take several minutes), starts ArcGIS Earth if it is not open yet, checks the Automation API, then starts EarthStick (or set up the one-click taskbar start - see *One-click start* below).
 8. Wait for the console to report `ArcGIS Earth: connected`. If the joystick is not plugged in yet, EarthStick waits for it.
 9. Fly.
 
@@ -154,19 +154,21 @@ Clicking it starts ArcGIS Earth (unless it is already open), then EarthStick, wh
 
 ## Release details
 
+**EarthStick 1.3.9** (2026-11-08) - Ready to Fly: the launcher checks the internet, finds or installs Python (per user, no admin), finds and starts ArcGIS Earth (or offers Esri's download page) and checks the Automation API; plus hardening: one copy at a time, the tractor beam respects mouse moves while hovering, the status line fits the window, undo by gate number, clearer API message. Flying, gates and the Gate Dropper as 1.3.6. See [docs/EARTHSTICK_V1.3.9_CHANGES.md](docs/EARTHSTICK_V1.3.9_CHANGES.md).
+
 **EarthStick 1.3.6** (2026-11-06) - the Gate Dropper: Button 2 drops gate pairs where you fly (500 m ahead, your height, your heading), hold Button 2 to undo; dropped gates are thin black with a 425 m opening and lock on from 3 km / 2,000 ft; the LOCKED ON light counts down the distance. Flying with no Button 2 is identical to 1.3.5. See [docs/EARTHSTICK_V1.3.6_CHANGES.md](docs/EARTHSTICK_V1.3.6_CHANGES.md).
 
 **EarthStick 1.3.5** (2026-11-06) - one obvious file: the folder shows only `Fly_ArcGIS_Earth.bat`, `Gates`, `City_Beacons` and `System Files`. Flying is identical to 1.3.4 (World Gates v21, ring-height light, tractor beam). See [docs/EARTHSTICK_V1.3.5_CHANGES.md](docs/EARTHSTICK_V1.3.5_CHANGES.md).
 
 ![A square ATL gate over London with the tractor beam LOCKED ON at 1,500 ft](images/world_gates_v21_locked_on.jpg)
 
-`EarthStick_v1.3.6.zip` SHA-256:
+`EarthStick_v1.3.9.zip` SHA-256:
 
-`5b443f85a748ee049902f472c6a5a14597b3c434f44dc633858cbf4126757454`
+`2352e1c6fe4facb7d727db7d5a0ba1abecc32cf439db32a5a93a0508f341126b`
 
-The release contains one folder, `EarthStick_v1.3.6`, holding `Fly_ArcGIS_Earth.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
+The release contains one folder, `EarthStick_v1.3.9`, holding `Fly_ArcGIS_Earth.bat`, `Gates\World_Gates_JAX_ATL_v21.kmz`, a `City_Beacons` folder and `System Files` (`EarthStick.py`, `gate_dropper.py`, `Ready_To_Fly.ps1`, `EarthStick.bat`, `Make_Taskbar_Shortcut.bat`).
 
-**Earlier releases** (1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
+**Earlier releases** (1.3.6, 1.3.5, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3, 1.2, 1.1, 1.0): their zips stay in [`releases/`](releases/) so existing links keep working. What changed in each, with file fingerprints, is in the [release history](CHANGELOG.md) and the change documents listed under *Documentation*.
 
 ## What makes EarthStick different
 
@@ -207,6 +209,7 @@ How EarthStick works inside - the movement math, technical constants, architectu
 - [`docs/TROUBLESHOOTING.md`](docs/TROUBLESHOOTING.md) - failure checks and recovery
 - [`docs/HARDWARE_MAP.md`](docs/HARDWARE_MAP.md) - tested controller mapping
 - [`docs/WORLD_GATE_MAKER.md`](docs/WORLD_GATE_MAKER.md) - World Gate Maker user manual ([PDF](docs/World_Gate_Maker_User_Manual.pdf))
+- [`docs/EARTHSTICK_V1.3.9_CHANGES.md`](docs/EARTHSTICK_V1.3.9_CHANGES.md) - 1.3.9 change document (Ready to Fly launcher, hardening)
 - [`docs/EARTHSTICK_V1.3.4_CHANGES.md`](docs/EARTHSTICK_V1.3.4_CHANGES.md) - 1.3.4 change document (square gates, ring-height light, tractor beam)
 - [`docs/EARTHSTICK_V1.3.3_CHANGES.md`](docs/EARTHSTICK_V1.3.3_CHANGES.md) - 1.3.3 change document (height / heading / zoom readout)
 - [`docs/EARTHSTICK_V1.3.2_CHANGES.md`](docs/EARTHSTICK_V1.3.2_CHANGES.md) - 1.3.2 change document (World Gates v19)

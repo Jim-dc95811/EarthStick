@@ -1,61 +1,28 @@
 @echo off
-rem ArcGIS Earth Flight launcher v1.1 (Jim, 2026-11-03; v1.1 2026-11-06: EarthStick.bat and the remembered
-rem ArcGIS Earth path live in System Files): starts ArcGIS Earth, then EarthStick.
-rem Keep this file in the EarthStick folder, next to System Files. EarthStick waits for ArcGIS Earth by itself.
-rem No ( ) blocks around paths on purpose: a path like "Program Files (x86)" would break them.
-setlocal
-title ArcGIS Earth Flight launcher v1.1
-cd /d "%~dp0"
-call :find_earth
-if not defined AE goto :not_found
-if /i "%~1"=="/find" exit /b 0
-
-tasklist /fi "imagename eq %AE_NAME%" 2>nul | find /i "%AE_NAME%" >nul
-if not errorlevel 1 goto :earth_running
-echo Starting ArcGIS Earth...
-start "" "%AE%"
-goto :start_stick
-:earth_running
-echo ArcGIS Earth is already running.
-
-:start_stick
-if not exist "%~dp0System Files\EarthStick.bat" goto :no_stick
-echo Starting EarthStick - it waits until ArcGIS Earth is ready...
-call "%~dp0System Files\EarthStick.bat"
-exit /b 0
-
-:no_stick
-echo.
-echo EarthStick.bat was not found in:
-echo   "%~dp0System Files"
-echo Keep Fly_ArcGIS_Earth.bat in the EarthStick folder, next to System Files.
+rem ArcGIS Earth Flight launcher v2.0 - EarthStick 1.3.9
+rem Ready to Fly: finds or installs Python, finds and starts ArcGIS Earth,
+rem checks its Automation API and the internet, then starts EarthStick.
+title EarthStick 1.3.9
+echo Starting Ready to Fly - on an older PC this first step can take a few minutes, please wait...
+echo (Windows Defender may check the files first and slow the PC. That is normal - do not close this window.)
+cd /d "%~dp0System Files"
+if /i "%~1"=="/find" goto findonly
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0System Files\Ready_To_Fly.ps1" -Folder "%~dp0System Files" -Tool "EarthStick" -NeedEarth -NeedApi -NeedTk
+if errorlevel 1 goto stopped
+set /p PYEXE=<"%~dp0System Files\python_path.txt"
+if not defined PYEXE goto stopped
+"%PYEXE%" EarthStick.py
 pause
-exit /b 1
-
-:find_earth
-set "AE="
-set "AE_NAME="
-if exist "%~dp0System Files\ArcGIS_Earth_path.txt" set /p AE=<"%~dp0System Files\ArcGIS_Earth_path.txt"
-if defined AE if not exist "%AE%" set "AE="
-if not defined AE for %%P in ("%ProgramFiles%\ArcGIS\Earth\ArcGISEarth.exe" "%ProgramFiles%\ArcGIS Earth\ArcGISEarth.exe" "%LOCALAPPDATA%\Programs\ArcGIS\Earth\ArcGISEarth.exe" "%LOCALAPPDATA%\ArcGIS\Earth\ArcGISEarth.exe") do if not defined AE if exist "%%~P" set "AE=%%~P"
-if not defined AE echo Looking for ArcGIS Earth - first time only, this can take a minute...
-if not defined AE for %%R in ("%ProgramFiles%" "%LOCALAPPDATA%" "%ProgramFiles(x86)%") do if not defined AE if exist "%%~R" for /f "delims=" %%F in ('where /r "%%~R" ArcGISEarth.exe 2^>nul') do if not defined AE set "AE=%%F"
-rem second pass: any ArcGISEarth*.exe that is not an updater/uninstaller
-if not defined AE for %%R in ("%ProgramFiles%" "%LOCALAPPDATA%" "%ProgramFiles(x86)%") do if not defined AE if exist "%%~R" for /f "delims=" %%F in ('where /r "%%~R" ArcGISEarth*.exe 2^>nul ^| findstr /i /v "update uninst setup install"') do if not defined AE set "AE=%%F"
-if not defined AE exit /b 0
->"%~dp0System Files\ArcGIS_Earth_path.txt" echo %AE%
-for %%N in ("%AE%") do set "AE_NAME=%%~nxN"
-echo ArcGIS Earth: "%AE%"
 exit /b 0
 
-:not_found
+:findonly
+powershell -NoProfile -ExecutionPolicy Bypass -File "%~dp0System Files\Ready_To_Fly.ps1" -Folder "%~dp0System Files" -Tool "EarthStick" -EarthOnly
+if errorlevel 1 goto stopped
+exit /b 0
+
+:stopped
 echo.
-echo Could not find ArcGIS Earth on this computer.
-echo Fix: right-click your ArcGIS Earth shortcut, choose Properties, copy the Target
-echo (it ends in .exe), and paste it as the only line of a text file named
-echo   ArcGIS_Earth_path.txt
-echo in this folder:
-echo   "%~dp0System Files"
-echo then run this again.
+echo EarthStick did not start - read the message above.
+echo A log is in System Files\Ready_To_Fly_log.txt
 pause
 exit /b 1
