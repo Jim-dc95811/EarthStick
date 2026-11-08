@@ -2,7 +2,7 @@
 
 A printable copy of this guide is available as [EarthStick_User_Guide.pdf](EarthStick_User_Guide.pdf).
 
-![Fly the real world in 7 steps: get ArcGIS Earth, turn on the Automation API, get Python 3, install the Thrustmaster driver then plug in the joystick, download EarthStick and Extract All, start it, open the KMZ file, fly through](../images/earthstick_getting_started.png)
+![Fly the real world in 7 steps: get ArcGIS Earth, turn on the Automation API, get Python 3, plug in the joystick (no driver needed), download EarthStick and Extract All, start it, open the KMZ file, fly through](../images/earthstick_getting_started.png)
 
 *The whole setup on one page.*
 
@@ -31,14 +31,14 @@ New in 1.2: **trigger-click**. A red crosshair sits in the middle of the ArcGIS 
 - ArcGIS Earth Automation API enabled
 - Python 3 (since 1.3.9 `Fly_ArcGIS_Earth.bat` installs it for you if it is missing; or get it from python.org); tested with Python 3.14.5 (the standard install includes Tkinter, which draws the crosshair)
 - Thrustmaster TCA Sidestick Airbus Edition connected by USB
-- Thrustmaster driver/control panel recommended
+- Thrustmaster driver/control panel optional - not needed (proven 2026-11-08 on a PC that never had it)
 - the EarthStick folder as it comes out of the zip (`Fly_ArcGIS_Earth.bat` next to `System Files`)
 
 No third-party Python packages are required.
 
 ## Controller check
 
-First [download and install the Thrustmaster driver](https://support.thrustmaster.com/en/product/tca-sidestick-x-airbus-ed-en/#drivers) (TCA Sidestick X Airbus Edition), then plug the joystick in by USB.
+Plug the joystick in by USB. **No driver is needed:** Windows recognizes it by itself (it may show as "Microsoft PC-joystick driver" - EarthStick knows it by its controls). The [Thrustmaster driver](https://support.thrustmaster.com/en/product/tca-sidestick-x-airbus-ed-en/#drivers) is optional.
 
 Before running EarthStick:
 

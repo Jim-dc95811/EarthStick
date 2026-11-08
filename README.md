@@ -2,7 +2,7 @@
 
 > 🤖 **Using AI assistance?** Have the agent read the [CLAUDE.md](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/blob/main/CLAUDE.md) file first.
 
-[![Fly the real world in 7 steps: 1 get ArcGIS Earth, 2 turn on the Automation API, 3 get Python 3, 4 install the Thrustmaster driver then plug in the joystick, 5 download EarthStick and Extract All, 6 start it, 7 open the KMZ file, then fly through the gold side of a ring](images/earthstick_getting_started.png)](images/earthstick_getting_started_full.png)
+[![Fly the real world in 7 steps: 1 get ArcGIS Earth, 2 turn on the Automation API, 3 get Python 3, 4 plug in the joystick (no driver needed), 5 download EarthStick and Extract All, 6 start it, 7 open the KMZ file, then fly through the gold side of a ring](images/earthstick_getting_started.png)](images/earthstick_getting_started_full.png)
 
 *The whole setup on one page - click the picture for the full-size version.*
 
@@ -12,7 +12,7 @@
 
 **2. ⬇️ [Python 3](https://www.python.org/downloads/windows/)** - free; install with the default options.
 
-**3. 🕹️ [Thrustmaster TCA Sidestick Airbus Edition](https://www.thrustmaster.com/en-us/products/tca-sidestick-airbus-edition/)** - the joystick EarthStick is built and tested with. **⬇️ [Download and install its driver](https://support.thrustmaster.com/en/product/tca-sidestick-x-airbus-ed-en/#drivers)** first, then plug it in.
+**3. 🕹️ [Thrustmaster TCA Sidestick Airbus Edition](https://www.thrustmaster.com/en-us/products/tca-sidestick-airbus-edition/)** - the joystick EarthStick is built and tested with. Just plug it in by USB - Windows recognizes it by itself, no driver needed (the [Thrustmaster driver](https://support.thrustmaster.com/en/product/tca-sidestick-x-airbus-ed-en/#drivers) is optional).
 
 > **First time? Three quick tips**
 > 1. **Extract the zip first:** right-click the downloaded zip > **Extract All**, then open the new folder. Double-clicking files while they are still inside the zip does not work.
@@ -45,7 +45,7 @@ Push forward to travel. Pull back to reverse. Move the stick sideways to strafe.
 
 ## Quick start
 
-1. Install the Thrustmaster driver/control panel and connect the sidestick by USB.
+1. Plug the sidestick in by USB. No driver is needed - Windows recognizes it by itself (the Thrustmaster driver/control panel is optional).
 2. Press `Win + R`, run `joy.cpl`, select the T.A320 controller, and verify X/Y, twist/RZ, Slider 0, POV, Button 1 (trigger), Button 3, and Button 4.
 3. Open ArcGIS Earth.
 4. Open ArcGIS Earth settings and enable **Automation API** under **Advanced**.
@@ -195,7 +195,7 @@ A flight simulator moves an aircraft through scenery. **EarthStick moves you thr
 - **Python 3.x** - tested with Python 3.14.5
 - **Thrustmaster TCA Sidestick Airbus Edition** connected by USB
 - the EarthStick folder (`Fly_ArcGIS_Earth.bat` + `System Files`)
-- Thrustmaster driver/control panel recommended
+- Thrustmaster driver/control panel optional - not needed (proven 2026-11-08 on a PC that never had it)
 
 The tested controller appears in Windows as **T.A320 Pilot**. EarthStick also contains a capability-based fallback for installations where WinMM exposes the device using a generic joystick-driver name.
 
