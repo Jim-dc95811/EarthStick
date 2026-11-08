@@ -22,6 +22,7 @@
 ### **⬇️ [4. DOWNLOAD EARTHSTICK v1.3.9](releases/EarthStick_v1.3.9.zip)**
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
+**📦 [Download the Whole ArcGIS Earth Unlocked Series of Tools - all 10 in one zip](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/raw/main/downloads/ArcGIS_Earth_Unlocked_All_Tools.zip)**
 
 Fly the real map with a Thrustmaster TCA Sidestick and ArcGIS Earth desktop - and fly through golden **World Gates** that take you across the planet. **New in 1.3.9: Ready to Fly** - one double-click gets the PC ready: it installs Python for you if it is missing, starts ArcGIS Earth and checks it is ready to fly. New in 1.3.6: the Gate Dropper - press Button 2 at two places and a pair of gates appears there, no typing. New in 1.3.5: a tidy folder - one file to double-click. New in 1.3.4: square gates that show you how to line up, a green light when you're at the gate's height, and a tractor beam that guides you through. New in 1.3.3: your height, heading and map zoom on screen, even in full-screen mode. New in 1.3.1 and 1.3.2: a round-the-world tour with welcome signs and one-click site beacons, a bigger crosshair, and a one-click taskbar start.
 
@@ -131,11 +132,12 @@ No coordinates, no typing: fly to a place, face the way you want to go, and pres
 
 ### Make your own gates
 
-### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.2](releases/World_Gate_Maker_v1.2.zip)**
+### **⬇️ [DOWNLOAD WORLD GATE MAKER v1.2.1](releases/World_Gate_Maker_v1.2.1.zip)**
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
 **🗂️ [What's in the zip - every file explained](images/world_gate_maker_whats_in_the_zip_full.png)**
+**📦 [Download the Whole ArcGIS Earth Unlocked Series of Tools - all 10 in one zip](https://github.com/Jim-dc95811/ArcGIS-Earth-Unlocked/raw/main/downloads/ArcGIS_Earth_Unlocked_All_Tools.zip)**
 
-Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.2: a tidy folder - `World_Gate_Maker.bat` plus `System Files`. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in.
+Pick two places - home and Central Park, a fire station and a hospital - and World Gate Maker builds a pair of golden gates between them for EarthStick. New in 1.2: a tidy folder - `World_Gate_Maker.bat` plus `System Files`. New in 1.1: square gates with legs, like the World Gates pack - one glance shows the way in. **New in 1.2.1 (Ready to Fly):** the .bat installs Python for you if it is missing - answer **Y**, no admin needed.
 
 ![A square World Gate named jax seen from the side over Seattle: the gold square and its legs make a box that points the way in](images/world_gate_maker_v1.1_seattle_arrival.jpg)
 

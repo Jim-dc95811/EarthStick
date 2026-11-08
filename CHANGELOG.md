@@ -1,5 +1,9 @@
 # EarthStick Release Notes
 
+## World Gate Maker 1.2.1 - Ready to Fly (2026-11-08)
+
+- `World_Gate_Maker.bat`: the launcher now gets the PC ready first: it finds Python or installs it for you (just for you, no admin - answer **Y**), then starts the tool. New file `System Files\Ready_To_Fly.ps1` (log: `System Files\Ready_To_Fly_log.txt`). Program byte-identical to the previous release. Live-tested by Jim 2026-11-08.
+
 ## EarthStick 1.3.9 - Ready to Fly + hardening (2026-11-08)
 
 - `Fly_ArcGIS_Earth.bat` now gets the PC ready first: checks the internet, finds Python or installs it for you (no admin), finds and starts ArcGIS Earth (or offers Esri's download page), and checks its Automation API is switched on

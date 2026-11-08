@@ -1,4 +1,4 @@
-# World Gate Maker 1.2 - User Manual
+# World Gate Maker 1.2.1 - User Manual
 
 Printable copy: [World_Gate_Maker_User_Manual.pdf](World_Gate_Maker_User_Manual.pdf)
 
@@ -22,12 +22,12 @@ Make your own **World Gates**: pick two places, and World Gate Maker builds a pa
 
 - **EarthStick 1.3 or later** with its **Gates** folder ([EarthStick page](../README.md)).
 - **ArcGIS Earth** desktop with the Automation API on (as for EarthStick).
-- **Python 3** (as for EarthStick). World Gate Maker uses only the standard library: nothing to install.
+- **Python 3** - since 1.2.1 `World_Gate_Maker.bat` installs it for you if it is missing (answer **Y**; no admin needed). World Gate Maker uses only the standard library: nothing else to install.
 
 ## Start
 
-1. Download [`World_Gate_Maker_v1.2.zip`](../releases/World_Gate_Maker_v1.2.zip), right-click it > **Extract All**.
-2. Open the `World_Gate_Maker_v1.2` folder and double-click `World_Gate_Maker.bat`. (The other item, `System Files`, holds the program - leave it alone.)
+1. Download [`World_Gate_Maker_v1.2.1.zip`](../releases/World_Gate_Maker_v1.2.1.zip), right-click it > **Extract All**.
+2. Open the `World_Gate_Maker_v1.2.1` folder and double-click `World_Gate_Maker.bat`. (The other item, `System Files`, holds the program - leave it alone.)
 
 Tip: extract it next to your EarthStick folder (for example both in Downloads) and World Gate Maker finds EarthStick's **Gates** folder by itself.
 
