@@ -1,4 +1,4 @@
-# EarthStick 1.3.4 Hardware Map
+# EarthStick 1.3.10 Hardware Map
 
 ## Tested controller
 
@@ -20,7 +20,7 @@ Windows control-panel name observed during testing:
 | Red top button | Button 4 | Descend / zoom in |
 | Black thumb button | Button 3 | Climb / zoom out |
 | Trigger | Button 1 | Gate Dropper: press = mark / drop, hold 2 s = undo (1.3.10; 1.3.6-1.3.9 on Button 2) |
-| Button 2 | Button 2 | Click the object under the crosshair (1.3.10; the trigger in 1.2-1.3.9) |
+| Small button on top of the head, above the trigger (Jim) | Button 2 | Click the object under the crosshair (1.3.10; the trigger in 1.2-1.3.9) |
 
 Other buttons are intentionally unassigned.
 

@@ -1,23 +1,73 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
 <rect width="1600" height="900" fill="#0e1218"/>
-<text x="70" y="100" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="72" font-weight="700">EarthStick 1.0 - Control Map</text>
-<text x="74" y="150" fill="#b6cde1" font-family="Arial, sans-serif" font-size="30">Neutral controls = stop and hover in place</text>
+<text x="70" y="100" fill="#f5f5f5" font-family="Arial, sans-serif" font-size="68" font-weight="700">EarthStick 1.3.10 - Control Map</text>
+<text x="74" y="148" fill="#b6cde1" font-family="Arial, sans-serif" font-size="30">Neutral controls = stop and hover in place</text>
+
+<!-- the stick -->
 <rect x="590" y="610" rx="45" ry="45" width="420" height="160" fill="#444e5a" stroke="#b4bec8" stroke-width="4"/>
 <rect x="680" y="570" rx="35" ry="35" width="240" height="95" fill="#5a6674" stroke="#d2d7dc" stroke-width="3"/>
 <polygon points="755,585 785,300 860,305 845,585" fill="#262b32" stroke="#b4b9be" stroke-width="3"/>
 <rect x="735" y="210" rx="42" ry="42" width="150" height="175" fill="#30353c" stroke="#c8cdd2" stroke-width="4"/>
+<path d="M738 318 q-44 2 -44 34 q0 32 44 34 z" fill="#ffd23c" stroke="#fff3b0" stroke-width="2"/>
+<circle cx="760" cy="232" r="14" fill="#4fd1ff" stroke="#c9f1ff" stroke-width="2"/>
 <rect x="845" y="235" rx="12" ry="12" width="43" height="65" fill="#dc2d2d" stroke="#ffa0a0" stroke-width="2"/>
 <circle cx="802" cy="257" r="23" fill="#080808" stroke="#d2d2d2" stroke-width="2"/>
 <polygon points="790,315 815,290 840,315 815,340" fill="#78828c" stroke="#e1e1e1" stroke-width="2"/>
 <rect x="620" y="655" rx="18" ry="18" width="60" height="80" fill="#1c2026" stroke="#b4bec8" stroke-width="2"/>
 <rect x="630" y="670" rx="8" ry="8" width="40" height="35" fill="#cdd2d7"/>
-<text x="605" y="765" fill="#dce1e6" font-family="Arial, sans-serif" font-size="20">THROTTLE</text>
-<text x="1030" y="400" fill="#50dc91" font-family="Arial, sans-serif" font-size="31" font-weight="700">STICK FORWARD / BACK</text><text x="1030" y="440" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Fly forward / reverse</text>
-<text x="80" y="460" fill="#37afff" font-family="Arial, sans-serif" font-size="31" font-weight="700">STICK LEFT / RIGHT</text><text x="80" y="500" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Strafe left / right</text>
-<text x="1030" y="240" fill="#ffaf3c" font-family="Arial, sans-serif" font-size="31" font-weight="700">TWIST</text><text x="1030" y="280" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Change heading</text>
-<text x="80" y="250" fill="#be6eff" font-family="Arial, sans-serif" font-size="31" font-weight="700">POV HAT UP / DOWN</text><text x="80" y="290" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Camera tilt</text>
-<text x="1030" y="560" fill="#f54b4b" font-family="Arial, sans-serif" font-size="31" font-weight="700">RED TOP - BUTTON 4</text><text x="1030" y="600" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Hold: zoom in / descend</text>
-<text x="1030" y="665" fill="#d2d2d2" font-family="Arial, sans-serif" font-size="31" font-weight="700">BLACK THUMB - BUTTON 3</text><text x="1030" y="705" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Hold: zoom out / climb</text>
-<text x="80" y="680" fill="#ffe673" font-family="Arial, sans-serif" font-size="31" font-weight="700">SLIDER 0</text><text x="80" y="720" fill="#f2f2f2" font-family="Arial, sans-serif" font-size="24">Movement speed</text>
-<text x="70" y="855" fill="#b9bec3" font-family="Arial, sans-serif" font-size="30">Everything else is intentionally unassigned.</text>
+<g stroke="#ffaf3c" stroke-width="3" fill="none" stroke-linecap="round"><path d="M748 196 q62 -34 124 0"/><path d="M864 186 l8 10 l-12 3"/></g>
+
+<!-- leader lines (on top, dot at each end) -->
+<g fill="none" stroke-width="2.5" stroke-linecap="round">
+  <path d="M520 213 H660 L748 229" stroke="#4fd1ff"/>
+  <path d="M470 353 H620 L696 352" stroke="#ffd23c"/>
+  <path d="M470 493 H640 L700 440 L800 318" stroke="#be6eff"/>
+  <path d="M470 633 H640 L768 478" stroke="#37afff"/>
+  <path d="M470 763 H560 L622 712" stroke="#ffe673"/>
+  <path d="M1010 213 H940 L878 194" stroke="#ffaf3c"/>
+  <path d="M1010 333 H940 L889 284" stroke="#f54b4b"/>
+  <path d="M1010 453 H960 L823 273" stroke="#d2d2d2"/>
+  <path d="M1010 573 H960 L850 478" stroke="#50dc91"/>
+</g>
+<g stroke="#0e1218" stroke-width="1.5">
+  <circle cx="748" cy="229" r="5" fill="#4fd1ff"/><circle cx="696" cy="352" r="5" fill="#ffd23c"/><circle cx="800" cy="318" r="5" fill="#be6eff"/>
+  <circle cx="768" cy="478" r="5" fill="#37afff"/><circle cx="622" cy="712" r="5" fill="#ffe673"/><circle cx="878" cy="194" r="5" fill="#ffaf3c"/>
+  <circle cx="889" cy="284" r="5" fill="#f54b4b"/><circle cx="823" cy="273" r="5" fill="#d2d2d2"/><circle cx="850" cy="478" r="5" fill="#50dc91"/>
+</g>
+
+<g font-family="Arial, sans-serif">
+  <!-- left -->
+  <text x="70" y="205" fill="#4fd1ff" font-size="30" font-weight="700">BUTTON 2 (top, above trigger)</text>
+  <text x="70" y="241" fill="#f2f2f2" font-size="24">Click the object under the red</text>
+  <text x="70" y="271" fill="#f2f2f2" font-size="24">crosshair (opens its popup)</text>
+
+  <text x="70" y="345" fill="#ffd23c" font-size="30" font-weight="700">TRIGGER - BUTTON 1</text>
+  <text x="70" y="381" fill="#f2f2f2" font-size="24">Gate Dropper: press at two places</text>
+  <text x="70" y="411" fill="#f2f2f2" font-size="24">= a gate pair. Hold 2 s = undo</text>
+
+  <text x="70" y="485" fill="#be6eff" font-size="30" font-weight="700">POV HAT UP / DOWN</text>
+  <text x="70" y="521" fill="#f2f2f2" font-size="24">Camera tilt</text>
+
+  <text x="70" y="625" fill="#37afff" font-size="30" font-weight="700">STICK LEFT / RIGHT</text>
+  <text x="70" y="661" fill="#f2f2f2" font-size="24">Strafe left / right</text>
+
+  <text x="70" y="755" fill="#ffe673" font-size="30" font-weight="700">THROTTLE (SLIDER 0)</text>
+  <text x="70" y="791" fill="#f2f2f2" font-size="24">Movement speed</text>
+
+  <!-- right -->
+  <text x="1030" y="205" fill="#ffaf3c" font-size="30" font-weight="700">TWIST</text>
+  <text x="1030" y="241" fill="#f2f2f2" font-size="24">Change heading</text>
+
+  <text x="1030" y="325" fill="#f54b4b" font-size="30" font-weight="700">RED TOP - BUTTON 4</text>
+  <text x="1030" y="361" fill="#f2f2f2" font-size="24">Hold: zoom in / descend</text>
+
+  <text x="1030" y="445" fill="#d2d2d2" font-size="30" font-weight="700">BLACK THUMB - BUTTON 3</text>
+  <text x="1030" y="481" fill="#f2f2f2" font-size="24">Hold: zoom out / climb</text>
+
+  <text x="1030" y="565" fill="#50dc91" font-size="30" font-weight="700">STICK FORWARD / BACK</text>
+  <text x="1030" y="601" fill="#f2f2f2" font-size="24">Fly forward / reverse</text>
+
+  <text x="70" y="852" fill="#b9bec3" font-size="26">Two hands: the stick flies, the mouse in your other hand clicks menus and popups.</text>
+  <text x="70" y="885" fill="#7f8a96" font-size="22">Other buttons are unassigned. Button numbers as in Windows' game controller panel (joy.cpl).</text>
+</g>
 </svg>
