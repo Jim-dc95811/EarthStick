@@ -1,5 +1,9 @@
 # EarthStick Release Notes
 
+## Ready to Fly 1.1 in every package (2026-11-08, same version numbers)
+
+Microsoft Defender blocked the all-tools zip as 'Settings Modifier - potentially unwanted behavior'. Ready to Fly 1.1 installs Python only with Windows' own installer (winget), shown normally - the user answers its questions - with nothing silent, nothing downloaded and run by the script, and no Windows setting changed. Without winget it opens python.org's download page with three steps. Jim's Defender then downloaded the same tools cleanly. Every package's zip was replaced with only `System Files/Ready_To_Fly.ps1` changed.
+
 ## EarthStick 1.3.10 - The trigger drops gates (2026-11-08)
 
 - Trigger (Button 1): Gate Dropper - press at two places for a gate pair, hold 2 s to undo
