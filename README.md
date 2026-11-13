@@ -21,7 +21,7 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⭐ [4. Get EarthStick from Google Drive](https://drive.google.com/drive/folders/1jsxVTDsYdgJHibhCCeI9I69FsG0qMGgc?usp=sharing)**
+### **⭐ [4. Get EarthStick from Google Drive](https://drive.google.com/drive/folders/1_IGSErufpI1iP1Y45UxgRgzGM_H16y3c)**
 
 *Easiest, no download warning: open the Drive folder, open **EarthStick_v2.0**, and run its one `.bat`. Prefer GitHub? Developers can grab the [direct zip](releases/EarthStick_v2.0.zip) - a direct download can trip a Windows antivirus false alarm, which Drive avoids.*
 **📖 [User manual](docs/USER_GUIDE.md)**
@@ -140,7 +140,7 @@ No coordinates, no typing: fly to a place, face the way you want to go, and pull
 
 ### Make your own gates
 
-### **⭐ [Get World Gate Maker from Google Drive](https://drive.google.com/drive/folders/1jsxVTDsYdgJHibhCCeI9I69FsG0qMGgc?usp=sharing)**
+### **⭐ [Get World Gate Maker from Google Drive](https://drive.google.com/drive/folders/1P7KPYwCUdTd1ddwWbmmK1XKuF_E4FzLi)**
 
 *Easiest, no download warning: open the Drive folder, open **World_Gate_Maker_v2.0**, and run its one `.bat`. Prefer GitHub? Developers can grab the [direct zip](releases/World_Gate_Maker_v2.0.zip) - a direct download can trip a Windows antivirus false alarm, which Drive avoids.*
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
