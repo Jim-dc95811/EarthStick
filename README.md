@@ -21,7 +21,9 @@
 > 2. **Windows security warning:** Windows may warn about any program downloaded from the internet. Click **More info > Run anyway** (blue "Windows protected your PC" screen) or **Run**. To avoid the warning, right-click the zip > **Properties** > tick **Unblock** > **OK** before extracting.
 > 3. **Installing Python:** if the installer shows **"Add python.exe to PATH"**, tick it.
 
-### **⬇️ [4. DOWNLOAD EARTHSTICK v2.0](releases/EarthStick_v2.0.zip)**
+### **⭐ [4. Get EarthStick from Google Drive](https://drive.google.com/drive/folders/1jsxVTDsYdgJHibhCCeI9I69FsG0qMGgc?usp=sharing)**
+
+*Easiest, no download warning: open the Drive folder, open **EarthStick_v2.0**, and run its one `.bat`. Prefer GitHub? Developers can grab the [direct zip](releases/EarthStick_v2.0.zip) - a direct download can trip a Windows antivirus false alarm, which Drive avoids.*
 **📖 [User manual](docs/USER_GUIDE.md)**
 **🗂️ [What's in the zip - every file explained](images/earthstick_whats_in_the_folder_full.png)**
 **⭐ EASIEST WAY — [Get all 11 tools from Google Drive](https://drive.google.com/drive/folders/1jsxVTDsYdgJHibhCCeI9I69FsG0qMGgc?usp=sharing)** — no download warnings, the whole series is under 10 MB. Open the folder, open the tool you want, and run its one `.bat`.
@@ -138,7 +140,9 @@ No coordinates, no typing: fly to a place, face the way you want to go, and pull
 
 ### Make your own gates
 
-### **⬇️ [DOWNLOAD WORLD GATE MAKER v2.0](releases/World_Gate_Maker_v2.0.zip)**
+### **⭐ [Get World Gate Maker from Google Drive](https://drive.google.com/drive/folders/1jsxVTDsYdgJHibhCCeI9I69FsG0qMGgc?usp=sharing)**
+
+*Easiest, no download warning: open the Drive folder, open **World_Gate_Maker_v2.0**, and run its one `.bat`. Prefer GitHub? Developers can grab the [direct zip](releases/World_Gate_Maker_v2.0.zip) - a direct download can trip a Windows antivirus false alarm, which Drive avoids.*
 **📖 [User manual](docs/WORLD_GATE_MAKER.md)**
 **🗂️ [What's in the zip - every file explained](images/world_gate_maker_whats_in_the_zip_full.png)**
 **⭐ EASIEST WAY — [Get all 11 tools from Google Drive](https://drive.google.com/drive/folders/1jsxVTDsYdgJHibhCCeI9I69FsG0qMGgc?usp=sharing)** — no download warnings, the whole series is under 10 MB. Open the folder, open the tool you want, and run its one `.bat`.
